@@ -29,4 +29,21 @@ let numbers = [1, 2, 3, 4];
 
 // console.log(increase(numbers));
 let notANumber = numbers[4] + 1;
-console.log(notANumber);
+// console.log(notANumber);
+
+let obj = {
+  apple: "Produce",
+  carrot: "Produce",
+  pear: "Produce",
+  broccoli: "Produce",
+};
+
+obj["apple"] = "Fruit";
+obj.carrot = "Vegetable";
+obj.pear = "Fruit";
+obj["broccoli"] = "Vegetable";
+
+// console.log(obj);
+
+let potato = "One potato, two potato, three potato, four".split(",");
+console.log(potato);
