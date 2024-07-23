@@ -30,7 +30,7 @@ output: array of substrings, not the same object
 
 rules:
      Explicit requirements:
-       - return only substrings which are palindromes.
+       - return only substrings which are palindromes that are at least 2 characters long.
        - palindrome words should be case sensitive, meaning "abBA"
          is not a palindrome.
 
