@@ -38,3 +38,60 @@ rules:
        - if the string is an empty string, the result should be an empty array
   
 */
+
+/*
+Algorithms
+1.  Create an empty 'rows' array to hold all rows
+2.  Create a 'row' array and it to the overall rows array 
+3.  Repeat step 2 until all necessary rows have been created
+  - All the rows have been created when the length of the rows array is equal to the input
+4.  Sum the final row
+  Calculating the start integer:
+  Rule: first integer of row == last integer of previous row + 2
+  Algorithm:
+    - get the last row of the rows array
+    - get the last integer from that row
+    - add 2
+5.  Return the sum
+
+Problem: Create a Row
+Rules: 
+  - row is an array
+  - array contains integers
+  - integers are consecutive even numbers
+  - Integers in each row form part of a larger overall sequence
+  - rows are of different lengths
+
+Input: 
+  - Length of the row (tells us how many integers are in the array)
+  - The starting integer (tells us which row it is.  Ex. starting integer 4 means we are in row 2)
+Output: the row itself -> [8,10,12]
+
+Examples:  
+  start 2, length 1 --> [2]
+  start 4, length 4 --> [4,6]
+  start 8, length 3 --> [8, 10, 12]
+
+- Data Structure: Array
+
+- Algorithm:
+  1. Create an empty row array to contain the integers
+  2. Add the starting integer
+  3.  Increment the starting integer by 2 to get the next integer in the sequence
+  4. Repeat steps 2 and 3 until the array reaches the inputted length  
+  5.  Return the row array
+
+start the loop
+  inside the loop, add startInteger to the row
+  increment startInteger by 2
+  break out of loop if length of row equals rowLength
+*/
+
+/*
+1: [2]
+2: [2,4]
+3: [6,8,10]
+4: [12,14, 16, 18]
+5: [20,22,24,26,28]
+6: [30,32,34,36,38,40]
+*/
