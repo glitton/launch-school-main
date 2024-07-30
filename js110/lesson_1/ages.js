@@ -35,4 +35,13 @@ let totalAges = Object.values(ages).reduce(
   0
 );
 
-console.log(totalAges);
+// console.log(totalAges);
+
+let agesArray = Object.values(ages);
+// console.log(...agesArray);
+let sortedAgesArray = agesArray.sort((a, b) => a - b);
+const minimumAge = sortedAgesArray[0];
+// console.log(minimumAge);
+
+let youngest = Math.min(...agesArray);
+console.log(youngest);
