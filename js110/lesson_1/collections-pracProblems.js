@@ -72,7 +72,7 @@ let numArray = [1, 2, 3].every((num) => {
   return num;
 });
 
-console.log(numArray);
+// console.log(numArray);
 /*
 The callback's return value is 2, 4 and 6 on their respective iterations while the 
 return value of every is true.
@@ -116,3 +116,14 @@ let animals = ["ant", "bear"].map((elem) => {
 });
 
 console.log(animals);
+
+/*
+The return value is the array [undefined, 'bear']
+
+The condition of the map callback function is to return the element with a length
+greater than 3.  The first element, 'ant' doesn't meet this condition while 'bear' 
+does.  Thus for the first element, the condition evaluates to false and elem
+isn't returned.  When the function doesn't explicitly return something, JavaScript
+implicitly returns undefined.  This is why the first element of the array is 
+undefined.
+*/
