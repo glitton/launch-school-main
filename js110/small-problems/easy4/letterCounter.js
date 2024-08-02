@@ -26,10 +26,22 @@ Words that have punctuation will be part of the word.
 5.  Check if the word size is 0, if so, the array has a space, so continue
 6.  Check if the object key doesn't exist yet in the result object, 
   - If it doesn't exists add it to the object, set its value to 0
-  - If the object key exists, increment its value by 1
+  - Then increment its value by 1
 8.  Return the result object
 
 Code
+
+Condition Check (if (!count[wordSize])):
+
+This condition checks if count[wordSize] is falsy (i.e., undefined, null, 0, false, "", or any other falsy value).
+If count[wordSize] is falsy, the code inside the if block sets count[wordSize] to 0.
+Increment (count[wordSize] += 1):
+
+After the if block, the value of count[wordSize] is incremented by 1.
+Why No else?
+The else block would normally contain code that should run when the if condition is false. However, in this case, regardless of whether the if condition is true or false, the value of count[wordSize] needs to be incremented by 1.
+The purpose of the if block is simply to ensure that count[wordSize] is initialized to 0 if it doesn't already have a value. The increment operation (count[wordSize] += 1) must always occur.
+Thus, there is no need for an else clause since the action to be taken (incrementing count[wordSize]) is the same in both scenarios—whether count[wordSize] was previously defined or not.
 
 */
 
@@ -47,9 +59,8 @@ function wordSizes(words) {
     if (!result[wordSize]) {
       result[wordSize] = 0;
       // console.log(result);
-    } else {
-      result[wordSize] += 1;
     }
+    result[wordSize] += 1;
   }
   return result;
 }
