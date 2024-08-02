@@ -41,28 +41,34 @@ Code
 
 function swap(words) {
   let wordsArray = words.split(" ");
-  let result = [];
+  // let result = [];  //launch school version doesn't use this
 
-  for (let idx = 0; idx < wordsArray.length; idx++) {
-    let currentWord = wordsArray[idx];
-    if (currentWord.length < 2) {
-      result.push(currentWord);
-      // console.log(result);
-    } else {
-      let swappedWord = swapFirstLastLetters(currentWord);
-      result.push(swappedWord);
-    }
+  // for (let idx = 0; idx < wordsArray.length; idx++) {
+  //   let currentWord = wordsArray[idx];
+  //   if (currentWord.length < 2) {
+  //     result.push(currentWord);
+  //     // console.log(result);
+  //   } else {
+  //     let swappedWord = swapFirstLastLetters(currentWord);
+  //     result.push(swappedWord);
+  //   }
+  // }
+  //launch school version
+  for (let idx = 0; idx < wordsArray.length; idx += 1) {
+    wordsArray[idx] = swapFirstLastLetters(wordsArray[idx]);
   }
-  let finalSwappedWords = result.join(" ");
 
-  return finalSwappedWords;
+  return wordsArray.join(" ");
 }
 
 function swapFirstLastLetters(word) {
+  //launch school version
+  if (word.length === 1) {
+    return word;
+  }
   let firstLetter = word[0];
   let lastLetter = word[word.length - 1];
-  let secondToLastIndex = word.length - 1;
-  return lastLetter + word.slice(1, secondToLastIndex) + firstLetter;
+  return lastLetter + word.slice(1, -1) + firstLetter;
 }
 
 console.log(swap("Oh what a wonderful day it is"));
