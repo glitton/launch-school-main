@@ -50,38 +50,46 @@ function wordSizes(words) {
   let result = {};
 
   for (let idx = 0; idx < wordsArray.length; idx++) {
-    let wordSize = wordsArray[idx].length;
+    let currentWord = wordsArray[idx];
+    let cleanWordSize = removeNonLetters(currentWord.toLowerCase()).length;
 
-    if (wordSize === 0) {
-      continue;
-    }
+    if (cleanWordSize === 0) continue;
 
-    if (!result[wordSize]) {
-      result[wordSize] = 0;
-      // console.log(result);
-    }
-    result[wordSize] += 1;
+    // if (!result[cleanWordSize]) {
+    //   //checks for falsy
+    //   result[cleanWordSize] = 0; //add property with value of 0
+    // }
+    //Launch School version
+    result[cleanWordSize] = result[cleanWordSize] || 0; //returns value of the
+    //second operand if the first one is falsey, otherwise the first value is returned
+    result[cleanWordSize] += 1; //increment value by 1
   }
   return result;
 }
 
-// function wordSizes(words) {
-//   let wordsArray = words.split(" ");
-//   let count = {};
+function removeNonLetters(string) {
+  let result = "";
 
-//   for (let idx = 0; idx < wordsArray.length; idx += 1) {
-//     let wordSize = wordsArray[idx].length;
-//     if (wordSize === 0) {
-//       continue;
-//     }
+  for (let idx = 0; idx < string.length; idx++) {
+    let currentChar = string[idx];
 
-//     if (!count[wordSize]) {
-//       count[wordSize] = 0;
-//     }
-//     count[wordSize] += 1;
-//   }
+    if (isLetter(currentChar)) {
+      result += currentChar;
+    }
+  }
+  return result;
+}
 
-//   return count;
-// }
+function isLetter(char) {
+  return char >= "a" && char <= "z";
+}
 
-console.log(wordSizes("Four score and seven."));
+// console.log(wordSizes("Four score and seven."));
+// console.log(wordSizes("Hey diddle diddle, the cat and the fiddle!"));
+console.log(wordSizes("What's up doc?"));
+console.log(wordSizes(""));
+
+// let sentence = "Four score and seven.";
+// console.log(removeNonLetters(sentence.toLowerCase()));
+
+// console.log(isLetter("Four score and seven."));
