@@ -14,8 +14,15 @@ D - Data Structure
 String, Array
 
 A - Algorithm
-1.  
+1.  Multiply string by 1.  This coerces the string to a number
+2.  Return result
 
+Code
 */
 
-function stringToInteger(string) {}
+function stringToInteger(string) {
+  return string * 1;
+}
+
+console.log(stringToInteger("4321") === 4321); // logs true
+console.log(stringToInteger("570") === 570);
