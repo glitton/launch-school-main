@@ -20,8 +20,32 @@ A - Algorithm
 Code
 */
 
+// function stringToInteger(string) {
+//   return string * 1;
+// }
+
 function stringToInteger(string) {
-  return string * 1;
+  const DIGITS = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+  };
+
+  BASE = 10;
+  let arrayOfDigits = string.split("").map((char) => DIGITS[char]);
+  let value = 0; // value = 10*value + digit
+
+  arrayOfDigits.forEach((digit) => (value = BASE * value + digit));
+  console.log(value);
+
+  return value;
 }
 
 console.log(stringToInteger("4321") === 4321); // logs true
