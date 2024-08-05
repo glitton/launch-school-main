@@ -37,32 +37,41 @@ Algorithm:
 */
 
 // console.log(Math.ceil([1, 5, 2, 4, 3, 10, 9].length / 2));
+// function halvsies(array) {
+//   let subArray1 = [];
+//   let subArray2 = [];
+//   if (array.length === 0) {
+//     array = [subArray1, subArray2];
+//   }
+
+//   if (array.length % 2 === 0) {
+//     subArray1 = array.slice(0, array.length / 2);
+//     subArray2 = array.slice(array.length / 2);
+//     array = [subArray1, subArray2];
+//   } else if (array.length === 1) {
+//     subArray1 = array[0];
+//     array = [subArray1, subArray2];
+//   } else {
+//     subArray1 = array.slice(0, Math.ceil(array.length / 2));
+//     subArray2 = array.slice(Math.ceil(array.length / 2));
+
+//     array = [subArray1, subArray2];
+//   }
+//   console.log(array);
+
+//   return array;
+// }
+
+//Launch School shorter
+
 function halvsies(array) {
-  let subArray1 = [];
-  let subArray2 = [];
-  if (array.length === 0) {
-    array = [subArray1, subArray2];
-  }
-
-  if (array.length % 2 === 0) {
-    subArray1 = array.slice(0, array.length / 2);
-    subArray2 = array.slice(array.length / 2);
-    array = [subArray1, subArray2];
-  } else if (array.length === 1) {
-    subArray1 = array[0];
-    array = [subArray1, subArray2];
-  } else {
-    subArray1 = array.slice(0, Math.ceil(array.length / 2));
-    subArray2 = array.slice(Math.ceil(array.length / 2));
-
-    array = [subArray1, subArray2];
-  }
-  console.log(array);
-
-  return array;
+  let half = Math.ceil(array.length / 2);
+  let subArray1 = array.slice(0, half);
+  let subArray2 = array.slice(half);
+  return [subArray1, subArray2];
 }
 
-halvsies([1, 2, 3, 4]); // [[1, 2], [3, 4]]
-halvsies([1, 5, 2, 4, 3]); // [[1, 5, 2], [4, 3]]
-halvsies([5]); // [[5], []]
-halvsies([]);
+console.log(halvsies([1, 5, 2, 4, 3])); // [[1, 5, 2], [4, 3]]
+console.log(halvsies([1, 2, 3, 4])); // [[1, 2], [3, 4]]
+console.log(halvsies([5])); // [[5], []]
+console.log(halvsies([]));
