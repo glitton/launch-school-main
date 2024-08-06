@@ -34,12 +34,19 @@ Code
 //   return combinedArray;
 // }
 
+// function interleave(arr1, arr2) {
+//   let combinedArray = [];
+//   arr1.forEach((element) =>
+//     combinedArray.push(element, arr2[arr1.indexOf(element)])
+//   );
+//   return combinedArray;
+// }
+
 function interleave(arr1, arr2) {
   let combinedArray = [];
-  arr1.forEach((element) =>
+  arr1.map((element) =>
     combinedArray.push(element, arr2[arr1.indexOf(element)])
   );
   return combinedArray;
 }
-
 console.log(interleave([1, 2, 3], ["a", "b", "c"])); // [1, "a", 2, "b", 3, "c"]
