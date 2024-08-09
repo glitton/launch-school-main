@@ -24,26 +24,40 @@ then increment it by one
 7.  Log the key/value pairs of the object to the console
 */
 
+// function countOccurrences(vehicles) {
+//   let vehicleOccurrences = {};
+
+//   for (let idx = 0; idx < vehicles.length; idx += 1) {
+//     let currentVehicle = vehicles[idx];
+//     if (!vehicleOccurrences[currentVehicle]) {
+//       vehicleOccurrences[currentVehicle] =
+//         vehicleOccurrences[currentVehicle] || 0;
+//       vehicleOccurrences[currentVehicle] += 1;
+//     } else {
+//       vehicleOccurrences[currentVehicle] += 1;
+//       // console.log(vehicleOccurrences);
+//     }
+//   }
+//   logOccurrences(vehicleOccurrences);
+// }
+
 function countOccurrences(vehicles) {
   let vehicleOccurrences = {};
+  let vehiclesArray = vehicles.map((vehicle) => vehicle.toLowerCase());
 
-  for (let idx = 0; idx < vehicles.length; idx += 1) {
-    let currentVehicle = vehicles[idx];
-    if (!vehicleOccurrences[currentVehicle]) {
-      vehicleOccurrences[currentVehicle] =
-        vehicleOccurrences[currentVehicle] || 0;
-      vehicleOccurrences[currentVehicle] += 1;
-    } else {
-      vehicleOccurrences[currentVehicle] += 1;
-      // console.log(vehicleOccurrences);
-    }
+  for (let idx = 0; idx < vehiclesArray.length; idx += 1) {
+    let currentVehicle = vehiclesArray[idx];
+
+    vehicleOccurrences[currentVehicle] =
+      vehicleOccurrences[currentVehicle] || 0;
+    vehicleOccurrences[currentVehicle] += 1;
   }
-  logOccurences(vehicleOccurrences);
+  logOccurrences(vehicleOccurrences);
 }
 
-function logOccurences(occurences) {
-  for (let item in occurences) {
-    console.log(`${item} => ${occurences[item]}`);
+function logOccurrences(occurrences) {
+  for (let item in occurrences) {
+    console.log(`${item} => ${occurrences[item]}`);
   }
 }
 
