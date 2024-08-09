@@ -48,15 +48,15 @@ Code
 //   return combinedArray;
 // }
 
-function interleave(arr1, arr2) {
-  let combinedArray = [];
-  arr1.forEach((element, idx) => {
-    combinedArray[combinedArray.length] = element;
-    console.log("1", combinedArray.length);
-    combinedArray[combinedArray.length] = arr2[idx];
-    console.log("2", combinedArray.length);
-  });
-}
+// function interleave(arr1, arr2) {
+//   let combinedArray = [];
+//   arr1.forEach((element, idx) => {
+//     combinedArray[combinedArray.length] = element;
+
+//     combinedArray[combinedArray.length] = arr2[idx];
+//   });
+//   return combinedArray;
+// }
 
 // function interleave(arr1, arr2) {
 //   let combinedArray = [];
@@ -65,4 +65,8 @@ function interleave(arr1, arr2) {
 //   );
 //   return combinedArray;
 // }
+
+function interleave(arr1, arr2) {
+  return arr1.map((element, idx) => [element, arr2[idx]]).flat();
+}
 console.log(interleave([1, 2, 3], ["a", "b", "c"])); // [1, "a", 2, "b", 3, "c"]

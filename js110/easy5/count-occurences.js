@@ -26,35 +26,33 @@ then increment it by one
 
 function countOccurrences(vehicles) {
   let vehicleOccurrences = {};
-  let count = 0;
 
   for (let idx = 0; idx < vehicles.length; idx += 1) {
     let currentVehicle = vehicles[idx];
     if (!vehicleOccurrences[currentVehicle]) {
-      vehicleOccurrences[currentVehicle] = count;
-      vehicleOccurrences[currentVehicle];
-      console.log("count", vehicleOccurrences[currentVehicle]);
+      vehicleOccurrences[currentVehicle] =
+        vehicleOccurrences[currentVehicle] || 0;
+      vehicleOccurrences[currentVehicle] += 1;
     } else {
-      count += 1;
-      vehicleOccurrences[currentVehicle] = count + 1;
-      console.log(vehicleOccurrences);
+      vehicleOccurrences[currentVehicle] += 1;
+      // console.log(vehicleOccurrences);
     }
   }
 }
 
-// let vehicles = [
-//   "car",
-//   "car",
-//   "truck",
-//   "car",
-//   "SUV",
-//   "truck",
-//   "motorcycle",
-//   "suv",
-//   "motorcycle",
-//   "car",
-//   "truck",
-// ];
+let vehicles = [
+  "car",
+  "car",
+  "truck",
+  "car",
+  "SUV",
+  "truck",
+  "motorcycle",
+  "suv",
+  "motorcycle",
+  "car",
+  "truck",
+];
 
-let vehicles = ["car", "car", "truck", "car"];
+// let vehicles = ["car", "car", "truck", "car"];
 countOccurrences(vehicles);
