@@ -57,4 +57,24 @@ function timeOfDay(deltaMinutes) {
   return formatTime(hours, minutes);
 }
 
-console.log(timeOfDay(-3) === "23:57");
+// console.log(timeOfDay(-3) === "23:57");
+
+function afterMidnight(timeStr) {
+  let [hours, minutes] = timeStr.split(":").map((num) => Number(num));
+  return (hours * MINUTES_PER_HOUR + minutes) % MINUTES_PER_DAY;
+}
+
+function beforeMidnight(timeStr) {
+  let deltaMinutes = MINUTES_PER_DAY - afterMidnight(timeStr);
+  if (deltaMinutes === MINUTES_PER_DAY) {
+    deltaMinutes = 0;
+  }
+  return deltaMinutes;
+}
+
+// console.log(afterMidnight("00:00") === 0);
+// console.log(beforeMidnight("00:00") === 0);
+// console.log(afterMidnight("12:34") === 754);
+// console.log(beforeMidnight("12:34") === 686);
+console.log(afterMidnight("24:00") === 0);
+// console.log(beforeMidnight("24:00") === 0);
