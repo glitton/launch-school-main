@@ -38,6 +38,13 @@ function countOccurrences(vehicles) {
       // console.log(vehicleOccurrences);
     }
   }
+  logOccurences(vehicleOccurrences);
+}
+
+function logOccurences(occurences) {
+  for (let item in occurences) {
+    console.log(`${item} => ${occurences[item]}`);
+  }
 }
 
 let vehicles = [
