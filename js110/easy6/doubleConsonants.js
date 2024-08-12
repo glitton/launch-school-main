@@ -22,19 +22,20 @@ function doubleConsonants(string) {
     "y",
     "z",
   ];
-  let stringArray = string.toLowerCase().split("");
-  let finalString = [];
+  let stringArray = [];
 
-  for (let idx = 0; idx < stringArray.length; idx++) {
-    let currentCharacter = stringArray[idx];
-    if (CONSONANTS.includes(currentCharacter)) {
-      finalString.push(currentCharacter, currentCharacter);
+  for (let idx = 0; idx < string.length; idx++) {
+    stringArray.push(string[idx]);
+    if (CONSONANTS.indexOf(string[idx].toLowerCase()) >= 0) {
+      //if the characters is in consonants,
+      //indexOf will return the index and not -1
+      stringArray.push(string[idx]);
     }
   }
-  console.log(finalString);
+  return stringArray.join("");
 }
 
-doubleConsonants("String"); // "SSttrrinngg"
-doubleConsonants("Hello-World!"); // "HHellllo-WWorrlldd!"
-doubleConsonants("July 4th"); // "JJullyy 4tthh"
-doubleConsonants(""); // ""
+console.log(doubleConsonants("String")); // "SSttrrinngg"
+console.log(doubleConsonants("Hello-World!")); // "HHellllo-WWorrlldd!"
+console.log(doubleConsonants("July 4th")); // "JJullyy 4tthh"
+console.log(doubleConsonants("")); // ""
