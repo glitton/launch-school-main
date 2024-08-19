@@ -39,15 +39,21 @@ C-Code
 //   return total;
 // }
 
-function runningTotal(arr) {
-  let resultArray = [];
-  let sum = 0;
+// function runningTotal(arr) {
+//   let resultArray = [];
+//   let sum = 0;
 
-  arr.map((num) => resultArray.push((sum += num)));
+//   arr.map((num) => resultArray.push((sum += num)));
+//   return resultArray;
+// }
+
+function runningTotal(arr) {
+  let sum = 0;
+  let resultArray = arr.map((num) => (sum += num));
   return resultArray;
 }
 
-//console.log(runningTotal([2, 5, 13])); // [2, 7, 20]
-//console.log(runningTotal([14, 11, 7, 15, 20])); // [14, 25, 32, 47, 67]
+// console.log(runningTotal([2, 5, 13])); // [2, 7, 20]
+console.log(runningTotal([14, 11, 7, 15, 20])); // [14, 25, 32, 47, 67]
 //console.log(runningTotal([3])); // [3]
-console.log(runningTotal([]));
+// console.log(runningTotal([]));
