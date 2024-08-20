@@ -1,14 +1,3 @@
-// function leadingSubstrings(str) {
-//   let subStringArray = [];
-
-//   for (let i = 1; i < str.length + 1; i += 1) {
-//     let substring = str.substring(0, i);
-//     subStringArray.push(substring);
-//   }
-
-//   return subStringArray;
-// }
-
 //Launch School uses slice
 
 // function leadingSubstrings(str) {
@@ -21,18 +10,41 @@
 // }
 
 //Using Map
-function leadingSubstrings(str) {
-  return str.split("").map((_, index) => str.slice(0, index + 1));
-}
+// function leadingSubstrings(str) {
+//   return str.split("").map((_, index) => str.slice(0, index + 1));
+// }
 
 //Using reduce
+// function leadingSubstrings(str) {
+//   return str.split("").reduce((substrings, _, index) => {
+//     substrings.push(str.slice(0, index + 1));
+//     return substrings;
+//   }, []);
+// }
+
+// console.log(leadingSubstrings("abc"));
+// console.log(leadingSubstrings("a"));
+// console.log(leadingSubstrings("xyzzy"));
+
 function leadingSubstrings(str) {
-  return str.split("").reduce((substrings, _, index) => {
-    substrings.push(str.slice(0, index + 1));
-    return substrings;
-  }, []);
+  let subStringArray = [];
+
+  for (let i = 1; i < str.length + 1; i += 1) {
+    let substring = str.slice(0, i);
+    subStringArray.push(substring);
+  }
+
+  return subStringArray;
 }
 
-console.log(leadingSubstrings("abc"));
-console.log(leadingSubstrings("a"));
-console.log(leadingSubstrings("xyzzy"));
+function substrings(strInput) {
+  let substrings = [];
+  for (let idx = 0; idx < strInput.length; idx++) {
+    let substring = strInput.substring(idx);
+    // console.log(substring);
+
+    substrings = substrings.concat(leadingSubstrings(substring));
+  }
+  return substrings;
+}
+console.log(substrings("abcde"));
