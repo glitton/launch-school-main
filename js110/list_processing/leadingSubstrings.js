@@ -37,14 +37,25 @@ function leadingSubstrings(str) {
   return subStringArray;
 }
 
-function substrings(strInput) {
-  let substrings = [];
-  for (let idx = 0; idx < strInput.length; idx++) {
-    let substring = strInput.substring(idx);
-    // console.log(substring);
+// function substrings(strInput) {
+//   let substrings = [];
+//   for (let idx = 0; idx < strInput.length; idx++) {
+//     let substring = strInput.substring(idx);
+//     console.log(substring);
 
-    substrings = substrings.concat(leadingSubstrings(substring));
-  }
-  return substrings;
+//     substrings = substrings.concat(leadingSubstrings(substring));
+//   }
+//   return substrings;
+// }
+
+function substrings(strInput) {
+  let strArray = strInput.split("");
+  let substrings = "";
+  let substringsArray = [];
+  strArray.forEach((str) => {
+    substrings += str;
+    substringsArray = substringsArray.concat(leadingSubstrings(substrings));
+    console.log(substringsArray);
+  });
 }
 console.log(substrings("abcde"));
