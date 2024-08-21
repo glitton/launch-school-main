@@ -13,3 +13,21 @@ function removeDuplicates(arr) {
 }
 
 console.log(removeDuplicates(numbersArray));
+
+//6. Practice Finding if One Arr contains a Char from another Arr, then removing that Char
+function findAndRemove(arr1, arr2) {
+  let testArr = [];
+
+  for (let i = 0; i < arr2.length; i++) {
+    let num = arr2[i];
+
+    if (arr1.includes(num)) {
+      testArr.push(num);
+      let index = arr1.findIndex((ele) => ele === num);
+      arr1.splice(index, 1); // good to study
+    }
+  }
+
+  return testArr;
+}
+console.log(findAndRemove([1, 2, 3, 4, 5], [1, 2, 2, 3, 5])); //[1, 2, 3, 5]

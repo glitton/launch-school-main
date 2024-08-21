@@ -28,7 +28,8 @@ Data Structures: Integers, Strings
 
 Algorithm:
 1.  Create constant for minutes per hour, hours per day, minutes per day
-2.  If the input is less than 0, or negative 
+2.  If the input is less than 0, or negative, determine the remaining minutes it has after
+dividing it by MINUTES PER DAY
 
 */
 
@@ -74,7 +75,7 @@ function beforeMidnight(timeStr) {
 
 // console.log(afterMidnight("00:00") === 0);
 // console.log(beforeMidnight("00:00") === 0);
-// console.log(afterMidnight("12:34") === 754);
-// console.log(beforeMidnight("12:34") === 686);
-console.log(afterMidnight("24:00") === 0);
+console.log(afterMidnight("12:34") === 754);
+console.log(beforeMidnight("12:34") === 686);
+// console.log(afterMidnight("24:00") === 0);
 // console.log(beforeMidnight("24:00") === 0);
