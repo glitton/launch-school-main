@@ -39,3 +39,18 @@ let transactions = [
 console.log(isItemAvailable(101, transactions)); // false
 console.log(isItemAvailable(103, transactions)); // false
 console.log(isItemAvailable(105, transactions)); // true
+
+//Launch School version
+// function isItemAvailable(item, transactions) {
+//   let quantity = transactionsFor(item, transactions).reduce(
+//     (sum, transaction) => {
+//       if (transaction.movement === "in") {
+//         return sum + transaction.quantity;
+//       } else {
+//         return sum - transaction.quantity;
+//       }
+//     },
+//     0
+//   );
+//   return quantity > 0;
+// }
