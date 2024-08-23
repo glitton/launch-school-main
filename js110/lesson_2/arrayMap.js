@@ -33,18 +33,18 @@ el [0]             Each subarray   None            El at index 0        Yes, ret
 
 */
 
-let myArr = [
-  [18, 7],
-  [3, 12],
-].forEach((arr) => {
-  return arr.map((num) => {
-    if (num > 5) {
-      return console.log(num);
-    }
-  });
-});
+// let myArr = [
+//   [18, 7],
+//   [3, 12],
+// ].forEach((arr) => {
+//   return arr.map((num) => {
+//     if (num > 5) {
+//       return console.log(num);
+//     }
+//   });
+// });
 
-console.log(myArr);
+// console.log(myArr);
 
 /*
 ACTION                 Performed On      Side Effect    Return value    Is Return Value Used
@@ -57,5 +57,25 @@ method call, map       Each sub-array    None           num > 5         Yes for 
 if num > 5         Each el of sub-array  None           console.log      Yes, explicit return for forEach
 
 console.log(num) El that meets condition None           num > 5          console.log 
+
+*/
+
+[
+  [1, 2],
+  [3, 4],
+].map((arr) => {
+  return arr.map((num) => num * 2);
+});
+
+/*
+ACTION               Performed On     Side Effect   Return Value      Is Return Value Used
+method call, map     [[1,2],[3,4]]    None          undefined         Yes for 2nd map method
+
+1st map callback     Each sub-array   None          undefined         Yes for 2nd map method
+
+arr.map           Each el of subarray Yes, double    num * 2           Output of 2nd map method
+
+2nd callback      Each el of subarray Yes, double    num * 2           Output of 2nd map method
+
 
 */
