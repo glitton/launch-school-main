@@ -68,10 +68,10 @@ console.log(num) El that meets condition None           num > 5          console
 });
 
 /*
-ACTION               Performed On     Side Effect   Return Value      Is Return Value Used
-method call, map     [[1,2],[3,4]]    None          undefined         Yes for 2nd map method
+ACTION               Performed On     Side Effect   Return Value              Is Return Value Used
+method call, map     [[1,2],[3,4]]    None          New transformed array     No
 
-1st map callback     Each sub-array   None          undefined         Yes for 2nd map method
+1st map callback     Each sub-array   None          New transformed sub-array  Yes for 2nd map method
 
 arr.map           Each el of subarray Yes, double    num * 2           Output of 2nd map method
 
