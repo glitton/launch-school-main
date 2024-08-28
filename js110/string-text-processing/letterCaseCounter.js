@@ -28,7 +28,7 @@ Algorithm:
 Code: 
 */
 
-function letterCaseCount(str) {
+function letterCount(str) {
   let letterCount = { lowercase: 0, uppercase: 0, neither: 0 };
   let letterArray = str.split("");
 
@@ -46,7 +46,26 @@ function letterCaseCount(str) {
   return letterCount;
 }
 
-letterCaseCount("abCdef 123"); // { lowercase: 5, uppercase: 1, neither: 4 }
-letterCaseCount("AbCd +Ef"); // { lowercase: 3, uppercase: 3, neither: 2 }
-letterCaseCount("123"); // { lowercase: 0, uppercase: 0, neither: 3 }
-letterCaseCount("");
+// Launch Shool version
+
+function letterCaseCount(str) {
+  let counts = { lowercase: 0, uppercase: 0, neither: 0 };
+
+  for (let idx = 0; idx < str.length; idx += 1) {
+    let currentChar = str[idx];
+
+    if (currentChar >= "a" && currentChar <= "z") {
+      counts.lowercase += 1;
+    } else if (currentChar >= "A" && currentChar <= "a") {
+      counts.uppercase += 1;
+    } else {
+      counts.neither += 1;
+    }
+  }
+  return counts;
+}
+
+console.log(letterCaseCount("abCdef 123")); // { lowercase: 5, uppercase: 1, neither: 4 }
+console.log(letterCaseCount("AbCd +Ef")); // { lowercase: 3, uppercase: 3, neither: 2 }
+console.log(letterCaseCount("123")); // { lowercase: 0, uppercase: 0, neither: 3 }
+console.log(letterCaseCount(""));
