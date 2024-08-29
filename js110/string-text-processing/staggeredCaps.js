@@ -68,8 +68,26 @@ function staggeredCase(str) {
     .join("");
 }
 
-console.log(staggeredCase("I Love Launch School!")); // "I LoVe lAuNcH ScHoOl!"
-console.log(staggeredCase("ALL_CAPS")); // "AlL_CaPs"
-console.log(staggeredCase("ignore 77 the 4444 numbers")); // "IgNoRe 77 ThE 4444 nUmBeRs"
+// console.log(staggeredCase("I Love Launch School!")); // "I LoVe lAuNcH ScHoOl!"
+// console.log(staggeredCase("ALL_CAPS")); // "AlL_CaPs"
+// console.log(staggeredCase("ignore 77 the 4444 numbers")); // "IgNoRe 77 ThE 4444 nUmBeRs"
 
-let allCaps = "ALL_CAPS";
+function staggeredCase2(str) {
+  let strNoSpaces = str
+    .split("")
+    .filter((char) => char !== " ")
+    .join(" ");
+  console.log(strNoSpaces);
+}
+
+console.log(
+  staggeredCase2("I Love Launch School!") === "I lOvE lAuNcH sChOoL!"
+);
+console.log(staggeredCase2("ALL CAPS") === "AlL cApS");
+console.log(
+  staggeredCase2("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
+);
+
+/*
+1.  
+*/
