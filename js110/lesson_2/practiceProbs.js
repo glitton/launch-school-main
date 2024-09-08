@@ -1,8 +1,8 @@
 //1
-let arr = ["10", "11", "9", "7", "8"];
+// let arr = ["10", "11", "9", "7", "8"];
 
-let sortedArrayAsc = arr.sort((a, b) => Number(a) - Number(b)); //ascending
-let sortedArrayDes = arr.sort((a, b) => Number(b) - Number(a)); //descending
+// let sortedArrayAsc = arr.sort((a, b) => Number(a) - Number(b)); //ascending
+// let sortedArrayDes = arr.sort((a, b) => Number(b) - Number(a)); //descending
 
 // console.log(sortedArrayDes);
 
@@ -110,5 +110,33 @@ Object.entries(munsters).forEach((entry) => {
   let age = entry[1].age;
   let gender = entry[1].gender;
 
-  console.log(`${name} is a ${age}-year-old ${gender}`);
+  // console.log(`${name} is a ${age}-year-old ${gender}`);
 });
+
+//7 Given the following code, what will the final values of a and b be? Try to answer without running the code.
+
+let a = 2;
+let b = [5, 8];
+let arr = [a, b]; //[2, [5,8]]
+
+arr[0] += 2; //[4, [5,8]]
+arr[1][0] -= a;
+// console.log(arr); //[4, [3,8]]
+
+//8 Using the forEach method, write some code to output all vowels from the strings in the arrays. Don't use a for or while loop.
+
+let obj = {
+  first: ["the", "quick"],
+  second: ["brown", "fox"],
+  third: ["jumped"],
+  fourth: ["over", "the", "lazy", "dog"],
+};
+
+function outputVowels(obj) {
+  const vowels = ["a", "e", "i", "o", "u"];
+  let objArray = Object.entries(obj);
+
+  objArray.forEach((el) => console.log(el));
+}
+
+outputVowels(obj);
