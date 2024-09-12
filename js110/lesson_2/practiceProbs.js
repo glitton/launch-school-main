@@ -133,10 +133,18 @@ let obj = {
 };
 
 function outputVowels(obj) {
-  const vowels = ["a", "e", "i", "o", "u"];
-  let objArray = Object.entries(obj);
+  const vowels = "aeiou";
+  let objArray = Object.values(obj);
 
-  objArray.forEach((el) => console.log(el));
+  objArray.forEach((arr) => {
+    arr.forEach((word) => {
+      let letters = word.split("");
+      letters.forEach((letter) => {
+        if (vowels.includes(letter)) {
+          console.log(letter);
+        }
+      });
+    });
+  });
 }
-
 outputVowels(obj);
