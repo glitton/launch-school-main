@@ -168,3 +168,45 @@ let sortedArray = arrayOfArrays.map((subArr) => {
   }
 });
 // console.log(sortedArray);
+
+// 10 - Sort above in descending order
+let sortedArrayDes = arrayOfArrays.map((subArr) => {
+  if (typeof subArr[0] === "string") {
+    return subArr.slice().sort().reverse();
+  } else {
+    return subArr.slice().sort((a, b) => b - a);
+  }
+});
+
+// console.log(sortedArrayDes);
+
+//Launch School solution
+let descSortedArr = arrayOfArrays.map((subArray) => {
+  return subArray.slice().sort((a, b) => {
+    if (a > b) return -1;
+    if (b > a) return 1;
+    return 0;
+  });
+});
+
+// console.log(descSortedArr);
+
+// => [ [ 'c', 'b', 'a' ], [ 11, 2, -3 ], [ 'green', 'blue', 'black' ] ]
+
+/* 11
+Given the following data structure, use the map method to return a new array identical in structure to the original but, with each number incremented by 1. Do not modify the original data structure.
+*/
+
+let arrObj = [{ a: 1 }, { b: 2, c: 3 }, { d: 4, e: 5, f: 6 }];
+
+let newObj = arrObj.map((obj) => {
+  let incrementedObj = {};
+
+  for (let key in obj) {
+    incrementedObj[key] = obj[key] + 1;
+  }
+  return incrementedObj;
+});
+
+console.log(newObj);
+console.log("orig", arrObj);
