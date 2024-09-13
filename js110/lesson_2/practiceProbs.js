@@ -133,7 +133,8 @@ let obj = {
 };
 
 function outputVowels(obj) {
-  const vowels = "aeiou";
+  // const vowels = "aeiou";
+  const vowels = ["a", "e", "i", "o", "u"]; // this way works too
   let objArray = Object.values(obj);
 
   objArray.forEach((arr) => {
