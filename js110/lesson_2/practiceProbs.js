@@ -208,4 +208,23 @@ let objPlusOne = arrObj.map((obj) => {
   return incrementedObj;
 });
 
-console.log(objPlusOne);
+// console.log(objPlusOne);
+
+/*
+12: Create a deep copy of the following nested array.
+*/
+
+const originalArray = [
+  ["b", "c", "a"],
+  ["blue", "black", "green"],
+  { b: [2, 4, 6], c: [3, 6], d: [4] },
+  { e: [8], f: [6, 10] },
+];
+
+let serializedArr = JSON.stringify(originalArray); //serializes the object
+let deepCopiedArr = JSON.parse(serializedArr);
+
+deepCopiedArr.push("bennie");
+
+console.log(deepCopiedArr);
+console.log("og", originalArray);
