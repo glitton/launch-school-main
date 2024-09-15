@@ -224,7 +224,23 @@ const originalArray = [
 let serializedArr = JSON.stringify(originalArray); //serializes the object
 let deepCopiedArr = JSON.parse(serializedArr);
 
-deepCopiedArr.push("bennie");
+// deepCopiedArr.push("bennie");
 
-console.log(deepCopiedArr);
-console.log("og", originalArray);
+// console.log(deepCopiedArr);
+// console.log("og", originalArray);
+
+/*
+13: Create a deep copy of the following object.
+*/
+
+const truthiness = {
+  falsy: [null, undefined, "", false, NaN, 0],
+  truthy: ["everything else..."],
+};
+
+let deepCopyTruthiness = { ...truthiness };
+
+deepCopyTruthiness["pets"] = ["bennie"];
+
+console.log(deepCopyTruthiness);
+console.log("og", truthiness);
