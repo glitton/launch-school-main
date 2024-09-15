@@ -242,5 +242,63 @@ let deepCopyTruthiness = { ...truthiness };
 
 deepCopyTruthiness["pets"] = ["bennie"];
 
-console.log(deepCopyTruthiness);
-console.log("og", truthiness);
+// console.log(deepCopyTruthiness);
+// console.log("og", truthiness);
+
+let serialTruthy = JSON.stringify(truthiness); //can't stringify undefined, becomes null
+
+const deepCopy = {};
+
+for (let prop in truthiness) {
+  deepCopy[prop] = [...truthiness[prop]];
+}
+
+// console.log(deepCopy);
+// console.log(deepCopyTruthiness);
+// console.log(truthiness);
+
+// console.log(truthiness === deepCopyTruthiness);
+
+/*
+14: Given the following data structure, use a combination of methods, including filter, to return a new array identical in structure to the original, but containing only the numbers that are multiples of 3.
+
+Algorithm:
+1.  Iterate over the array using map in order to return a new array
+2.  Use filter to get the elements that are multiples of 3
+3.  Return the new array
+*/
+
+let nestedArr = [[2], [3, 5, 7], [9], [11, 15, 18]];
+
+let multiplesOfThree = nestedArr.map((arr) => {
+  return arr.filter((el) => el % 3 === 0);
+});
+
+// console.log(multiplesOfThree);
+
+/*
+15: Given the following data structure, sort the array so that the sub-arrays are ordered based on the sum of the odd numbers that they contain.
+*/
+
+let nestArr = [
+  [1, 6, 7],
+  [1, 5, 3],
+  [1, 8, 3],
+];
+//[ [ 1, 8, 3 ], [ 1, 6, 7 ], [ 1, 5, 3 ] ]
+
+let sortedNestedArr = nestArr.sort((a, b) => {
+  let oddSumA = a
+    .filter((el) => el % 2 === 1)
+    .reduce((sum, next) => sum + next);
+  // console.log("a", oddSumA);
+
+  let oddSumB = b
+    .filter((el) => el % 2 === 1)
+    .reduce((sum, next) => sum + next);
+  // console.log("b", oddSumB);
+
+  return oddSumA - oddSumB;
+});
+
+// console.log(sortedNestedArr);
