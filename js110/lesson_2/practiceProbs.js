@@ -302,3 +302,31 @@ let sortedNestedArr = nestArr.sort((a, b) => {
 });
 
 // console.log(sortedNestedArr);
+
+/*
+16: Given the following data structure write some code to return an array containing the colors of the fruits and the sizes of the vegetables. The sizes should be uppercase, and the colors should be capitalized.
+
+*/
+
+let fruitObj = {
+  grape: { type: "fruit", colors: ["red", "green"], size: "small" },
+  carrot: { type: "vegetable", colors: ["orange"], size: "medium" },
+  apple: { type: "fruit", colors: ["red", "green"], size: "medium" },
+  apricot: { type: "fruit", colors: ["orange"], size: "medium" },
+  marrow: { type: "vegetable", colors: ["green"], size: "large" },
+};
+
+//[["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+//capitalize function
+let capitalize = (word) => word[0].toUpperCase() + word.slice(1);
+
+let fruitArray = Object.values(fruitObj).map((attributes) => {
+  if (attributes["type"] === "fruit") {
+    return attributes["colors"].map((color) => capitalize(color));
+  } else {
+    return attributes["size"].toUpperCase();
+  }
+});
+
+// console.log(fruitArray);
