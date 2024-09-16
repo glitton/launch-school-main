@@ -305,7 +305,6 @@ let sortedNestedArr = nestArr.sort((a, b) => {
 
 /*
 16: Given the following data structure write some code to return an array containing the colors of the fruits and the sizes of the vegetables. The sizes should be uppercase, and the colors should be capitalized.
-
 */
 
 let fruitObj = {
@@ -330,3 +329,101 @@ let fruitArray = Object.values(fruitObj).map((attributes) => {
 });
 
 // console.log(fruitArray);
+
+/*
+17: Given the following data structure, write some code to return an array which contains only the objects where all the numbers are even.
+*/
+
+let arrNums = [
+  { a: [1, 2, 3] },
+  { b: [2, 4, 6], c: [3, 6], d: [4] },
+  { e: [8], f: [6, 10] },
+];
+
+// let evenObj = { b: [2, 4, 6], c: [3, 6], d: [4] };
+// let evenArr = Object.values(evenObj).map((arr) => {
+//   return arr.filter((el) => el % 2 === 0);
+// });
+
+let evenArr = arrNums.filter((obj) =>
+  Object.values(obj).every((subArr) => subArr.every((el) => el % 2 === 0))
+);
+
+// console.log(evenArr);
+
+/*
+18: Given the following data structure, write some code that defines an object where the key is the first item in each subarray, and the value is the second.
+*/
+
+let arrOfThings = [
+  ["a", 1],
+  ["b", "two"],
+  ["sea", { c: 3 }],
+  ["D", ["a", "b", "c"]],
+];
+
+// expected value of object
+// { a: 1, b: 'two', sea: { c: 3 }, D: [ 'a', 'b', 'c' ] }
+
+let arrToObj = Object.fromEntries(arrOfThings);
+// console.log(arrToObj);
+
+let newArrObj = {};
+arrOfThings.forEach((subArr) => {
+  let key = subArr[0];
+  let value = subArr[1];
+  newArrObj[key] = value;
+});
+
+// console.log(newArrObj);
+
+/*
+19: Create a deep copy of the munsters object, whose nested objects cannot be altered.
+*/
+
+let munstersObj = {
+  herman: { age: 32, gender: "male" },
+  lily: { age: 30, gender: "female" },
+  grandpa: { age: 402, gender: "male" },
+  eddie: { age: 10, gender: "male" },
+  marilyn: { age: 23, gender: "female" },
+};
+
+// let munstersObjCopy = { ...munstersObj };
+
+let munstersObjCopy = {};
+
+for (let prop in munstersObj) {
+  munstersObjCopy[prop] = { ...munstersObj[prop] };
+}
+
+// console.log(munstersObjCopy);
+
+// check launch school solution https://launchschool.com/lessons/ddd27b04/assignments/17514f23
+
+/*
+20: Write a function that takes no arguments and returns a string that contains a UUID.
+
+UUID: Each UUID consists of 32 hexadecimal characters (the digits 0-9 and the letters a-f) represented as a string. The value is typically broken into 5 sections in an 8-4-4-4-12 pattern, e.g., 'f65c57f6-a6aa-17a8-faa1-a67f2dc9fa91'.
+*/
+
+function generateUUID() {
+  let characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
+  let sections = [8, 4, 4, 4, 12];
+  let uuid = "";
+
+  sections.forEach((section, sectionIndex) => {
+    console.log(sectionIndex);
+
+    for (let idx = 1; idx < section; idx++) {
+      let randomIndex = Math.floor(Math.random() * characters.length);
+      uuid += characters[randomIndex];
+    }
+    if (sectionIndex < sections.length - 1) {
+      uuid += "-";
+    }
+  });
+  return uuid;
+}
+
+// console.log(generateUUID());
