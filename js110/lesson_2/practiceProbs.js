@@ -259,6 +259,10 @@ for (let prop in truthiness) {
 
 // console.log(truthiness === deepCopyTruthiness);
 
+deepCopyTruthiness["falsy"][3] = "Hello";
+console.log("og", truthiness);
+console.log("og", deepCopyTruthiness);
+
 /*
 14: Given the following data structure, use a combination of methods, including filter, to return a new array identical in structure to the original, but containing only the numbers that are multiples of 3.
 
