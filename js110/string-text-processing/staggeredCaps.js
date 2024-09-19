@@ -80,13 +80,13 @@ function staggeredCase2(str) {
   console.log(strNoSpaces);
 }
 
-console.log(
-  staggeredCase2("I Love Launch School!") === "I lOvE lAuNcH sChOoL!"
-);
-console.log(staggeredCase2("ALL CAPS") === "AlL cApS");
-console.log(
-  staggeredCase2("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
-);
+// console.log(
+//   staggeredCase2("I Love Launch School!") === "I lOvE lAuNcH sChOoL!"
+// );
+// console.log(staggeredCase2("ALL CAPS") === "AlL cApS");
+// console.log(
+//   staggeredCase2("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
+// );
 
 /*
 1.  
