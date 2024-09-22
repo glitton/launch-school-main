@@ -25,5 +25,7 @@ function displayBoard(board) {
   console.log("");
 }
 
+function playerChoosesSquare() {}
+
 let board = initializeBoard();
 displayBoard(board);
