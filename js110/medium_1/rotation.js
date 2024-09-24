@@ -51,7 +51,7 @@ Code
 
 */
 
-function rotateArray(arr) {
+function rotateArrayOG(arr) {
   if (!Array.isArray(arr)) {
     return undefined;
   }
@@ -65,9 +65,23 @@ function rotateArray(arr) {
   return finalArray;
 }
 
-// console.log(rotateArray(1));
-// console.log(rotateArray());
-// console.log(rotateArray([]));
+//Launch School version
+
+function rotateArray(arr) {
+  if (!Array.isArray(arr)) {
+    return undefined;
+  }
+
+  if (arr.length === 0) {
+    return [];
+  }
+
+  return arr.slice(1).concat(arr[0]);
+}
+
+console.log(rotateArray(1));
+console.log(rotateArray());
+console.log(rotateArray([]));
 
 console.log(rotateArray([7, 3, 5, 2, 9, 1])); // [3, 5, 2, 9, 1, 7]
 console.log(rotateArray(["a", "b", "c"])); // ["b", "c", "a"]
