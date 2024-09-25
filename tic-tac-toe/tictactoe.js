@@ -1,6 +1,9 @@
 const readline = require("readline-sync");
 const MESSAGES = require("./tictactoe_messages.json");
 
+const INITIAL_MARKER = " ";
+const HUMAN_MARKER = "X";
+
 function prompt(message) {
   console.log(`=> ${message}`);
 }
@@ -33,20 +36,20 @@ function initializeBoard() {
 function playerChoosesSquare(board) {
   let square;
 
-  let emptySquares = Object.keys(board).filter((key) => board[key] === " ");
+  let emptySquares = Object.keys(board).filter((key) => {
+    return board[key] === INITIAL_MARKER;
+  });
 
   while (true) {
-    prompt(`${MESSAGES["playerChoosesSquare"]}`);
+    prompt(`${MESSAGES["playerChoosesSquare"]} (${emptySquares.join(", ")}):`);
     square = readline.question().trim();
 
-    if (emptySquares.includes(square)) {
-      break;
-    } else {
-      prompt(`${MESSAGES["invalidChoice"]}`);
-    }
+    if (emptySquares.includes(square)) break;
+
+    prompt(`${MESSAGES["invalidChoice"]}`);
   }
 
-  board[square] = "X";
+  board[square] = HUMAN_MARKER;
 }
 
 let board = initializeBoard();
