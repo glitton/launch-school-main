@@ -1,12 +1,8 @@
 const readline = require("readline-sync");
+const MESSAGES = require("./tictactoe_messages.json");
 
-function initializeBoard() {
-  let board = {};
-
-  for (let square = 1; square <= 9; square++) {
-    board[String(square)] = " ";
-  }
-  return board;
+function prompt(message) {
+  console.log(`=> ${message}`);
 }
 
 function displayBoard(board) {
@@ -25,7 +21,36 @@ function displayBoard(board) {
   console.log("");
 }
 
-function playerChoosesSquare() {}
+function initializeBoard() {
+  let board = {};
+
+  for (let square = 1; square <= 9; square++) {
+    board[String(square)] = " ";
+  }
+  return board;
+}
+
+function playerChoosesSquare(board) {
+  let square;
+
+  let emptySquares = Object.keys(board).filter((key) => board[key] === " ");
+
+  while (true) {
+    prompt(`${MESSAGES["playerChoosesSquare"]}`);
+    square = readline.question().trim();
+
+    if (emptySquares.includes(square)) {
+      break;
+    } else {
+      prompt(`${MESSAGES["invalidChoice"]}`);
+    }
+  }
+
+  board[square] = "X";
+}
 
 let board = initializeBoard();
+displayBoard(board);
+
+playerChoosesSquare(board);
 displayBoard(board);
