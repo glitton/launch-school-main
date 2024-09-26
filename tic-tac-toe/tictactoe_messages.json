@@ -4,7 +4,7 @@
   "description2": "or the shortcut keys",
   "winner": "This is a best of five game.\n   First one to win 3 out of 5 rounds is the champion!",
   "round": "LET'S PLAY ROUND ",
-  "playerChoosesSquare": "Choose a square :",
+  "playerChoosesSquare": "Choose a square, enter one of these values: ",
   "invalidChoice": "Sorry, that's not a valid choice.",
   "invalidGameChoice": "That's not a valid choice. Please enter",
   "enterChoice": "That's not a valid choice. Please enter 'y'.",
