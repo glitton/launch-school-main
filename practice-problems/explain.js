@@ -9,8 +9,8 @@ function modifyArray(arr) {
   console.log(arr);
 }
 
-console.log(modifyArray(numbers)); //
-console.log(numbers); //
+// console.log(modifyArray(numbers)); //
+// console.log(numbers); //
 
 /*
 The output of invoking modifyArray with numbers as the argument outputs undefined.  Logging the numbers array to the console logs 
@@ -24,3 +24,20 @@ Then the push method, is executed passing the value of 4 resulting in numbers be
 Then the function reassigns arr to [5,6,7] which at this point is not the same as numbers.  We now have two different arrays, arr and numbers.  Using the push method on arr doesn't affect the numbers array.  As a result, logging numbers outputs [1,2,3,4]
 
 */
+
+// while (true) {
+//   let number = Math.floor(10 * Math.random());
+//   console.log(number);
+
+//   if (number === 5) {
+//     console.log("Exiting...");
+//     break;
+//   }
+// }
+let num = 1;
+while (num < 11) {
+  console.log(Math.floor(Math.random() * 10));
+  console.log("num", num);
+
+  num++;
+}
