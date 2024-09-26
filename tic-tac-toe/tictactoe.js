@@ -1,4 +1,6 @@
 const readline = require("readline-sync");
+const { joinOr } = require("./joinOr");
+
 const MESSAGES = require("./tictactoe_messages.json");
 
 const INITIAL_MARKER = " ";
@@ -46,9 +48,7 @@ function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(
-      `${MESSAGES["playerChoosesSquare"]}${emptySquares(board).join(", ")}`
-    );
+    prompt(`${MESSAGES["playerChoosesSquare"]}${joinOr(emptySquares(board))}`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
 
