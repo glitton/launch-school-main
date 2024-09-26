@@ -16,7 +16,7 @@
   "tieRound": "It's a tie for round ",
   "gameOver": "Game over, no one won three out of five!",
   "nextRound": "Enter 'y' to play the next round.",
-  "anotherGame": "Do you want to play another best of five?  Answer 'y' for yes or 'n' for no.",
+  "playAgain": "Play again? (y or n)",
   "exitEarly": "To end the game press 'y' to continue press 'c'.",
-  "gameEnd": "Thanks for playing, goodbye!"
+  "gameEnd": "Thanks for playing Tic Tac Toe, goodbye!"
 }
