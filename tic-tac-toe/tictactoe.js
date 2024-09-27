@@ -23,8 +23,15 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
+function displayGameRules() {
+  prompt(`${MESSAGES["welcome"]}`);
+  prompt(`${MESSAGES["winner"]}`);
+}
+
 function displayBoard(board) {
   console.clear();
+
+  displayGameRules();
 
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
 
@@ -50,14 +57,6 @@ function initializeBoard() {
     board[String(square)] = INITIAL_MARKER;
   }
   return board;
-}
-
-function displayGameRules(options) {
-  options.map((option) =>
-    console.log(
-      `\n----------> ${option} beats ${WINNING_COMBOS[option]["beats"]}`
-    )
-  );
 }
 
 function displayScores(playerScore, computerScore) {
