@@ -5,7 +5,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 1;
+const WINS_NEEDED = 2;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -26,7 +26,7 @@ function displayBoard(board) {
   console.clear();
 
   prompt(`${MESSAGES["welcome"]}`);
-  prompt(`${MESSAGES["winner"]}`);
+  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
   prompt(`Player score is ${playerScore} Computer score is ${computerScore}`);
 
   console.log(`\n`);
@@ -196,6 +196,8 @@ while (true) {
         board
       )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
     );
+    playerScore = 0;
+    computerScore = 0;
   }
 
   prompt(`${MESSAGES["playAgain"]}`);
