@@ -203,6 +203,10 @@ while (true) {
 
   prompt(`${MESSAGES["playAgain"]}`);
   let answer = readline.question().toLowerCase()[0];
+  while (!["y", "n"].includes(answer)) {
+    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
+    answer = readline.question().toLowerCase()[0];
+  }
   if (answer !== "y") break;
 }
 

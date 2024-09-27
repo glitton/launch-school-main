@@ -3,6 +3,7 @@
   "winner": "First one to win these numbers of games is the champion: ",
   "playerChoosesSquare": "Choose a square, enter one of these values: ",
   "invalidChoice": "Sorry, that's not a valid choice.",
+  "correctChoice": "Enter y or n",
   "tie": "It's a tie!",
   "playAgain": "Play again? (y or n)",
   "exitEarly": "To end the game press 'y' to continue press 'c'.",
