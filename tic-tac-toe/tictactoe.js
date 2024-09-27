@@ -52,7 +52,20 @@ function initializeBoard() {
   return board;
 }
 
-function chooseWhoGoesFirst(board) {}
+function displayGameRules(options) {
+  options.map((option) =>
+    console.log(
+      `\n----------> ${option} beats ${WINNING_COMBOS[option]["beats"]}`
+    )
+  );
+}
+
+function displayScores(playerScore, computerScore) {
+  prompt(
+    `Your score is ${playerScore}, the computer's score is ${computerScore}`
+  );
+}
+// function chooseWhoGoesFirst(board) {}
 
 function emptySquares(board) {
   return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
