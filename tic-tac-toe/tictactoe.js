@@ -5,7 +5,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 2;
+const WINS_NEEDED = 5;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
