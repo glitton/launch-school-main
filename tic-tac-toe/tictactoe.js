@@ -202,10 +202,10 @@ while (true) {
   }
 
   prompt(`${MESSAGES["playAgain"]}`);
-  let answer = readline.question().toLowerCase()[0];
-  while (!["y", "n"].includes(answer)) {
+  let answer = readline.question().toLowerCase();
+  while (!["y", "n", "Y", "N"].includes(answer)) {
     prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
-    answer = readline.question().toLowerCase()[0];
+    answer = readline.question().toLowerCase();
   }
   if (answer !== "y") break;
 }
