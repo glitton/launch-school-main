@@ -1,6 +1,6 @@
 {
   "welcome": "Let's play Tic Tac Toe!",
-  "winner": "First one to win 3 games is the champion!",
+  "winner": "First one to win 5 games is the champion!",
   "playerChoosesSquare": "Choose a square, enter one of these values: ",
   "invalidChoice": "Sorry, that's not a valid choice.",
   "invalidGameChoice": "That's not a valid choice. Please enter",
