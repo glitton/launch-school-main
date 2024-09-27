@@ -196,6 +196,7 @@ while (true) {
         board
       )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
     );
+    // reset scores to 0
     playerScore = 0;
     computerScore = 0;
   }
