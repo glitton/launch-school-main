@@ -23,6 +23,8 @@ function prompt(message) {
 }
 
 function displayBoard(board) {
+  console.clear();
+
   console.log("");
   console.log("     |     |");
   console.log(`  ${board["1"]}  |  ${board["2"]}  |  ${board["3"]}`);
@@ -42,13 +44,62 @@ function initializeBoard() {
   let board = {};
 
   for (let square = 1; square <= 9; square++) {
-    board[String(square)] = " ";
+    board[String(square)] = INITIAL_MARKER;
   }
 
   return board;
 }
 
-function playerChoosesSquare(board) {}
+function emptySquares(board) {
+  return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
+}
+
+function playerChoosesSquare(board) {
+  let square;
+
+  while (true) {
+    prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
+    square = readline.question().trim();
+
+    if (emptySquares(board).includes(square)) {
+      break; // valid choice, chose an empty square
+    } else {
+      prompt(`${MESSAGES["invalidChoice"]}`);
+    }
+  }
+
+  board[square] = HUMAN_MARKER;
+}
+
+function computerChoosesSquare(board) {
+  let randomIndex = Math.floor(Math.random() * emptySquares.length);
+
+  let square = emptySquares(board)[randomIndex];
+
+  board[square] = COMPUTER_MARKER;
+}
+
+function boardFull(board) {
+  return emptySquares(board).length === 0;
+}
+
+function someoneWon(board) {
+  return !!detectWinner(board);
+}
 
 let board = initializeBoard();
 displayBoard(board);
+
+while (true) {
+  playerChoosesSquare(board);
+  computerChoosesSquare(board);
+  displayBoard(board);
+
+  if (someoneWon(board) || boardFull(board)) break;
+
+  if (someoneWon(board)) {
+    prompt(`${detectWinner(board)} won!`);
+  } else {
+    prompt("It's a tie!");
+  }
+}
