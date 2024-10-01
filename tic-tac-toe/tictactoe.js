@@ -57,13 +57,6 @@ function initializeBoard() {
   return board;
 }
 
-// function displayScores(playerScore, computerScore) {
-//   prompt(
-//     `Your score is ${playerScore}, the computer's score is ${computerScore}`
-//   );
-// }
-// function chooseWhoGoesFirst(board) {}
-
 function emptySquares(board) {
   return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
 }
@@ -86,6 +79,7 @@ function playerChoosesSquare(board) {
   while (true) {
     prompt(`${MESSAGES["playerChoosesSquare"]}${joinOr(emptySquares(board))}`);
     square = readline.question().trim();
+
     if (emptySquares(board).includes(square)) break;
 
     prompt(`${MESSAGES["invalidChoice"]}`);
@@ -106,17 +100,17 @@ function computerChoosesSquare(board) {
     }
   }
 
+  // // Choose square 5
+  if (board[5] === " ") {
+    return (board[5] = COMPUTER_MARKER);
+  }
+
   //defense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, HUMAN_MARKER);
     if (square) break;
   }
-
-  // // Choose square 5
-  // if (board[5] === " ") {
-  //   return (board[5] = COMPUTER_MARKER);
-  // }
 
   //random
   if (!square) {
