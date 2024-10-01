@@ -27,7 +27,9 @@ function displayBoard(board) {
 
   prompt(`${MESSAGES["welcome"]}`);
   prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
-  // prompt(`Player score is ${playerScore} Computer score is ${computerScore}`);
+
+  console.log(`\n`);
+  prompt(`Player score is ${playerScore} Computer score is ${computerScore}`);
 
   console.log(`\n`);
 
@@ -66,7 +68,7 @@ function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square (${emptySquares(board).join(", ")}):`);
+    prompt(`${MESSAGES["playerChoosesSquare"]}${joinOr(emptySquares(board))}`);
     square = readline.question().trim();
 
     if (emptySquares(board).includes(square)) {
@@ -117,6 +119,25 @@ function detectWinner(board) {
   return null;
 }
 
+function playAgain() {
+  let answer;
+  while (true) {
+    prompt(`${MESSAGES["playAgain"]}`);
+    answer = readline.question().toLowerCase();
+    if (["y", "n"].includes(answer)) break;
+    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
+  }
+
+  if (answer === "y") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+let playerScore = 0;
+let computerScore = 0;
+
 while (true) {
   let board = initializeBoard();
 
@@ -133,17 +154,33 @@ while (true) {
   displayBoard(board);
 
   if (someoneWon(board)) {
+    if (detectWinner(board) === "Player") {
+      playerScore += 1;
+    } else {
+      computerScore += 1;
+    }
     prompt(`${detectWinner(board)} won!`);
   } else {
     prompt("It's a tie!");
   }
 
-  prompt(`${MESSAGES["playAgain"]}`);
-  let answer = readline.question().toLowerCase();
-  while (!["y", "n", "Y", "N"].includes(answer)) {
-    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
-    answer = readline.question().toLowerCase();
+  //Overall Winner
+  if (playerScore === WINS_NEEDED || computerScore === WINS_NEEDED) {
+    prompt(
+      `${detectWinner(
+        board
+      )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
+    );
+    // reset scores to 0
+    playerScore = 0;
+    computerScore = 0;
   }
-  if (answer !== "y") break;
+  // while (true) {
+  //   if (readline.question("\nEnter any key to start the next game.\n")) break;
+  // }
+  if (!playAgain()) {
+    break;
+  }
 }
+
 prompt(`${MESSAGES["gameEnd"]}`);
