@@ -5,7 +5,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 3;
+const WINS_NEEDED = 2;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -58,7 +58,7 @@ function initializeBoard() {
 }
 
 function displayScore(score) {
-  console.log(`Player: ${score.player} Computer: ${score.computer}`);
+  console.log(`Player: ${score.Player} Computer: ${score.Computer}`);
 }
 
 function emptySquares(board) {
@@ -138,9 +138,10 @@ function playAgain() {
 
 while (true) {
   let score = {
-    player: 0,
-    computer: 0,
+    Player: 0,
+    Computer: 0,
   };
+  console.log("top of loop");
 
   while (true) {
     let board = initializeBoard();
@@ -159,32 +160,33 @@ while (true) {
     displayBoard(board);
 
     if (someoneWon(board)) {
-      if (detectWinner(board) === "Player") {
-        score.player += 1;
+      let winner = detectWinner(board);
+      score[winner] += 1;
+
+      //Overall Winner
+      if (score[winner] === WINS_NEEDED) {
+        prompt(
+          `${detectWinner(
+            board
+          )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
+        );
+        // reset scores to 0
+        // score.Player = 0;
+        // score.Computer = 0;
+        break;
       } else {
-        score.computer += 1;
+        prompt(`${detectWinner(board)} won!`);
+        displayScore(score);
       }
-      prompt(`${detectWinner(board)} won!`);
-      displayScore(score);
     } else {
       prompt("It's a tie!");
     }
-
-    //Overall Winner
-    if (score.player === WINS_NEEDED || score.computer === WINS_NEEDED) {
-      prompt(
-        `${detectWinner(
-          board
-        )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
-      );
-      // reset scores to 0
-      score.player = 0;
-      score.computer = 0;
+    while (true) {
+      if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
     }
-
-    if (!playAgain()) {
-      break;
-    }
+  }
+  if (!playAgain()) {
+    break;
   }
 }
 prompt(`${MESSAGES["gameEnd"]}`);

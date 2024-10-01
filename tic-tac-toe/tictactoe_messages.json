@@ -5,7 +5,7 @@
   "invalidChoice": "Sorry, that's not a valid choice.",
   "correctChoice": "Enter y or n",
   "tie": "It's a tie!",
-  "anotherGame": "Enter any key to start the next game.",
+  "anotherGame": "Enter any character key to start the next round.",
   "playAgain": "Play again? (y or n)",
   "exitEarly": "To end the game press 'y' to continue press 'c'.",
   "gameEnd": "Thanks for playing Tic Tac Toe, goodbye!"
