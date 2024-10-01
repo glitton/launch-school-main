@@ -175,9 +175,7 @@ while (true) {
     playerScore = 0;
     computerScore = 0;
   }
-  // while (true) {
-  //   if (readline.question("\nEnter any key to start the next game.\n")) break;
-  // }
+
   if (!playAgain()) {
     break;
   }
