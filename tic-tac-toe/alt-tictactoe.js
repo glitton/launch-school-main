@@ -25,6 +25,14 @@ function prompt(message) {
 function displayBoard(board) {
   console.clear();
 
+  prompt(`${MESSAGES["welcome"]}`);
+  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
+  // prompt(`Player score is ${playerScore} Computer score is ${computerScore}`);
+
+  console.log(`\n`);
+
+  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
+
   console.log("");
   console.log("     |     |");
   console.log(`  ${board["1"]}  |  ${board["2"]}  |  ${board["3"]}`);
@@ -87,19 +95,55 @@ function someoneWon(board) {
   return !!detectWinner(board);
 }
 
-let board = initializeBoard();
-displayBoard(board);
+function detectWinner(board) {
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [sq1, sq2, sq3] = WINNING_LINES[line];
+
+    if (
+      board[sq1] === HUMAN_MARKER &&
+      board[sq2] === HUMAN_MARKER &&
+      board[sq3] === HUMAN_MARKER
+    ) {
+      return "Player";
+    } else if (
+      board[sq1] === COMPUTER_MARKER &&
+      board[sq2] === COMPUTER_MARKER &&
+      board[sq3] === COMPUTER_MARKER
+    ) {
+      return "Computer";
+    }
+  }
+
+  return null;
+}
 
 while (true) {
-  playerChoosesSquare(board);
-  computerChoosesSquare(board);
-  displayBoard(board);
+  let board = initializeBoard();
 
-  if (someoneWon(board) || boardFull(board)) break;
+  while (true) {
+    displayBoard(board);
+
+    playerChoosesSquare(board);
+    if (someoneWon(board) || boardFull(board)) break;
+
+    computerChoosesSquare(board);
+    if (someoneWon(board) || boardFull(board)) break;
+  }
+
+  displayBoard(board);
 
   if (someoneWon(board)) {
     prompt(`${detectWinner(board)} won!`);
   } else {
     prompt("It's a tie!");
   }
+
+  prompt(`${MESSAGES["playAgain"]}`);
+  let answer = readline.question().toLowerCase();
+  while (!["y", "n", "Y", "N"].includes(answer)) {
+    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
+    answer = readline.question().toLowerCase();
+  }
+  if (answer !== "y") break;
 }
+prompt(`${MESSAGES["gameEnd"]}`);
