@@ -5,7 +5,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 5;
+const WINS_NEEDED = 3;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -27,9 +27,6 @@ function displayBoard(board) {
 
   prompt(`${MESSAGES["welcome"]}`);
   prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
-
-  console.log(`\n`);
-  prompt(`Player score is ${playerScore} Computer score is ${computerScore}`);
 
   console.log(`\n`);
 
@@ -58,6 +55,10 @@ function initializeBoard() {
   }
 
   return board;
+}
+
+function displayScore(score) {
+  console.log(`Player: ${score.player} Computer: ${score.computer}`);
 }
 
 function emptySquares(board) {
@@ -135,50 +136,55 @@ function playAgain() {
   }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
 while (true) {
-  let board = initializeBoard();
+  let score = {
+    player: 0,
+    computer: 0,
+  };
 
   while (true) {
+    let board = initializeBoard();
+
+    while (true) {
+      displayBoard(board);
+      displayScore(score);
+
+      playerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+      computerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+    }
+
     displayBoard(board);
 
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
-
-    computerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
-  }
-
-  displayBoard(board);
-
-  if (someoneWon(board)) {
-    if (detectWinner(board) === "Player") {
-      playerScore += 1;
+    if (someoneWon(board)) {
+      if (detectWinner(board) === "Player") {
+        score.player += 1;
+      } else {
+        score.computer += 1;
+      }
+      prompt(`${detectWinner(board)} won!`);
+      displayScore(score);
     } else {
-      computerScore += 1;
+      prompt("It's a tie!");
     }
-    prompt(`${detectWinner(board)} won!`);
-  } else {
-    prompt("It's a tie!");
-  }
 
-  //Overall Winner
-  if (playerScore === WINS_NEEDED || computerScore === WINS_NEEDED) {
-    prompt(
-      `${detectWinner(
-        board
-      )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
-    );
-    // reset scores to 0
-    playerScore = 0;
-    computerScore = 0;
-  }
+    //Overall Winner
+    if (score.player === WINS_NEEDED || score.computer === WINS_NEEDED) {
+      prompt(
+        `${detectWinner(
+          board
+        )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
+      );
+      // reset scores to 0
+      score.player = 0;
+      score.computer = 0;
+    }
 
-  if (!playAgain()) {
-    break;
+    if (!playAgain()) {
+      break;
+    }
   }
 }
-
 prompt(`${MESSAGES["gameEnd"]}`);
