@@ -148,6 +148,7 @@ function someoneWon(board) {
   return !!detectWinner(board);
 }
 
+/* GAME BEGINS HERE */
 let playerScore = 0;
 let computerScore = 0;
 

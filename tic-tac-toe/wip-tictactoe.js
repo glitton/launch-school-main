@@ -1,5 +1,4 @@
 const readline = require("readline-sync");
-const { joinOr } = require("./joinOr");
 
 const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
@@ -20,6 +19,25 @@ let WINNING_LINES = [
 
 function prompt(message) {
   console.log(`=> ${message}`);
+}
+
+function joinOr(arr, delimiter = ", ", word = "or") {
+  if (arr.length === 0) {
+    return "";
+  }
+
+  if (arr.length === 1) {
+    return arr[0];
+  }
+
+  if (arr.length == 2) {
+    return `${arr[0]} ${word} ${arr[1]}`;
+  }
+
+  return (
+    arr.slice(0, arr.length - 1).join(delimiter) +
+    `${delimiter}${word} ${arr[arr.length - 1]}`
+  );
 }
 
 function displayBoard(board) {
@@ -136,12 +154,13 @@ function playAgain() {
   }
 }
 
+/* GAME STARTS HERE */
+
 while (true) {
   let score = {
     Player: 0,
     Computer: 0,
   };
-  console.log("top of loop");
 
   while (true) {
     let board = initializeBoard();
@@ -170,9 +189,6 @@ while (true) {
             board
           )} won ${WINS_NEEDED} games and is the Tic Tac Toe champion!`
         );
-        // reset scores to 0
-        // score.Player = 0;
-        // score.Computer = 0;
         break;
       } else {
         prompt(`${detectWinner(board)} won!`);
