@@ -5,7 +5,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 5;
+const WINS_NEEDED = 2;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -100,11 +100,6 @@ function computerChoosesSquare(board) {
     }
   }
 
-  // // Choose square 5
-  if (board[5] === " ") {
-    return (board[5] = COMPUTER_MARKER);
-  }
-
   //defense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
@@ -112,8 +107,10 @@ function computerChoosesSquare(board) {
     if (square) break;
   }
 
-  //random
-  if (!square) {
+  //random and square 5
+  if (!square && board["5"] === INITIAL_MARKER) {
+    square = "5";
+  } else if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
   }
