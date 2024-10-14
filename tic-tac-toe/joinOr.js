@@ -53,7 +53,7 @@ function joinOr(arr, delimiter = ", ", word = "or") {
   );
 }
 
-module.exports = { joinOr }; //CommonJS notation
+// module.exports = { joinOr }; //CommonJS notation
 
 // let log = console.log;
 
