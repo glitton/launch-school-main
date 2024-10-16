@@ -1,9 +1,11 @@
 {
   "welcome": "Let's play Tic Tac Toe!",
   "winner": "First one to win these numbers of games is the champion: ",
+  "chooseStartingPlayer": "Choose who starts the game. Enter 'c' for computer or 'p' for player.",
   "playerChoosesSquare": "Choose a square, enter one of these values: ",
   "invalidChoice": "Sorry, that's not a valid choice.",
   "correctChoice": "Enter y or n",
+  "correctPlayerChoice": "Enter c or p",
   "tie": "It's a tie!",
   "anotherGame": "Enter any character key to start the next round.",
   "playAgain": "Play again? (y or n)",
