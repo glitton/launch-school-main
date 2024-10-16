@@ -1,6 +1,6 @@
 const readline = require("readline-sync");
 
-const MESSAGES = require("./tictactoe_messages.json");
+const MESSAGES = require("./messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
@@ -98,7 +98,6 @@ function findAtRiskSquare(line, board, marker) {
   return null;
 }
 
-//Player functions
 function chooseStartingPlayer() {
   const randomPlayerIdx = Math.floor(Math.random() * 3);
   let playerWhoStarts = STARTING_PLAYER[randomPlayerIdx];
@@ -238,7 +237,7 @@ while (true) {
     Computer: 0,
   };
   let currentPlayer;
-
+  // Best of 5 loop
   while (true) {
     let board = initializeBoard();
     currentPlayer = chooseStartingPlayer();
@@ -251,12 +250,6 @@ while (true) {
       currentPlayer = alternatePlayer(currentPlayer);
 
       if (someoneWon(board) || boardFull(board)) break;
-
-      // playerChoosesSquare(board);
-      // if (someoneWon(board) || boardFull(board)) break;
-
-      // computerChoosesSquare(board);
-      // if (someoneWon(board) || boardFull(board)) break;
     }
 
     displayBoard(board);
