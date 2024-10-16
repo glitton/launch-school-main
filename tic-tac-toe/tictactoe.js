@@ -241,8 +241,10 @@ while (true) {
   while (true) {
     let board = initializeBoard();
     currentPlayer = chooseStartingPlayer();
+    // prompt(`${currentPlayer} is starting the game. message 1`);  This isn't showing up
 
     while (true) {
+      // prompt(`${currentPlayer} is starting the game. message 2`); This isn't showing up
       displayBoard(board);
       displayScore(score);
 
