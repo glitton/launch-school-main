@@ -5,6 +5,7 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
+const STARTING_PLAYER = ["Computer", "Player", "Choose"];
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -76,7 +77,9 @@ function initializeBoard() {
 }
 
 function displayScore(score) {
-  console.log(`Player: ${score.Player} Computer: ${score.Computer}`);
+  console.log(
+    `Player Score: ${score.Player} Computer Score: ${score.Computer}`
+  );
 }
 
 function emptySquares(board) {
@@ -93,6 +96,47 @@ function findAtRiskSquare(line, board, marker) {
     }
   }
   return null;
+}
+
+//Player functions
+function chooseStartingPlayer() {
+  const randomPlayerIdx = Math.floor(Math.random() * 3);
+  let playerWhoStarts = STARTING_PLAYER[randomPlayerIdx];
+
+  while (true) {
+    if (playerWhoStarts === "Choose") {
+      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+      answer = readline.question().toLowerCase();
+      if (answer === "c") {
+        playerWhoStarts = "Computer";
+      } else {
+        playerWhoStarts = "Player";
+      }
+      if (!["c", "p"].includes(answer)) {
+        prompt(
+          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
+        );
+      }
+    }
+    prompt(`${playerWhoStarts} is starting the game.`); //Why isn't this showing up?
+    return playerWhoStarts;
+  }
+}
+
+function chooseSquare(board, currentPlayer) {
+  if (currentPlayer === "Computer") {
+    return computerChoosesSquare(board);
+  } else {
+    return playerChoosesSquare(board);
+  }
+}
+
+function alternatePlayer(currentPlayer) {
+  if (currentPlayer === "Computer") {
+    return "Player";
+  } else {
+    return "Computer";
+  }
 }
 
 function playerChoosesSquare(board) {
@@ -137,7 +181,6 @@ function computerChoosesSquare(board) {
     square = emptySquares(board)[randomIndex];
   }
 
-  console.log("square", square);
   board[square] = COMPUTER_MARKER;
 }
 
@@ -194,19 +237,26 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
+  let currentPlayer;
 
   while (true) {
     let board = initializeBoard();
+    currentPlayer = chooseStartingPlayer();
 
     while (true) {
       displayBoard(board);
       displayScore(score);
 
-      playerChoosesSquare(board);
+      chooseSquare(board, currentPlayer);
+      currentPlayer = alternatePlayer(currentPlayer);
+
       if (someoneWon(board) || boardFull(board)) break;
 
-      computerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
+      // playerChoosesSquare(board);
+      // if (someoneWon(board) || boardFull(board)) break;
+
+      // computerChoosesSquare(board);
+      // if (someoneWon(board) || boardFull(board)) break;
     }
 
     displayBoard(board);
