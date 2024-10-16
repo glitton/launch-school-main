@@ -4,7 +4,7 @@ const MESSAGES = require("./tictactoe_messages.json");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINS_NEEDED = 2;
+const WINS_NEEDED = 5;
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -92,7 +92,6 @@ function findAtRiskSquare(line, board, marker) {
       return unusedSquare;
     }
   }
-
   return null;
 }
 
@@ -116,24 +115,29 @@ function playerChoosesSquare(board) {
 function computerChoosesSquare(board) {
   let square;
 
-  //offense - not offense minded, doesn't pick the winning position at all times, why?
+  //offense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, COMPUTER_MARKER);
     if (square) break;
   }
-
   //defense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, HUMAN_MARKER);
     if (square) break;
   }
+  // pick square 5
+  if (board["5"] === INITIAL_MARKER) {
+    square = "5";
+  }
   //random
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
   }
+
+  console.log("square", square);
   board[square] = COMPUTER_MARKER;
 }
 
