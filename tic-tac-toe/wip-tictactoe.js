@@ -5,6 +5,9 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
+//For chooseStartingPlayer function
+const STARTING_PLAYER = ["Computer", "Player", "Choose"];
+const startingPlayerIdx = Math.floor(Math.random() * 3);
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -136,6 +139,51 @@ function computerChoosesSquare(board) {
   board[square] = COMPUTER_MARKER;
 }
 
+function chooseStartingPlayer() {
+  let answer;
+  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  // let playerWhoStarts = "Player";
+
+  while (true) {
+    // playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+    if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
+      break;
+    } else if (playerWhoStarts === "Choose") {
+      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+      answer = readline.question().toLowerCase();
+      if (answer === "c") {
+        playerWhoStarts = "Computer";
+      } else {
+        playerWhoStarts = "Player";
+      }
+      if (!["c", "p"].includes(answer)) {
+        prompt(
+          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
+        );
+        console.clear();
+      }
+    }
+  }
+  prompt(`${playerWhoStarts} starts the game.`);
+  return playerWhoStarts;
+}
+
+function chooseSquare(board, currentPlayer) {
+  if (currentPlayer === "Computer") {
+    return computerChoosesSquare(board);
+  } else {
+    return playerChoosesSquare(board);
+  }
+}
+
+function alternatePlayer(currentPlayer) {
+  if (currentPlayer === "Computer") {
+    return "Player";
+  } else {
+    return "Computer";
+  }
+}
+
 function boardFull(board) {
   return emptySquares(board).length === 0;
 }
@@ -189,22 +237,27 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
+  let currentPlayer;
 
   console.clear();
+
   prompt(`${MESSAGES["welcome"]}`);
   prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
 
   while (true) {
+    //Best of 5 loop
+
     let board = initializeBoard();
+
+    currentPlayer = chooseStartingPlayer();
 
     while (true) {
       displayBoard(board);
       displayScore(score);
 
-      playerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
+      chooseSquare(board, currentPlayer);
+      currentPlayer = alternatePlayer(currentPlayer);
 
-      computerChoosesSquare(board);
       if (someoneWon(board) || boardFull(board)) break;
 
       console.clear();
@@ -231,11 +284,13 @@ while (true) {
     } else {
       prompt("It's a tie!");
     }
+
     while (true) {
       if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
     }
     console.clear();
   }
+
   if (!playAgain()) {
     break;
   }

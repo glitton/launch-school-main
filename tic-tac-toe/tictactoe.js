@@ -31,7 +31,7 @@ function joinOr(arr, delimiter = ", ", word = "or") {
     return arr[0];
   }
 
-  if (arr.length == 2) {
+  if (arr.length === 2) {
     return `${arr[0]} ${word} ${arr[1]}`;
   }
 
@@ -243,7 +243,7 @@ while (true) {
   // Best of 5 loop
   while (true) {
     let board = initializeBoard();
-    5;
+
     currentPlayer = chooseStartingPlayer();
 
     while (true) {
