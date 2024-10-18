@@ -233,6 +233,7 @@ while (true) {
 
   while (true) {
     //Best of 5 loop
+
     let board = initializeBoard();
     let currentPlayer = chooseStartingPlayer();
 
