@@ -141,24 +141,18 @@ function computerChoosesSquare(board) {
 
 function chooseStartingPlayer() {
   let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  if (playerWhoStarts === "Choose") {
+    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+    let answer = readline.question().toLowerCase();
+    if (answer === "c") {
+      playerWhoStarts = "Computer";
+    } else {
+      playerWhoStarts = "Player";
+    }
 
-  while (true) {
-    if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
-      break;
-    } else if (playerWhoStarts === "Choose") {
-      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      let answer = readline.question().toLowerCase();
-      if (answer === "c") {
-        playerWhoStarts = "Computer";
-      } else {
-        playerWhoStarts = "Player";
-      }
-      if (!["c", "p"].includes(answer)) {
-        prompt(
-          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
-        );
-        console.clear();
-      }
+    if (!["c", "p"].includes(answer)) {
+      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
+      console.clear();
     }
   }
   prompt(`${playerWhoStarts} starts the game.`);
@@ -243,9 +237,7 @@ while (true) {
 
   while (true) {
     //Best of 5 loop
-
     let board = initializeBoard();
-
     currentPlayer = chooseStartingPlayer();
 
     while (true) {
