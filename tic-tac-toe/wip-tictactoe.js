@@ -145,7 +145,6 @@ function chooseStartingPlayer() {
   // let playerWhoStarts = "Player";
 
   while (true) {
-    // playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
     if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
       break;
     } else if (playerWhoStarts === "Choose") {
