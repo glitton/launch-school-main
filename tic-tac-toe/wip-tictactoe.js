@@ -44,8 +44,6 @@ function joinOr(arr, delimiter = ", ", word = "or") {
 }
 
 function displayBoard(board) {
-  console.log(`\n`);
-
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
 
   console.log("");

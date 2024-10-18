@@ -5,7 +5,9 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
+//For chooseStartingPlayer function
 const STARTING_PLAYER = ["Computer", "Player", "Choose"];
+const startingPlayerIdx = Math.floor(Math.random() * 3);
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -42,15 +44,7 @@ function joinOr(arr, delimiter = ", ", word = "or") {
 }
 
 function displayBoard(board) {
-  // console.clear();
-
-  prompt(`${MESSAGES["welcome"]}`);
-  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
-
-  console.log(`\n`);
-
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
-
   console.log("");
   console.log("     |     |");
   console.log(`  ${board["1"]}  |  ${board["2"]}  |  ${board["3"]}`);
@@ -99,27 +93,20 @@ function findAtRiskSquare(line, board, marker) {
 }
 
 function chooseStartingPlayer() {
-  const randomPlayerIdx = Math.floor(Math.random() * 3);
-  let playerWhoStarts = STARTING_PLAYER[randomPlayerIdx];
+  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  if (playerWhoStarts === "Choose") {
+    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+    let answer = readline.question().toLowerCase();
+    if (answer === "c") {
+      playerWhoStarts = "Computer";
+    } else {
+      playerWhoStarts = "Player";
+    }
 
-  while (true) {
-    if (playerWhoStarts === "Choose") {
-      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      answer = readline.question().toLowerCase();
-      if (answer === "c") {
-        playerWhoStarts = "Computer";
-      } else {
-        playerWhoStarts = "Player";
-      }
-
-      if (!["c", "p"].includes(answer)) {
-        prompt(
-          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
-        );
-        console.clear();
-      }
-    } else if (playerWhoStarts === "Computer" || playerWhoStarts === "Player")
-      break;
+    if (!["c", "p"].includes(answer)) {
+      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
+      console.clear();
+    }
   }
   prompt(`${playerWhoStarts} starts the game.`);
   return playerWhoStarts;
