@@ -236,9 +236,9 @@ while (true) {
 
     let board = initializeBoard();
     let currentPlayer = chooseStartingPlayer();
+    displayBoard(board);
 
     while (true) {
-      displayBoard(board);
       displayScore(score);
 
       chooseSquare(board, currentPlayer);
@@ -271,10 +271,10 @@ while (true) {
       prompt("It's a tie!");
     }
 
-    while (true) {
-      if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
-    }
-    console.clear();
+    // while (true) {
+    //   if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
+    // }
+    // console.clear();
   }
 
   if (!playAgain()) {
