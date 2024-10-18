@@ -110,30 +110,17 @@ function playerChoosesSquare(board) {
 
 function computerChoosesSquare(board) {
   let square;
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findAtRiskSquare(line, board);
+    if (square) break;
+  }
 
-  //offense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
-    if (square) break;
-  }
-  //defense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, HUMAN_MARKER);
-    if (square) break;
-  }
-  // pick square 5
-  if (board["5"] === INITIAL_MARKER) {
-    square = "5";
-  }
-  //random
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
   }
 
-  // console.log("square", square);
   board[square] = COMPUTER_MARKER;
 }
 
@@ -234,17 +221,15 @@ while (true) {
 
     let board = initializeBoard();
     let currentPlayer = chooseStartingPlayer();
-    displayBoard(board);
 
     while (true) {
       displayScore(score);
+      displayBoard(board);
 
       chooseSquare(board, currentPlayer);
       currentPlayer = alternatePlayer(currentPlayer);
 
       if (someoneWon(board) || boardFull(board)) break;
-
-      console.clear();
     }
 
     displayBoard(board);
@@ -269,10 +254,10 @@ while (true) {
       prompt("It's a tie!");
     }
 
-    // while (true) {
-    //   if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
-    // }
-    // console.clear();
+    while (true) {
+      if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
+    }
+    console.clear();
   }
 
   if (!playAgain()) {
