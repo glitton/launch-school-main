@@ -8,30 +8,48 @@ function prompt(message) {
 }
 
 function chooseStartingPlayer() {
-  let answer;
   let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  if (playerWhoStarts === "Choose") {
+    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+    let answer = readline.question().toLowerCase();
+    if (answer === "c") {
+      playerWhoStarts = "Computer";
+    } else {
+      playerWhoStarts = "Player";
+    }
 
-  while (true) {
-    if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
-      break;
-    } else if (playerWhoStarts === "Choose") {
-      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      answer = readline.question().toLowerCase();
-      if (answer === "c") {
-        playerWhoStarts = "Computer";
-      } else {
-        playerWhoStarts = "Player";
-      }
-      if (!["c", "p"].includes(answer)) {
-        prompt(
-          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
-        );
-        console.clear();
-      }
+    if (!["c", "p"].includes(answer)) {
+      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
+      console.clear();
     }
   }
   prompt(`${playerWhoStarts} starts the game.`);
   return playerWhoStarts;
 }
+// function chooseStartingPlayer() {
+//   let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+
+//   while (true) {
+//     if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
+//       break;
+//     } else if (playerWhoStarts === "Choose") {
+//       prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+//       answer = readline.question().toLowerCase();
+//       if (answer === "c") {
+//         playerWhoStarts = "Computer";
+//       } else {
+//         playerWhoStarts = "Player";
+//       }
+//       if (!["c", "p"].includes(answer)) {
+//         prompt(
+//           `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
+//         );
+//         console.clear();
+//       }
+//     }
+//   }
+//   prompt(`${playerWhoStarts} starts the game.`);
+//   return playerWhoStarts;
+// }
 
 chooseStartingPlayer();

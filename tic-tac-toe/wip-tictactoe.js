@@ -33,7 +33,7 @@ function joinOr(arr, delimiter = ", ", word = "or") {
     return arr[0];
   }
 
-  if (arr.length == 2) {
+  if (arr.length === 2) {
     return `${arr[0]} ${word} ${arr[1]}`;
   }
 
@@ -140,16 +140,14 @@ function computerChoosesSquare(board) {
 }
 
 function chooseStartingPlayer() {
-  let answer;
   let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
-  // let playerWhoStarts = "Player";
 
   while (true) {
     if (playerWhoStarts === "Computer" || playerWhoStarts === "Player") {
       break;
     } else if (playerWhoStarts === "Choose") {
       prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      answer = readline.question().toLowerCase();
+      let answer = readline.question().toLowerCase();
       if (answer === "c") {
         playerWhoStarts = "Computer";
       } else {

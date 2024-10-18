@@ -38,15 +38,12 @@ function joinOr(arr, delimiter = ", ", word = "or") {
   if (arr.length === 0) {
     return "";
   }
-
   if (arr.length === 1) {
     return arr[0];
   }
-
   if (arr.length === 2) {
     return `${arr[0]} ${word} ${arr[1]}`;
   }
-
   return (
     arr.slice(0, arr.length - 1).join(delimiter) +
     `${delimiter}${word} ${arr[arr.length - 1]}`
