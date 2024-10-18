@@ -5,7 +5,6 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
-const STARTING_PLAYER = ["Computer", "Player", "Choose"];
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -42,11 +41,6 @@ function joinOr(arr, delimiter = ", ", word = "or") {
 }
 
 function displayBoard(board) {
-  // console.clear();
-
-  prompt(`${MESSAGES["welcome"]}`);
-  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
-
   console.log(`\n`);
 
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
@@ -77,9 +71,7 @@ function initializeBoard() {
 }
 
 function displayScore(score) {
-  console.log(
-    `Player Score: ${score.Player} Computer Score: ${score.Computer}`
-  );
+  console.log(`Player: ${score.Player} Computer: ${score.Computer}`);
 }
 
 function emptySquares(board) {
@@ -98,49 +90,6 @@ function findAtRiskSquare(line, board, marker) {
   return null;
 }
 
-function chooseStartingPlayer() {
-  const randomPlayerIdx = Math.floor(Math.random() * 3);
-  let playerWhoStarts = STARTING_PLAYER[randomPlayerIdx];
-
-  while (true) {
-    if (playerWhoStarts === "Choose") {
-      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      answer = readline.question().toLowerCase();
-      if (answer === "c") {
-        playerWhoStarts = "Computer";
-      } else {
-        playerWhoStarts = "Player";
-      }
-
-      if (!["c", "p"].includes(answer)) {
-        prompt(
-          `${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`
-        );
-        console.clear();
-      }
-    } else if (playerWhoStarts === "Computer" || playerWhoStarts === "Player")
-      break;
-  }
-  prompt(`${playerWhoStarts} starts the game.`);
-  return playerWhoStarts;
-}
-
-function chooseSquare(board, currentPlayer) {
-  if (currentPlayer === "Computer") {
-    return computerChoosesSquare(board);
-  } else {
-    return playerChoosesSquare(board);
-  }
-}
-
-function alternatePlayer(currentPlayer) {
-  if (currentPlayer === "Computer") {
-    return "Player";
-  } else {
-    return "Computer";
-  }
-}
-
 function playerChoosesSquare(board) {
   let square;
 
@@ -152,7 +101,6 @@ function playerChoosesSquare(board) {
       break; // valid choice, chose an empty square
     } else {
       prompt(`${MESSAGES["invalidChoice"]}`);
-      console.clear();
     }
   }
 
@@ -184,6 +132,7 @@ function computerChoosesSquare(board) {
     square = emptySquares(board)[randomIndex];
   }
 
+  // console.log("square", square);
   board[square] = COMPUTER_MARKER;
 }
 
@@ -225,6 +174,7 @@ function playAgain() {
     if (["y", "n"].includes(answer)) break;
     prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
   }
+
   if (answer === "y") {
     return true;
   } else {
@@ -239,21 +189,25 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
-  let currentPlayer;
-  // Best of 5 loop
+
+  console.clear();
+  prompt(`${MESSAGES["welcome"]}`);
+  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
+
   while (true) {
     let board = initializeBoard();
-    5;
-    currentPlayer = chooseStartingPlayer();
 
     while (true) {
       displayBoard(board);
       displayScore(score);
 
-      chooseSquare(board, currentPlayer);
-      currentPlayer = alternatePlayer(currentPlayer);
-
+      playerChoosesSquare(board);
       if (someoneWon(board) || boardFull(board)) break;
+
+      computerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+      console.clear();
     }
 
     displayBoard(board);
@@ -279,8 +233,8 @@ while (true) {
     }
     while (true) {
       if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
-      console.clear();
     }
+    console.clear();
   }
   if (!playAgain()) {
     break;
