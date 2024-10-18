@@ -228,17 +228,13 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
-  let currentPlayer;
-
-  console.clear();
-
   prompt(`${MESSAGES["welcome"]}`);
   prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
 
   while (true) {
     //Best of 5 loop
     let board = initializeBoard();
-    currentPlayer = chooseStartingPlayer();
+    let currentPlayer = chooseStartingPlayer();
 
     while (true) {
       displayBoard(board);
