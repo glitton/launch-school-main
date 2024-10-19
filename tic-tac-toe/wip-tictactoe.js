@@ -110,12 +110,24 @@ function playerChoosesSquare(board) {
 
 function computerChoosesSquare(board) {
   let square;
+
+  //offense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board);
+    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
     if (square) break;
   }
-
+  //defense
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) break;
+  }
+  // pick square 5
+  if (board["5"] === INITIAL_MARKER) {
+    square = "5";
+  }
+  //random
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
@@ -125,7 +137,9 @@ function computerChoosesSquare(board) {
 }
 
 function chooseStartingPlayer() {
-  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  // let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  let playerWhoStarts = "Computer";
+
   if (playerWhoStarts === "Choose") {
     prompt(`${MESSAGES["chooseStartingPlayer"]}`);
     let answer = readline.question().toLowerCase();
@@ -145,10 +159,10 @@ function chooseStartingPlayer() {
 }
 
 function chooseSquare(board, currentPlayer) {
-  if (currentPlayer === "Computer") {
-    return computerChoosesSquare(board);
-  } else {
+  if (currentPlayer === "Player") {
     return playerChoosesSquare(board);
+  } else {
+    return computerChoosesSquare(board);
   }
 }
 
@@ -213,12 +227,12 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
+
   prompt(`${MESSAGES["welcome"]}`);
   prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
 
   while (true) {
     //Best of 5 loop
-
     let board = initializeBoard();
     let currentPlayer = chooseStartingPlayer();
 
@@ -232,7 +246,7 @@ while (true) {
       if (someoneWon(board) || boardFull(board)) break;
     }
 
-    displayBoard(board);
+    // displayBoard(board);
 
     if (someoneWon(board)) {
       let winner = detectWinner(board);
