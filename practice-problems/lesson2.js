@@ -236,5 +236,99 @@ for (let prop in truthiness) {
 
 truthiness.truthy[1] = "bennie";
 
-console.log(truthiness);
-console.log(deepCopy);
+// console.log(truthiness);
+// console.log(deepCopy);
+
+//14. Given the following data structure, use a combination of methods, including filter, to return a new array identical in structure to the original, but containing only the numbers that are multiples of 3.
+
+let arrOfNumbers = [[2], [3, 5, 7], [9], [11, 15, 18]];
+
+let multiplesOfThree = arrOfNumbers.map((arr) => {
+  return arr.filter((num) => num % 3 === 0);
+});
+
+// console.log(multiplesOfThree);
+
+//15. Given the following data structure, sort the array so that the sub-arrays are ordered based on the sum of the odd numbers that they contain.
+
+let numbersMultiArray = [
+  [1, 6, 7],
+  [1, 5, 3],
+  [1, 8, 3],
+];
+//Iterate over the array, for each subArr assign a an oddSum var to each array.  Sort the odd sum on ascending order.  Order the array based on the odd sum sorting
+
+let oddSum1 = numbersMultiArray[0].reduce((sum, oddNum) => {
+  if (oddNum % 2 !== 0) {
+    return sum + oddNum;
+  } else {
+    return sum;
+  }
+}, 0);
+
+let oddSum2 = numbersMultiArray[1].reduce((sum, oddNum) =>
+  oddNum % 2 !== 0 ? sum + oddNum : sum
+);
+let oddSum3 = numbersMultiArray[2].reduce((sum, oddNum) =>
+  oddNum % 2 !== 0 ? sum + oddNum : sum
+);
+
+// console.log(oddSum1, oddSum2, oddSum3);
+
+let sortedMultiArray = numbersMultiArray.sort((a, b) => {
+  let sumA = a.filter((num) => num % 2 !== 0).reduce((sum, next) => sum + next);
+  let sumB = b.filter((num) => num % 2 !== 0).reduce((sum, next) => sum + next);
+
+  return sumA - sumB;
+});
+
+// console.log(sortedMultiArray);
+
+//16.  Given the following data structure write some code to return an array containing the colors of the fruits and the sizes of the vegetables. The sizes should be uppercase, and the colors should be capitalized.
+
+let fruitObj = {
+  grape: { type: "fruit", colors: ["red", "green"], size: "small" },
+  carrot: { type: "vegetable", colors: ["orange"], size: "medium" },
+  apple: { type: "fruit", colors: ["red", "green"], size: "medium" },
+  apricot: { type: "fruit", colors: ["orange"], size: "medium" },
+  marrow: { type: "vegetable", colors: ["green"], size: "large" },
+};
+
+// function fruitAndVegetables(obj) {
+//   let finalFruitsArray = [];
+//   for (let prop in obj) {
+//     if (obj[prop]["type"] === "fruit") {
+//       let fruitColors = obj[prop]["colors"];
+//       fruitColors = fruitCase(fruitColors);
+//       finalFruitsArray.push(fruitColors);
+//     } else {
+//       let vegSize = vegCase(obj[prop]["size"]);
+//       finalFruitsArray.push(vegSize);
+//     }
+//   }
+//   return finalFruitsArray;
+// }
+
+// function fruitCase(arr) {
+//   return arr.map((item) => item[0].toUpperCase() + item.slice(1));
+// }
+
+// function vegCase(str) {
+//   return str.toUpperCase();
+// }
+
+// console.log(fruitAndVegetables(fruitObj));
+
+//LS version
+
+let capitalize = (word) => word[0].toUpperCase() + word.slice(1);
+
+let fruitsAndVeggies = Object.values(fruitObj).map((props) => {
+  if (props["type"] === "fruit") {
+    return props["colors"].map((char) => capitalize(char));
+  } else {
+    return props["size"].toUpperCase();
+  }
+});
+
+console.log(fruitsAndVeggies);
