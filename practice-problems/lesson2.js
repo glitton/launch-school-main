@@ -204,8 +204,8 @@ let incrementedArray = arrObjCopy.map((obj) => {
   }
   return obj;
 });
-console.log(incrementedArray);
-console.log(arrObj);
+// console.log(incrementedArray);
+// console.log(arrObj);
 
 //12.  Create a deep copy of the nested array
 
@@ -217,4 +217,24 @@ const nestedArray = [
 ];
 
 const deepCopyArray = JSON.parse(JSON.stringify(nestedArray));
-console.log(deepCopyArray);
+// console.log(deepCopyArray);
+
+//13. Create a deep copy, can't use JSON bec it doesn't recognize undefined, converts it to null.  Treats NaN as null.
+
+const truthiness = {
+  falsy: [null, undefined, "", false, NaN, 0],
+  truthy: ["everything else..."],
+};
+
+// console.log("og", truthiness);
+
+const deepCopy = {};
+
+for (let prop in truthiness) {
+  deepCopy[prop] = [...truthiness[prop]];
+}
+
+truthiness.truthy[1] = "bennie";
+
+console.log(truthiness);
+console.log(deepCopy);
