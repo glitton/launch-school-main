@@ -331,4 +331,44 @@ let fruitsAndVeggies = Object.values(fruitObj).map((props) => {
   }
 });
 
-console.log(fruitsAndVeggies);
+// console.log(fruitsAndVeggies);
+
+//17. Given the following data structure, write some code to return an array which contains only the objects where all the numbers are even.
+
+let numbersArr = [
+  { a: [1, 2, 3] },
+  { b: [2, 4, 6], c: [3, 6], d: [4] },
+  { e: [8], f: [6, 10] },
+];
+
+let evenNumbersObj = numbersArr.filter((obj) =>
+  Object.values(obj).every((subArray) => subArray.every((num) => num % 2 === 0))
+);
+
+// console.log(evenNumbersObj);
+
+//18. Given the following data structure, write some code that defines an object where the key is the first item in each subarray, and the value is the second.
+
+let myArray = [
+  ["a", 1],
+  ["b", "two"],
+  ["sea", { c: 3 }],
+  ["D", ["a", "b", "c"]],
+];
+
+// expected value of object
+// { a: 1, b: 'two', sea: { c: 3 }, D: [ 'a', 'b', 'c' ] }
+
+let myObj = {};
+myArray.forEach((arr) => {
+  let key = arr[0];
+  let value = arr[1];
+  myObj[key] = value;
+});
+
+// console.log(myObj);
+
+let objEntries = Object.fromEntries(myArray);
+// console.log(objEntries);
+
+//19. Remember The Munsters from earlier questions? For this problem, you are tasked with creating a deep copy of the munsters object, whose nested objects cannot be altered.
