@@ -372,3 +372,74 @@ let objEntries = Object.fromEntries(myArray);
 // console.log(objEntries);
 
 //19. Remember The Munsters from earlier questions? For this problem, you are tasked with creating a deep copy of the munsters object, whose nested objects cannot be altered.
+
+const munstersIndestructible = JSON.parse(
+  JSON.stringify(munsters),
+  (munster, info) => Object.freeze(info)
+);
+
+//20. Write a function that takes no arguments and returns a string that contains a UUID.
+/*
+P:
+Input: None
+Output: 
+- 5 sections of strings with an 8-4-4-4-12 pattern
+- The string consists of digits 0-9 and letters a-f
+E: 'f65c57f6-a6aa-17a8-faa1-a67f2dc9fa91'
+D: Array
+A:
+- create an array of characters and sections
+- create a UUID variable assign it to an empty string
+- iterate over the sections array
+  -- Use a for loop to generate random characters the length of the section number
+  -- append the random character to a UUID variable
+  -- At the section length index, add a hyphen to the UUID variable
+- return UUID
+*/
+
+function generateUUID() {
+  let characters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
+  let sections = [8, 4, 4, 4, 12];
+  let uuid = "";
+
+  sections.forEach((section, sectionIndex) => {
+    console.log(section, sectionIndex);
+
+    for (let idx = 1; idx <= section; idx++) {
+      let randomIdx = Math.floor(Math.random() * characters.length);
+      uuid += characters[randomIdx];
+    }
+    // This happens after the for loop.  sectionIndex will always be smaller except for
+    // the last index which is 4.  We don't want to add a hyphen in the last index hence this condition.
+    if (sectionIndex < sections.length - 1) {
+      uuid += "-";
+    }
+  });
+  return uuid;
+}
+
+// console.log(generateUUID());
+// generateUUID();
+
+//21. Identify the higher-order functions and callbacks in this code.
+
+function scream(message, helper) {
+  const shout = () => message.toUpperCase();
+
+  return helper(shout()); // what is passed here is the return value of shout and not the function itself
+}
+
+const exclamate = (str) => str + "!!!";
+
+const foo = ["heLp", "Boo", "arGH", "Oh no"];
+const FOO = foo.map((word) => scream(word, exclamate));
+
+/*
+Higher-order functions (take another function as an argument, return a function, or both)
+- scream and map 
+
+
+Callbacks (passed as arguments to other functions)
+- callback is used in the map method (word) => scream(word, exclamate)
+- exclamate is a callback and is used as an argument in the scream function within the FOO arrow function
+*/
