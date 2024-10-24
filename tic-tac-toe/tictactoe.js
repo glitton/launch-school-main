@@ -161,16 +161,13 @@ function computerChoosesSquare(board) {
     square = findAtRiskSquare(line, board, HUMAN_MARKER);
     if (square) break;
   }
-  // pick square 5
+  // pick square 5 and random
   if (board["5"] === INITIAL_MARKER) {
     square = "5";
-  }
-  //random
-  if (!square) {
+  } else if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
   }
-
   board[square] = COMPUTER_MARKER;
 }
 

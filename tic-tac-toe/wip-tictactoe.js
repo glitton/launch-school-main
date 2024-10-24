@@ -45,7 +45,6 @@ function joinOr(arr, delimiter = ", ", word = "or") {
 
 function displayBoard(board) {
   console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
-
   console.log("");
   console.log("     |     |");
   console.log(`  ${board["1"]}  |  ${board["2"]}  |  ${board["3"]}`);
@@ -72,69 +71,9 @@ function initializeBoard() {
 }
 
 function displayScore(score) {
-  console.log(`Player: ${score.Player} Computer: ${score.Computer}`);
-}
-
-function emptySquares(board) {
-  return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
-}
-
-function findAtRiskSquare(line, board, marker) {
-  let markersInLine = line.map((square) => board[square]);
-
-  if (markersInLine.filter((val) => val === marker).length === 2) {
-    let unusedSquare = line.find((square) => board[square] === INITIAL_MARKER);
-    if (unusedSquare !== undefined) {
-      return unusedSquare;
-    }
-  }
-  return null;
-}
-
-function playerChoosesSquare(board) {
-  let square;
-
-  while (true) {
-    prompt(`${MESSAGES["playerChoosesSquare"]}${joinOr(emptySquares(board))}`);
-    square = readline.question().trim();
-
-    if (emptySquares(board).includes(square)) {
-      break; // valid choice, chose an empty square
-    } else {
-      prompt(`${MESSAGES["invalidChoice"]}`);
-    }
-  }
-
-  board[square] = HUMAN_MARKER;
-}
-
-function computerChoosesSquare(board) {
-  let square;
-
-  //offense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
-    if (square) break;
-  }
-  //defense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, HUMAN_MARKER);
-    if (square) break;
-  }
-  // pick square 5
-  if (board["5"] === INITIAL_MARKER) {
-    square = "5";
-  }
-  //random
-  if (!square) {
-    let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-    square = emptySquares(board)[randomIndex];
-  }
-
-  // console.log("square", square);
-  board[square] = COMPUTER_MARKER;
+  console.log(
+    `Player Score: ${score.Player} Computer Score: ${score.Computer}`
+  );
 }
 
 function chooseStartingPlayer() {
@@ -171,6 +110,66 @@ function alternatePlayer(currentPlayer) {
   } else {
     return "Computer";
   }
+}
+
+function emptySquares(board) {
+  return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
+}
+
+function findAtRiskSquare(line, board, marker) {
+  let markersInLine = line.map((square) => board[square]);
+  if (markersInLine.filter((val) => val === marker).length === 2) {
+    let unusedSquare = line.find((square) => board[square] === INITIAL_MARKER);
+    if (unusedSquare !== undefined) {
+      console.log("unused", unusedSquare);
+
+      return unusedSquare;
+    }
+  }
+  return null;
+}
+
+function playerChoosesSquare(board) {
+  let square;
+
+  while (true) {
+    prompt(`${MESSAGES["playerChoosesSquare"]}${joinOr(emptySquares(board))}`);
+    square = readline.question().trim();
+
+    if (emptySquares(board).includes(square)) {
+      break; // valid choice, chose an empty square
+    } else {
+      prompt(`${MESSAGES["invalidChoice"]}`);
+      console.clear();
+    }
+  }
+
+  board[square] = HUMAN_MARKER;
+}
+
+function computerChoosesSquare(board) {
+  let square;
+  // offense
+  if (!square) {
+    for (let index = 0; index < WINNING_LINES.length; index++) {
+      let line = WINNING_LINES[index];
+      square = findAtRiskSquare(line, board, COMPUTER_MARKER);
+      if (square) break;
+    }
+  }
+  // defense
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) break;
+  }
+  // just pick a random square
+  if (!square) {
+    let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+    square = emptySquares(board)[randomIndex];
+  }
+
+  board[square] = COMPUTER_MARKER;
 }
 
 function boardFull(board) {
@@ -211,7 +210,6 @@ function playAgain() {
     if (["y", "n"].includes(answer)) break;
     prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctChoice"]}`);
   }
-
   if (answer === "y") {
     return true;
   } else {
@@ -226,25 +224,21 @@ while (true) {
     Player: 0,
     Computer: 0,
   };
-  prompt(`${MESSAGES["welcome"]}`);
-  prompt(`${MESSAGES["winner"]}${WINS_NEEDED}`);
-
+  let currentPlayer;
+  // Best of 5 loop
   while (true) {
-    //Best of 5 loop
-
     let board = initializeBoard();
-    let currentPlayer = chooseStartingPlayer();
-    displayBoard(board);
+
+    currentPlayer = chooseStartingPlayer();
 
     while (true) {
+      displayBoard(board);
       displayScore(score);
 
       chooseSquare(board, currentPlayer);
       currentPlayer = alternatePlayer(currentPlayer);
 
       if (someoneWon(board) || boardFull(board)) break;
-
-      console.clear();
     }
 
     displayBoard(board);
@@ -268,13 +262,11 @@ while (true) {
     } else {
       prompt("It's a tie!");
     }
-
-    // while (true) {
-    //   if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
-    // }
-    // console.clear();
+    while (true) {
+      if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
+      console.clear();
+    }
   }
-
   if (!playAgain()) {
     break;
   }
