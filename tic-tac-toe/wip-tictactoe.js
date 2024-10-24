@@ -78,18 +78,18 @@ function displayScore(score) {
 
 function chooseStartingPlayer() {
   let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  let answer;
   if (playerWhoStarts === "Choose") {
-    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-    let answer = readline.question().toLowerCase();
+    while (true) {
+      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+      answer = readline.question().toLowerCase();
+      if (["c", "p"].includes(answer)) break;
+      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
+    }
     if (answer === "c") {
       playerWhoStarts = "Computer";
     } else {
       playerWhoStarts = "Player";
-    }
-
-    if (!["c", "p"].includes(answer)) {
-      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
-      console.clear();
     }
   }
   prompt(`${playerWhoStarts} starts the game.`);

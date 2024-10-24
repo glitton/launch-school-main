@@ -5,6 +5,9 @@ const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
+//For chooseStartingPlayer function
+const STARTING_PLAYER = ["Computer", "Player", "Choose"];
+const startingPlayerIdx = Math.floor(Math.random() * 3);
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -90,20 +93,20 @@ function findAtRiskSquare(line, board, marker) {
 }
 
 function chooseStartingPlayer() {
-  const STARTING_PLAYER = ["Computer", "Player", "Choose"];
-  let playerWhoStarts = STARTING_PLAYER[Math.floor(Math.random() * 3)];
-  // let playerWhoStarts = "Choose";
+  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  let answer;
   if (playerWhoStarts === "Choose") {
-    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-    let answer = readline.question().toLowerCase();
-    if (answer === "c") {
-      playerWhoStarts = "Computer";
-    } else if (answer === "p") {
-      playerWhoStarts = "Player";
-    } else {
+    while (true) {
+      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+      answer = readline.question().toLowerCase();
+      if (["c", "p"].includes(answer)) break;
       prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
     }
-    console.clear();
+    if (answer === "c") {
+      playerWhoStarts = "Computer";
+    } else {
+      playerWhoStarts = "Player";
+    }
   }
   prompt(`${playerWhoStarts} starts the game.`);
   return playerWhoStarts;
@@ -137,9 +140,8 @@ function playerChoosesSquare(board) {
     } else {
       prompt(`${MESSAGES["invalidChoice"]}`);
     }
-    console.clear();
   }
-
+  console.clear();
   board[square] = HUMAN_MARKER;
 }
 
