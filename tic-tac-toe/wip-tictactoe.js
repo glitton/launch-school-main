@@ -6,8 +6,8 @@ const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
 //For chooseStartingPlayer function
-const STARTING_PLAYER = ["Computer", "Player", "Choose"];
-const startingPlayerIdx = Math.floor(Math.random() * 3);
+// const STARTING_PLAYER = ["Computer", "Player", "Choose"];
+// const startingPlayerIdx = Math.floor(Math.random() * 3);
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -77,21 +77,20 @@ function displayScore(score) {
 }
 
 function chooseStartingPlayer() {
-  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  let playerWhoStarts;
   let answer;
-  if (playerWhoStarts === "Choose") {
-    while (true) {
-      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-      answer = readline.question().toLowerCase();
-      if (["c", "p"].includes(answer)) break;
-      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
-    }
-    if (answer === "c") {
-      playerWhoStarts = "Computer";
-    } else {
-      playerWhoStarts = "Player";
-    }
+  while (true) {
+    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+    answer = readline.question().toLowerCase();
+    if (["c", "p"].includes(answer)) break;
+    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
   }
+  if (answer === "c") {
+    playerWhoStarts = "Computer";
+  } else {
+    playerWhoStarts = "Player";
+  }
+
   prompt(`${playerWhoStarts} starts the game.`);
   return playerWhoStarts;
 }
