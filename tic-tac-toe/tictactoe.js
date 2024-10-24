@@ -165,6 +165,7 @@ function computerChoosesSquare(board) {
   if (board["5"] === INITIAL_MARKER) {
     square = "5";
   }
+
   //random
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);

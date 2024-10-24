@@ -123,10 +123,12 @@ function computerChoosesSquare(board) {
     square = findAtRiskSquare(line, board, HUMAN_MARKER);
     if (square) break;
   }
+
   // pick square 5
   if (board["5"] === INITIAL_MARKER) {
     square = "5";
   }
+
   //random
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
