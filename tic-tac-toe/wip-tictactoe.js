@@ -137,8 +137,8 @@ function computerChoosesSquare(board) {
 }
 
 function chooseStartingPlayer() {
-  // let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
-  let playerWhoStarts = "Computer";
+  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  // let playerWhoStarts = "Computer";
 
   if (playerWhoStarts === "Choose") {
     prompt(`${MESSAGES["chooseStartingPlayer"]}`);
