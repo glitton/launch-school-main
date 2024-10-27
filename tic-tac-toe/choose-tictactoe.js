@@ -144,10 +144,8 @@ function playerChoosesSquare(board) {
   board[square] = HUMAN_MARKER;
 }
 
-function computerChoosesSquare(board) {
+function computerOffenseMove(board) {
   let square;
-
-  // Offense first
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, COMPUTER_MARKER);
@@ -156,7 +154,10 @@ function computerChoosesSquare(board) {
       return;
     }
   }
+}
 
+function computerDefenseMove(board) {
+  let square;
   // Defense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
@@ -166,6 +167,13 @@ function computerChoosesSquare(board) {
       return;
     }
   }
+}
+function computerChoosesSquare(board) {
+  let square;
+
+  computerOffenseMove(board); // offense first
+
+  computerDefenseMove(board);
 
   // pick square 5 and random
   if (!square) {
