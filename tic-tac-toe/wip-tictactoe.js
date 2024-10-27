@@ -6,8 +6,8 @@ const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 const WINS_NEEDED = 5;
 //For chooseStartingPlayer function
-// const STARTING_PLAYER = ["Computer", "Player", "Choose"];
-// const startingPlayerIdx = Math.floor(Math.random() * 3);
+const STARTING_PLAYER = ["Computer", "Player", "Choose"];
+const startingPlayerIdx = Math.floor(Math.random() * 3);
 
 let WINNING_LINES = [
   [1, 2, 3], // rows
@@ -76,21 +76,38 @@ function displayScore(score) {
   );
 }
 
-function chooseStartingPlayer() {
-  let playerWhoStarts;
-  let answer;
-  while (true) {
-    prompt(`${MESSAGES["chooseStartingPlayer"]}`);
-    answer = readline.question().toLowerCase();
-    if (["c", "p"].includes(answer)) break;
-    prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
-  }
-  if (answer === "c") {
-    playerWhoStarts = "Computer";
-  } else {
-    playerWhoStarts = "Player";
-  }
+function emptySquares(board) {
+  return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
+}
 
+function findAtRiskSquare(line, board, marker) {
+  let markersInLine = line.map((square) => board[square]);
+
+  if (markersInLine.filter((val) => val === marker).length === 2) {
+    let unusedSquare = line.find((square) => board[square] === INITIAL_MARKER);
+    if (unusedSquare !== undefined) {
+      return unusedSquare;
+    }
+  }
+  return null;
+}
+
+function chooseStartingPlayer() {
+  let playerWhoStarts = STARTING_PLAYER[startingPlayerIdx];
+  let answer;
+  if (playerWhoStarts === "Choose") {
+    while (true) {
+      prompt(`${MESSAGES["chooseStartingPlayer"]}`);
+      answer = readline.question().toLowerCase();
+      if (["c", "p"].includes(answer)) break;
+      prompt(`${MESSAGES["invalidChoice"]} ${MESSAGES["correctPlayerChoice"]}`);
+    }
+    if (answer === "c") {
+      playerWhoStarts = "Computer";
+    } else {
+      playerWhoStarts = "Player";
+    }
+  }
   prompt(`${playerWhoStarts} starts the game.`);
   return playerWhoStarts;
 }
@@ -111,23 +128,6 @@ function alternatePlayer(currentPlayer) {
   }
 }
 
-function emptySquares(board) {
-  return Object.keys(board).filter((key) => board[key] === INITIAL_MARKER);
-}
-
-function findAtRiskSquare(line, board, marker) {
-  let markersInLine = line.map((square) => board[square]);
-  if (markersInLine.filter((val) => val === marker).length === 2) {
-    let unusedSquare = line.find((square) => board[square] === INITIAL_MARKER);
-    if (unusedSquare !== undefined) {
-      console.log("unused", unusedSquare);
-
-      return unusedSquare;
-    }
-  }
-  return null;
-}
-
 function playerChoosesSquare(board) {
   let square;
 
@@ -139,15 +139,22 @@ function playerChoosesSquare(board) {
       break; // valid choice, chose an empty square
     } else {
       prompt(`${MESSAGES["invalidChoice"]}`);
-      console.clear();
     }
   }
-
+  console.clear();
   board[square] = HUMAN_MARKER;
 }
 
 function computerChoosesSquare(board) {
   let square;
+
+  // defense first
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) break;
+  }
+
   // offense
   if (!square) {
     for (let index = 0; index < WINNING_LINES.length; index++) {
@@ -156,12 +163,7 @@ function computerChoosesSquare(board) {
       if (square) break;
     }
   }
-  // defense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, HUMAN_MARKER);
-    if (square) break;
-  }
+
   // just pick a random square
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
@@ -227,7 +229,6 @@ while (true) {
   // Best of 5 loop
   while (true) {
     let board = initializeBoard();
-
     currentPlayer = chooseStartingPlayer();
 
     while (true) {
@@ -263,8 +264,8 @@ while (true) {
     }
     while (true) {
       if (readline.question(`${MESSAGES["anotherGame"]}`)) break;
-      console.clear();
     }
+    console.clear();
   }
   if (!playAgain()) {
     break;
