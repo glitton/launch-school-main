@@ -144,36 +144,55 @@ function playerChoosesSquare(board) {
   board[square] = HUMAN_MARKER;
 }
 
-function computerOffenseMove(board) {
+// function computerOffenseMove(board) {
+//   let square;
+//   if (!square) {
+//     for (let index = 0; index < WINNING_LINES.length; index++) {
+//       let line = WINNING_LINES[index];
+//       square = findAtRiskSquare(line, board, COMPUTER_MARKER);
+//       if (square) {
+//         board[square] = COMPUTER_MARKER;
+//         return;
+//       }
+//     }
+//     console.log("o", square);
+//   }
+// }
+
+// function computerDefenseMove(board) {
+//   let square;
+//   // Defense
+//   for (let index = 0; index < WINNING_LINES.length; index++) {
+//     let line = WINNING_LINES[index];
+//     square = findAtRiskSquare(line, board, HUMAN_MARKER);
+//     if (square) {
+//       board[square] = COMPUTER_MARKER;
+//       return;
+//     }
+//   }
+//   console.log("d", square);
+// }
+
+function computerChoosesSquare(board) {
   let square;
+
+  // Offense first
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, COMPUTER_MARKER);
     if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
+      return (board[square] = COMPUTER_MARKER);
     }
   }
-}
 
-function computerDefenseMove(board) {
-  let square;
   // Defense
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, HUMAN_MARKER);
     if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
+      return (board[square] = COMPUTER_MARKER);
     }
   }
-}
-function computerChoosesSquare(board) {
-  let square;
-
-  computerOffenseMove(board); // offense first
-
-  computerDefenseMove(board);
 
   // pick square 5 and random
   if (!square) {
@@ -182,11 +201,11 @@ function computerChoosesSquare(board) {
     } else {
       let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
       square = emptySquares(board)[randomIndex];
-      console.log("r", square);
+      // console.log("r", square);
     }
   }
-
-  board[square] = COMPUTER_MARKER;
+  // console.log("f", square);
+  return (board[square] = COMPUTER_MARKER);
 }
 
 function boardFull(board) {
@@ -252,9 +271,10 @@ while (true) {
       displayScore(score);
 
       chooseSquare(board, currentPlayer);
-      currentPlayer = alternatePlayer(currentPlayer);
 
       if (someoneWon(board) || boardFull(board)) break;
+
+      currentPlayer = alternatePlayer(currentPlayer);
     }
 
     displayBoard(board);

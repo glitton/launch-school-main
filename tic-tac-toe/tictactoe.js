@@ -145,49 +145,35 @@ function playerChoosesSquare(board) {
   board[square] = HUMAN_MARKER;
 }
 
-function computerOffenseMove(board) {
-  let square;
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
-    if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
-    }
-  }
-}
-
-function computerDefenseMove(board) {
-  let square;
-  // Defense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, HUMAN_MARKER);
-    if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
-    }
-  }
-}
 function computerChoosesSquare(board) {
   let square;
 
-  computerOffenseMove(board); // offense first
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
 
-  computerDefenseMove(board);
+    // Offense first
+    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
+    if (square) {
+      return (board[square] = COMPUTER_MARKER);
+    }
 
-  // pick square 5 and random
-  if (!square) {
-    if (board["5"] === INITIAL_MARKER) {
-      square = "5";
-    } else {
-      let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-      square = emptySquares(board)[randomIndex];
-      console.log("r", square);
+    // Then defense
+    square = findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) {
+      return (board[square] = COMPUTER_MARKER);
     }
   }
 
-  board[square] = COMPUTER_MARKER;
+  // Random and 5 square
+  if (board["5"] === INITIAL_MARKER) {
+    square = "5";
+  } else {
+    let emptySqrs = emptySquares(board);
+    let randomIndex = Math.floor(Math.random() * emptySqrs.length);
+    square = emptySqrs[randomIndex];
+  }
+
+  return (board[square] = COMPUTER_MARKER);
 }
 
 function boardFull(board) {

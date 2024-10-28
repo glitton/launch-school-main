@@ -145,49 +145,26 @@ function playerChoosesSquare(board) {
   board[square] = HUMAN_MARKER;
 }
 
-function computerOffenseMove(board) {
-  let square;
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, COMPUTER_MARKER);
-    if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
-    }
-  }
-}
-
-function computerDefenseMove(board) {
-  let square;
-  // Defense
-  for (let index = 0; index < WINNING_LINES.length; index++) {
-    let line = WINNING_LINES[index];
-    square = findAtRiskSquare(line, board, HUMAN_MARKER);
-    if (square) {
-      board[square] = COMPUTER_MARKER;
-      return;
-    }
-  }
-}
 function computerChoosesSquare(board) {
-  let square;
-
-  computerOffenseMove(board); // offense first
-
-  computerDefenseMove(board);
-
-  // pick square 5 and random
-  if (!square) {
-    if (board["5"] === INITIAL_MARKER) {
-      square = "5";
-    } else {
-      let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-      square = emptySquares(board)[randomIndex];
-      console.log("r", square);
-    }
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    let square =
+      findAtRiskSquare(line, board, COMPUTER_MARKER) ||
+      findAtRiskSquare(line, board, HUMAN_MARKER);
+    if (square) return gameMarker(board, square);
   }
 
-  board[square] = COMPUTER_MARKER;
+  let square = board["5"] === INITIAL_MARKER ? "5" : randomSquare(board);
+  return gameMarker(board, square);
+}
+//Helper for computerChoosesSquare offense and defense
+function gameMarker(board, square) {
+  return (board[square] = COMPUTER_MARKER);
+}
+//Helper for computerChoosesSquare, random
+function randomSquare(board) {
+  let emptySqrs = emptySquares(board);
+  return emptySqrs[Math.floor(Math.random() * emptySqrs.length)];
 }
 
 function boardFull(board) {
