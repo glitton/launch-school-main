@@ -195,10 +195,11 @@ while (true) {
   playerCards.push(...dealTwoFromDeck(deck));
   dealerCards.push(...dealTwoFromDeck(deck));
 
+  let playerTotal = total(playerCards);
+  let dealerTotal = total(dealerCards);
+
   prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
-  prompt(
-    `You have: ${hand(playerCards)}, for a total of ${total(playerCards)}.`
-  );
+  prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
 
   // player turn
   playerTurn(playerCards, deck);
@@ -213,7 +214,7 @@ while (true) {
     }
   } else {
     console.clear();
-    prompt(`You chose to stay with ${total(playerCards)}.`);
+    prompt(`You chose to stay with ${playerTotal}.`);
   }
 
   // dealer turn
@@ -221,7 +222,7 @@ while (true) {
   dealerTurn(dealerCards, deck);
 
   if (busted(dealerCards)) {
-    prompt(`Dealer busts: ${total(dealerCards)}. `);
+    prompt(`Dealer busts: ${dealerTotal}. `);
     displayResults(dealerCards, playerCards);
     if (playAgain()) {
       console.clear();
@@ -230,7 +231,7 @@ while (true) {
       break;
     }
   } else {
-    prompt(`Dealer stays with ${total(dealerCards)}.`);
+    prompt(`Dealer stays with ${dealerTotal}.`);
   }
 
   // compare cards - dealer and player both stay
