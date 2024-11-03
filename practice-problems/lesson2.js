@@ -441,5 +441,5 @@ Higher-order functions (take another function as an argument, return a function,
 
 Callbacks (passed as arguments to other functions)
 - callback is used in the map method (word) => scream(word, exclamate)
-- exclamate is a callback and is used as an argument in the scream function within the FOO arrow function
+- exclamate is a callback and is used as an argument in the scream function 
 */
