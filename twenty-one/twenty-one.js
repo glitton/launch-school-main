@@ -25,7 +25,6 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-//Game Setup functions
 function shuffle(array) {
   for (let idx = array.length - 1; idx > 0; idx -= 1) {
     let otherIdx = Math.floor(Math.random() * (idx + 1));
@@ -45,11 +44,7 @@ function initializeDeck() {
   return shuffle(deck);
 }
 
-// //function dealCards(deck){
-
-// }
-
-//calculate cards and Aces
+//Calculate cards and aces
 function total(cards) {
   // cards = [
   //   { rank: "2", suit: "H" },
@@ -80,15 +75,171 @@ function total(cards) {
   return sum;
 }
 
-//Player turn loop
-while (true) {
-  console.log("hit or stay?");
-  let answer = readline.question();
-  if (answer === "stay" || busted()) break;
+function busted(cards) {
+  return total(cards) > GOAL_SUM;
 }
 
-if (busted()) {
-  // probably end the game? or ask the user to play again?
-} else {
-  console.log("You chose to stay!"); // if player didn't bust, must have stayed to get here
+function playerTurn(playerCards, deck) {
+  while (true) {
+    let playerTurn;
+    while (true) {
+      prompt("Would you like to (h)it or (s)tay?");
+      playerTurn = readline.question().toLowerCase();
+      if (["h", "s"].includes(playerTurn)) break;
+      prompt("Sorry, please enter 'h' or 's'.");
+    }
+
+    if (playerTurn === "h") {
+      playerCards.push(deck.pop());
+      console.clear();
+      prompt("You chose to hit!");
+      prompt(`Your cards: ${hand(playerCards)}.`);
+      prompt(`Your total: ${total(playerCards)}.`);
+    }
+
+    if (playerTurn === "s" || busted(playerCards)) break;
+  }
 }
+
+function dealerTurn(dealerCards, deck) {
+  while (total(dealerCards) < DEALER_MIN_SUM) {
+    prompt("Dealer hits!");
+    dealerCards.push(deck.pop());
+    prompt(`Dealer's cards: ${hand(dealerCards)}.`);
+  }
+}
+
+function detectResult(dealerCards, playerCards) {
+  let playerTotal = total(playerCards);
+  let dealerTotal = total(dealerCards);
+
+  if (playerTotal > GOAL_SUM) {
+    return "PLAYER_BUSTED";
+  } else if (dealerTotal > GOAL_SUM) {
+    return "DEALER_BUSTED";
+  } else if (playerTotal > dealerTotal) {
+    return "PLAYER";
+  } else if (dealerTotal > playerTotal) {
+    return "DEALER";
+  } else {
+    return "TIE";
+  }
+}
+
+function logFinalScore(dealerCards, playerCards) {
+  console.log("=*=*=*=*=*=*=*=");
+  console.log("");
+  prompt(
+    `Dealer has ${hand(dealerCards)}, for a total of: ${total(dealerCards)}`
+  );
+  prompt(
+    `Player has ${hand(playerCards)}, for a total of: ${total(playerCards)}`
+  );
+  console.log("");
+  console.log("=*=*=*=*=*=*=*=");
+}
+
+function displayResults(dealerCards, playerCards) {
+  let result = detectResult(dealerCards, playerCards);
+
+  switch (result) {
+    case "PLAYER_BUSTED":
+      prompt("Sorry, you busted, dealer wins! ");
+      break;
+    case "DEALER_BUSTED":
+      prompt("Dealer busted, you win!");
+      break;
+    case "PLAYER":
+      prompt("Congrats, you win!");
+      break;
+    case "DEALER":
+      prompt("Dealer wins!");
+      break;
+    case "TIE":
+      prompt("It's a tie!");
+  }
+}
+
+function playAgain() {
+  console.log("=*=*=*=*=*=*=*=");
+  console.log("");
+  let answer;
+  while (true) {
+    prompt("Another game? (y or n)");
+    answer = readline.question().toLowerCase();
+    if (["y", "n"].includes(answer)) break;
+    prompt("Sorry, please enter 'y' or 'n'.");
+  }
+  return answer === "y";
+}
+
+function dealTwoFromDeck(deck) {
+  return [deck.pop(), deck.pop()];
+}
+
+function hand(cards) {
+  return cards.map((card) => `${card.rank}${card.suit}`).join(", ");
+}
+
+//GAME STARTS HERE
+console.clear();
+prompt("Let's play Twenty-One!");
+
+while (true) {
+  //initialize game
+  let deck = initializeDeck();
+  let playerCards = [];
+  let dealerCards = [];
+
+  // first deal of two cards
+  playerCards.push(...dealTwoFromDeck(deck));
+  dealerCards.push(...dealTwoFromDeck(deck));
+
+  prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
+  prompt(
+    `You have: ${hand(playerCards)}, for a total of ${total(playerCards)}.`
+  );
+
+  // player turn
+  playerTurn(playerCards, deck);
+
+  if (busted(playerCards)) {
+    displayResults(dealerCards, playerCards);
+    if (playAgain()) {
+      console.clear();
+      continue;
+    } else {
+      break;
+    }
+  } else {
+    console.clear();
+    prompt(`You chose to stay with ${total(playerCards)}.`);
+  }
+
+  // dealer turn
+  prompt("Dealer turn ...");
+  dealerTurn(dealerCards, deck);
+
+  if (busted(dealerCards)) {
+    prompt(`Dealer busts: ${total(dealerCards)}. `);
+    displayResults(dealerCards, playerCards);
+    if (playAgain()) {
+      console.clear();
+      continue;
+    } else {
+      break;
+    }
+  } else {
+    prompt(`Dealer stays with ${total(dealerCards)}.`);
+  }
+
+  // compare cards - dealer and player both stay
+  logFinalScore(dealerCards, playerCards);
+  displayResults(dealerCards, playerCards);
+
+  if (!playAgain()) break;
+
+  console.clear();
+}
+
+console.log("Thanks for playing Twenty-One, goodbye!");
