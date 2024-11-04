@@ -163,28 +163,15 @@ function displayResults(dealerTotal, playerTotal) {
     case "TIE":
       prompt("It's a tie!");
   }
+  return result;
 }
-
-// function logFinalScoreAndDisplayResults(
-//   dealerCards,
-//   playerCards,
-//   dealerTotal,
-//   playerTotal
-// ) {
-//   logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-//   displayResults(dealerTotal, playerTotal);
-// }
-
-// function displayRoundScores(dealerTotal, playerTotal){
-
-// }
 
 function playAgain() {
   console.log("=*=*=*=*=*=*=*=");
   console.log("");
   let answer;
   while (true) {
-    prompt("Another game? (y or n)");
+    prompt("Another round of 5 games? (y or n)");
     answer = readline.question().toLowerCase();
     if (["y", "n"].includes(answer)) break;
     prompt("Sorry, please enter 'y' or 'n'.");
@@ -200,6 +187,10 @@ function hand(cards) {
   return cards.map((card) => `${card.rank}${card.suit}`).join(", ");
 }
 
+function displayScore(score) {
+  console.log(`Player Score: ${score.player} Dealer Score: ${score.dealer}`);
+}
+
 //GAME STARTS HERE
 console.clear();
 prompt(
@@ -210,78 +201,98 @@ prompt(
 );
 console.log("");
 
-// while (true) {
-//   // start best of 3
-//   let score = {
-//     Player: 0,
-//     Dealer: 0,
-//   };
-
 while (true) {
-  //initialize game
-  let deck = initializeDeck();
-  let playerCards = [];
-  let dealerCards = [];
+  // play best of 3 of 5 rounds
+  let score = {
+    player: 0,
+    dealer: 0,
+  };
+  let round = 1;
 
-  // first deal of two cards
-  playerCards.push(...dealTwoFromDeck(deck));
-  dealerCards.push(...dealTwoFromDeck(deck));
-  // calculate card totals
-  let playerTotal = total(playerCards);
-  let dealerTotal = total(dealerCards);
+  while (true) {
+    //initialize game
+    prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
+    displayScore(score);
+    console.log("");
 
-  prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
-  prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
+    let deck = initializeDeck();
+    let playerCards = [];
+    let dealerCards = [];
 
-  // player turn
-  playerTotal = playerTurn(playerCards, deck, playerTotal);
+    // first deal of two cards
+    playerCards.push(...dealTwoFromDeck(deck));
+    dealerCards.push(...dealTwoFromDeck(deck));
+    // calculate card totals
+    let playerTotal = total(playerCards);
+    let dealerTotal = total(dealerCards);
 
-  if (busted(playerCards)) {
-    // score.Dealer += 1; // add score to Player
+    prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
+    prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
+
+    // player turn
+    playerTotal = playerTurn(playerCards, deck, playerTotal);
+
+    if (busted(playerCards)) {
+      score.dealer += 1;
+      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+      displayResults(dealerTotal, playerTotal);
+      // if (playAgain()) {
+      //   console.clear();
+      //   continue;
+      // } else {
+      //   break;
+      // }
+    } else {
+      console.clear();
+      prompt(`You chose to stay with ${playerTotal}.`);
+    }
+
+    // dealer turn
+    prompt("Dealer turn ...");
+    dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
+
+    if (busted(dealerCards)) {
+      score.player += 1;
+      prompt(`Dealer busts: ${dealerTotal}. `);
+      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+      displayResults(dealerTotal, playerTotal);
+
+      // if (playAgain()) {
+      //   console.clear();
+      //   continue;
+      // } else {
+      //   break;
+      // }
+    } else {
+      prompt(`Dealer stays with ${dealerTotal}.`);
+    }
+
+    // compare cards - dealer and player both stay
     logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-    displayResults(dealerTotal, playerTotal);
-    if (playAgain()) {
-      console.clear();
-      continue;
-    } else {
+    let winner = displayResults(dealerTotal, playerTotal);
+    // update scores
+    if (winner === "PLAYER") {
+      score.player += 1;
+    } else if (winner === "DEALER") {
+      score.dealer += 1;
+    }
+
+    round += 1;
+    // Anyone win 3 games?
+    if (score[winner] === WINS_NEEDED) {
+      prompt(
+        `${WINNER} won ${WINS_NEEDED} games and is the Twenty-One champion!`
+      );
       break;
     }
-  } else {
-    console.clear();
-    prompt(`You chose to stay with ${playerTotal}.`);
+    // Are we past round 5,
+    // if (round > TOTAL_ROUNDS) {
+    //   console.log(`Played ${TOTAL_ROUNDS} rounds, who won?`);
+    //   break;
+    // }
+
+    // console.clear();
   }
-
-  // dealer turn
-  prompt("Dealer turn ...");
-  dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
-
-  if (busted(dealerCards)) {
-    prompt(`Dealer busts: ${dealerTotal}. `);
-    score.Player += 1; // add score to Player
-    logFinalScoreAndDisplayResults(
-      dealerCards,
-      playerCards,
-      dealerTotal,
-      playerTotal
-    );
-    if (playAgain()) {
-      console.clear();
-      continue;
-    } else {
-      break;
-    }
-  } else {
-    prompt(`Dealer stays with ${dealerTotal}.`);
-  }
-
-  // compare cards - dealer and player both stay
-  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-  displayResults(dealerTotal, playerTotal);
-
-  // console.log("scores", score.Dealer, score.Player);
   if (!playAgain()) break;
-
-  console.clear();
 }
-// }
 console.log("Thanks for playing Twenty-One, goodbye!");
