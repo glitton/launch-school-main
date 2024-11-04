@@ -57,9 +57,9 @@ function total(cards) {
   let sum = 0;
   values.forEach((value) => {
     if (value === "A") {
-      sum += 11;
+      sum += ACE_VALUE;
     } else if (["J", "Q", "K"].includes(value)) {
-      sum += 10;
+      sum += FACE_VALUE;
     } else {
       sum += Number(value);
     }
@@ -79,7 +79,7 @@ function busted(cards) {
   return total(cards) > GOAL_SUM;
 }
 
-function playerTurn(playerCards, deck) {
+function playerTurn(playerCards, deck, playerTotal) {
   while (true) {
     let playerTurn;
     while (true) {
@@ -93,12 +93,22 @@ function playerTurn(playerCards, deck) {
       playerCards.push(deck.pop());
       console.clear();
       prompt("You chose to hit!");
+      playerTotal = total(playerCards);
       prompt(`Your cards: ${hand(playerCards)}.`);
       prompt(`Your total: ${total(playerCards)}.`);
     }
 
-    if (playerTurn === "s" || busted(playerCards)) break;
+    if (busted(playerCards)) {
+      prompt(`Sorry, you busted with a total of ${playerTotal}.`);
+      break;
+    }
+
+    if (playerTurn === "s") {
+      prompt(`You stayed with a total of ${playerTotal}`);
+      break;
+    }
   }
+  return playerTotal;
 }
 
 function dealerTurn(dealerCards, deck) {
@@ -194,14 +204,15 @@ while (true) {
   // first deal of two cards
   playerCards.push(...dealTwoFromDeck(deck));
   dealerCards.push(...dealTwoFromDeck(deck));
+  // calculate card totals
+  let playerTotal = total(playerCards);
+  let dealerTotal = total(dealerCards);
 
   prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
-  prompt(
-    `You have: ${hand(playerCards)}, for a total of ${total(playerCards)}.`
-  );
+  prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
 
   // player turn
-  playerTurn(playerCards, deck);
+  playerTotal = playerTurn(playerCards, deck, playerTotal);
 
   if (busted(playerCards)) {
     displayResults(dealerCards, playerCards);
@@ -213,7 +224,7 @@ while (true) {
     }
   } else {
     console.clear();
-    prompt(`You chose to stay with ${total(playerCards)}.`);
+    prompt(`You chose to stay with ${playerTotal}.`);
   }
 
   // dealer turn
@@ -230,7 +241,7 @@ while (true) {
       break;
     }
   } else {
-    prompt(`Dealer stays with ${total(dealerCards)}.`);
+    prompt(`Dealer stays with ${dealerTotal}.`);
   }
 
   // compare cards - dealer and player both stay
