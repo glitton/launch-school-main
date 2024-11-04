@@ -91,7 +91,7 @@ function playerTurn(playerCards, deck, playerTotal) {
 
     if (playerTurn === "h") {
       playerCards.push(deck.pop());
-      console.clear();
+      // console.clear();
       prompt("You chose to hit!");
       playerTotal = total(playerCards);
       prompt(`Your cards: ${hand(playerCards)}.`);
@@ -99,7 +99,7 @@ function playerTurn(playerCards, deck, playerTotal) {
     }
 
     if (busted(playerCards)) {
-      prompt(`Busted with a hand of ${playerTotal}.`);
+      prompt(`Busted, you're total is ${playerTotal}.`);
       break;
     }
 
@@ -171,7 +171,7 @@ function playAgain() {
   console.log("");
   let answer;
   while (true) {
-    prompt("Another round of 5 games? (y or n)");
+    prompt("Play another 3 out of 5 games? (y or n)");
     answer = readline.question().toLowerCase();
     if (["y", "n"].includes(answer)) break;
     prompt("Sorry, please enter 'y' or 'n'.");
@@ -189,6 +189,16 @@ function hand(cards) {
 
 function displayScore(score) {
   console.log(`Player Score: ${score.player} Dealer Score: ${score.dealer}`);
+}
+
+function checkRoundScores(score) {
+  let winner;
+  if (score.player === 3) {
+    winner = "PLAYER";
+  } else if (score.dealer === 3) {
+    winner = "DEALER";
+  }
+  return winner;
 }
 
 //GAME STARTS HERE
@@ -233,15 +243,7 @@ while (true) {
     playerTotal = playerTurn(playerCards, deck, playerTotal);
 
     if (busted(playerCards)) {
-      score.dealer += 1;
-      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-      displayResults(dealerTotal, playerTotal);
-      // if (playAgain()) {
-      //   console.clear();
-      //   continue;
-      // } else {
-      //   break;
-      // }
+      break;
     } else {
       console.clear();
       prompt(`You chose to stay with ${playerTotal}.`);
@@ -252,24 +254,15 @@ while (true) {
     dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
 
     if (busted(dealerCards)) {
-      score.player += 1;
-      prompt(`Dealer busts: ${dealerTotal}. `);
-      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-      displayResults(dealerTotal, playerTotal);
-
-      // if (playAgain()) {
-      //   console.clear();
-      //   continue;
-      // } else {
-      //   break;
-      // }
+      break;
     } else {
       prompt(`Dealer stays with ${dealerTotal}.`);
     }
 
-    // compare cards - dealer and player both stay
+    // show final results
     logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
     let winner = displayResults(dealerTotal, playerTotal);
+
     // update scores
     if (winner === "PLAYER") {
       score.player += 1;
@@ -278,20 +271,10 @@ while (true) {
     }
 
     round += 1;
-    // Anyone win 3 games?
-    if (score[winner] === WINS_NEEDED) {
-      prompt(
-        `${WINNER} won ${WINS_NEEDED} games and is the Twenty-One champion!`
-      );
+    if (score[winner] === 3) {
+      prompt(`${winner} won ${WINS_NEEDED} games.`);
       break;
     }
-    // Are we past round 5,
-    // if (round > TOTAL_ROUNDS) {
-    //   console.log(`Played ${TOTAL_ROUNDS} rounds, who won?`);
-    //   break;
-    // }
-
-    // console.clear();
   }
   if (!playAgain()) break;
 }
