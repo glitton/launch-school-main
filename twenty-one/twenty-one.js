@@ -111,18 +111,17 @@ function playerTurn(playerCards, deck, playerTotal) {
   return playerTotal;
 }
 
-function dealerTurn(dealerCards, deck) {
+function dealerTurn(dealerCards, deck, dealerTotal) {
   while (total(dealerCards) < DEALER_MIN_SUM) {
     prompt("Dealer hits!");
     dealerCards.push(deck.pop());
+    dealerTotal = total(dealerCards);
     prompt(`Dealer's cards: ${hand(dealerCards)}.`);
   }
+  return dealerTotal;
 }
 
-function detectResult(dealerCards, playerCards) {
-  let playerTotal = total(playerCards);
-  let dealerTotal = total(dealerCards);
-
+function detectResult(dealerTotal, playerTotal) {
   if (playerTotal > GOAL_SUM) {
     return "PLAYER_BUSTED";
   } else if (dealerTotal > GOAL_SUM) {
@@ -136,21 +135,17 @@ function detectResult(dealerCards, playerCards) {
   }
 }
 
-function logFinalScore(dealerCards, playerCards) {
+function logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal) {
   console.log("=*=*=*=*=*=*=*=");
   console.log("");
-  prompt(
-    `Dealer has ${hand(dealerCards)}, for a total of: ${total(dealerCards)}`
-  );
-  prompt(
-    `Player has ${hand(playerCards)}, for a total of: ${total(playerCards)}`
-  );
+  prompt(`Dealer has ${hand(dealerCards)}, for a total of: ${dealerTotal}`);
+  prompt(`Player has ${hand(playerCards)}, for a total of: ${playerTotal}`);
   console.log("");
   console.log("=*=*=*=*=*=*=*=");
 }
 
-function displayResults(dealerCards, playerCards) {
-  let result = detectResult(dealerCards, playerCards);
+function displayResults(dealerTotal, playerTotal) {
+  let result = detectResult(dealerTotal, playerTotal);
 
   switch (result) {
     case "PLAYER_BUSTED":
@@ -215,7 +210,7 @@ while (true) {
   playerTotal = playerTurn(playerCards, deck, playerTotal);
 
   if (busted(playerCards)) {
-    displayResults(dealerCards, playerCards);
+    displayResults(dealerTotal, playerTotal);
     if (playAgain()) {
       console.clear();
       continue;
@@ -229,11 +224,11 @@ while (true) {
 
   // dealer turn
   prompt("Dealer turn ...");
-  dealerTurn(dealerCards, deck);
+  dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
 
   if (busted(dealerCards)) {
-    prompt(`Dealer busts: ${total(dealerCards)}. `);
-    displayResults(dealerCards, playerCards);
+    prompt(`Dealer busts: ${dealerTotal}. `);
+    displayResults(dealerTotal, playerTotal);
     if (playAgain()) {
       console.clear();
       continue;
@@ -245,8 +240,8 @@ while (true) {
   }
 
   // compare cards - dealer and player both stay
-  logFinalScore(dealerCards, playerCards);
-  displayResults(dealerCards, playerCards);
+  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+  displayResults(dealerTotal, playerTotal);
 
   if (!playAgain()) break;
 
