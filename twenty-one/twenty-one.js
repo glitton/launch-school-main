@@ -47,11 +47,9 @@ function initializeDeck() {
 //Calculate cards and aces
 function total(cards) {
   // cards = [
-  //   { rank: "2", suit: "H" },
   //   { rank: "A", suit: "D" },
   //   { rank: "8", suit: "C" },
   // ];
-
   let values = cards.map((card) => card.rank);
 
   let sum = 0;
@@ -69,7 +67,7 @@ function total(cards) {
   values
     .filter((value) => value === "A")
     .forEach((_) => {
-      if (sum > 21) sum -= 10;
+      if (sum > GOAL_SUM) sum -= 10;
     });
 
   return sum;
