@@ -1,4 +1,5 @@
-- Initialize deck
+# Initialize deck
+
 - Deal cards to player and dealer
 - Player turn: hit or stay
   - Ask player to hit or stay

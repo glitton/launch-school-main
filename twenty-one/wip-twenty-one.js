@@ -20,6 +20,8 @@ const ACE_VALUE = 11;
 const FACE_VALUE = 10;
 const GOAL_SUM = 21;
 const DEALER_MIN_SUM = 17;
+const WINS_NEEDED = 3;
+const ROUNDS = 5;
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -47,11 +49,9 @@ function initializeDeck() {
 //Calculate cards and aces
 function total(cards) {
   // cards = [
-  //   { rank: "2", suit: "H" },
   //   { rank: "A", suit: "D" },
   //   { rank: "8", suit: "C" },
   // ];
-
   let values = cards.map((card) => card.rank);
 
   let sum = 0;
@@ -69,7 +69,7 @@ function total(cards) {
   values
     .filter((value) => value === "A")
     .forEach((_) => {
-      if (sum > 21) sum -= 10;
+      if (sum > GOAL_SUM) sum -= 10;
     });
 
   return sum;
@@ -95,16 +95,16 @@ function playerTurn(playerCards, deck, playerTotal) {
       prompt("You chose to hit!");
       playerTotal = total(playerCards);
       prompt(`Your cards: ${hand(playerCards)}.`);
-      prompt(`Your total: ${playerTotal}.`);
+      prompt(`Your total: ${total(playerCards)}.`);
+    }
 
-      if (busted(playerCards)) {
-        prompt(`Sorry, you busted with a total of ${playerTotal}.`);
-        break;
-      }
+    if (busted(playerCards)) {
+      prompt(`Busted with a hand of ${playerTotal}.`);
+      break;
     }
 
     if (playerTurn === "s") {
-      prompt(`You stayed with a total of ${playerTotal}`);
+      prompt(`You stayed with a hand of ${playerTotal}`);
       break;
     }
   }
@@ -112,7 +112,7 @@ function playerTurn(playerCards, deck, playerTotal) {
 }
 
 function dealerTurn(dealerCards, deck, dealerTotal) {
-  while (dealerTotal < DEALER_MIN_SUM) {
+  while (total(dealerCards) < DEALER_MIN_SUM) {
     prompt("Dealer hits!");
     dealerCards.push(deck.pop());
     dealerTotal = total(dealerCards);
@@ -149,7 +149,7 @@ function displayResults(dealerTotal, playerTotal) {
 
   switch (result) {
     case "PLAYER_BUSTED":
-      prompt("Sorry, you busted, dealer wins! ");
+      prompt("You busted, dealer wins! ");
       break;
     case "DEALER_BUSTED":
       prompt("Dealer busted, you win!");
@@ -163,6 +163,16 @@ function displayResults(dealerTotal, playerTotal) {
     case "TIE":
       prompt("It's a tie!");
   }
+}
+
+function logFinalScoreAndDisplayResults(
+  dealerCards,
+  playerCards,
+  dealerTotal,
+  playerTotal
+) {
+  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+  displayResults(dealerTotal, playerTotal);
 }
 
 function playAgain() {
@@ -186,9 +196,16 @@ function hand(cards) {
   return cards.map((card) => `${card.rank}${card.suit}`).join(", ");
 }
 
-console.clear();
-prompt("Let's play Twenty-One!");
 //GAME STARTS HERE
+console.clear();
+prompt(
+  `Let's play Twenty-One! This game is a simplified version of Black Jack.`
+);
+prompt(
+  `First to win ${WINS_NEEDED} out of ${ROUNDS} rounds is the Twenty-One champion!`
+);
+console.log("");
+
 while (true) {
   //initialize game
   let deck = initializeDeck();
@@ -198,7 +215,7 @@ while (true) {
   // first deal of two cards
   playerCards.push(...dealTwoFromDeck(deck));
   dealerCards.push(...dealTwoFromDeck(deck));
-  // // calculate card totals
+  // calculate card totals
   let playerTotal = total(playerCards);
   let dealerTotal = total(dealerCards);
 
@@ -209,7 +226,14 @@ while (true) {
   playerTotal = playerTurn(playerCards, deck, playerTotal);
 
   if (busted(playerCards)) {
-    displayResults(dealerTotal, playerTotal);
+    // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+    // displayResults(dealerTotal, playerTotal);
+    logFinalScoreAndDisplayResults(
+      dealerCards,
+      playerCards,
+      dealerTotal,
+      playerTotal
+    );
     if (playAgain()) {
       console.clear();
       continue;
@@ -227,7 +251,14 @@ while (true) {
 
   if (busted(dealerCards)) {
     prompt(`Dealer busts: ${dealerTotal}. `);
-    displayResults(dealerTotal, playerTotal);
+    // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+    // displayResults(dealerTotal, playerTotal);
+    logFinalScoreAndDisplayResults(
+      dealerCards,
+      playerCards,
+      dealerTotal,
+      playerTotal
+    );
     if (playAgain()) {
       console.clear();
       continue;
@@ -239,8 +270,14 @@ while (true) {
   }
 
   // compare cards - dealer and player both stay
-  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-  displayResults(dealerTotal, playerTotal);
+  // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+  // displayResults(dealerTotal, playerTotal);
+  logFinalScoreAndDisplayResults(
+    dealerCards,
+    playerCards,
+    dealerTotal,
+    playerTotal
+  );
 
   if (!playAgain()) break;
 
