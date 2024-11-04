@@ -21,7 +21,7 @@ const FACE_VALUE = 10;
 const GOAL_SUM = 21;
 const DEALER_MIN_SUM = 17;
 const WINS_NEEDED = 3;
-const ROUNDS = 5;
+const TOTAL_ROUNDS = 5;
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -175,6 +175,10 @@ function logFinalScoreAndDisplayResults(
   displayResults(dealerTotal, playerTotal);
 }
 
+// function displayRoundScores(dealerTotal, playerTotal){
+
+// }
+
 function playAgain() {
   console.log("=*=*=*=*=*=*=*=");
   console.log("");
@@ -202,80 +206,90 @@ prompt(
   `Let's play Twenty-One! This game is a simplified version of Black Jack.`
 );
 prompt(
-  `First to win ${WINS_NEEDED} out of ${ROUNDS} rounds is the Twenty-One champion!`
+  `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the Twenty-One champion!`
 );
 console.log("");
 
 while (true) {
-  //initialize game
-  let deck = initializeDeck();
-  let playerCards = [];
-  let dealerCards = [];
+  // start best of 3
+  let score = {
+    Player: 0,
+    Dealer: 0,
+  };
 
-  // first deal of two cards
-  playerCards.push(...dealTwoFromDeck(deck));
-  dealerCards.push(...dealTwoFromDeck(deck));
-  // calculate card totals
-  let playerTotal = total(playerCards);
-  let dealerTotal = total(dealerCards);
+  while (true) {
+    //initialize game
+    let deck = initializeDeck();
+    let playerCards = [];
+    let dealerCards = [];
 
-  prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
-  prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
+    // first deal of two cards
+    playerCards.push(...dealTwoFromDeck(deck));
+    dealerCards.push(...dealTwoFromDeck(deck));
+    // calculate card totals
+    let playerTotal = total(playerCards);
+    let dealerTotal = total(dealerCards);
 
-  // player turn
-  playerTotal = playerTurn(playerCards, deck, playerTotal);
+    prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
+    prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
 
-  if (busted(playerCards)) {
+    // player turn
+    playerTotal = playerTurn(playerCards, deck, playerTotal);
+
+    if (busted(playerCards)) {
+      score.Dealer += 1; // add score to Player
+      logFinalScoreAndDisplayResults(
+        dealerCards,
+        playerCards,
+        dealerTotal,
+        playerTotal
+      );
+      if (playAgain()) {
+        console.clear();
+        continue;
+      } else {
+        break;
+      }
+    } else {
+      console.clear();
+      prompt(`You chose to stay with ${playerTotal}.`);
+    }
+
+    // dealer turn
+    prompt("Dealer turn ...");
+    dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
+
+    if (busted(dealerCards)) {
+      prompt(`Dealer busts: ${dealerTotal}. `);
+      score.Player += 1; // add score to Player
+      logFinalScoreAndDisplayResults(
+        dealerCards,
+        playerCards,
+        dealerTotal,
+        playerTotal
+      );
+      if (playAgain()) {
+        console.clear();
+        continue;
+      } else {
+        break;
+      }
+    } else {
+      prompt(`Dealer stays with ${dealerTotal}.`);
+    }
+
+    // compare cards - dealer and player both stay
     logFinalScoreAndDisplayResults(
       dealerCards,
       playerCards,
       dealerTotal,
       playerTotal
     );
-    if (playAgain()) {
-      console.clear();
-      continue;
-    } else {
-      break;
-    }
-  } else {
+
+    console.log("scores", score.Dealer, score.Player);
+    if (!playAgain()) break;
+
     console.clear();
-    prompt(`You chose to stay with ${playerTotal}.`);
   }
-
-  // dealer turn
-  prompt("Dealer turn ...");
-  dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
-
-  if (busted(dealerCards)) {
-    prompt(`Dealer busts: ${dealerTotal}. `);
-    logFinalScoreAndDisplayResults(
-      dealerCards,
-      playerCards,
-      dealerTotal,
-      playerTotal
-    );
-    if (playAgain()) {
-      console.clear();
-      continue;
-    } else {
-      break;
-    }
-  } else {
-    prompt(`Dealer stays with ${dealerTotal}.`);
-  }
-
-  // compare cards - dealer and player both stay
-  logFinalScoreAndDisplayResults(
-    dealerCards,
-    playerCards,
-    dealerTotal,
-    playerTotal
-  );
-
-  if (!playAgain()) break;
-
-  console.clear();
 }
-
 console.log("Thanks for playing Twenty-One, goodbye!");

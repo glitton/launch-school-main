@@ -226,8 +226,6 @@ while (true) {
   playerTotal = playerTurn(playerCards, deck, playerTotal);
 
   if (busted(playerCards)) {
-    // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-    // displayResults(dealerTotal, playerTotal);
     logFinalScoreAndDisplayResults(
       dealerCards,
       playerCards,
@@ -251,8 +249,6 @@ while (true) {
 
   if (busted(dealerCards)) {
     prompt(`Dealer busts: ${dealerTotal}. `);
-    // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-    // displayResults(dealerTotal, playerTotal);
     logFinalScoreAndDisplayResults(
       dealerCards,
       playerCards,
@@ -270,8 +266,6 @@ while (true) {
   }
 
   // compare cards - dealer and player both stay
-  // logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-  // displayResults(dealerTotal, playerTotal);
   logFinalScoreAndDisplayResults(
     dealerCards,
     playerCards,
