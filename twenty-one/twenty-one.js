@@ -165,15 +165,15 @@ function displayResults(dealerTotal, playerTotal) {
   }
 }
 
-function logFinalScoreAndDisplayResults(
-  dealerCards,
-  playerCards,
-  dealerTotal,
-  playerTotal
-) {
-  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-  displayResults(dealerTotal, playerTotal);
-}
+// function logFinalScoreAndDisplayResults(
+//   dealerCards,
+//   playerCards,
+//   dealerTotal,
+//   playerTotal
+// ) {
+//   logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+//   displayResults(dealerTotal, playerTotal);
+// }
 
 // function displayRoundScores(dealerTotal, playerTotal){
 
@@ -210,86 +210,78 @@ prompt(
 );
 console.log("");
 
+// while (true) {
+//   // start best of 3
+//   let score = {
+//     Player: 0,
+//     Dealer: 0,
+//   };
+
 while (true) {
-  // start best of 3
-  let score = {
-    Player: 0,
-    Dealer: 0,
-  };
+  //initialize game
+  let deck = initializeDeck();
+  let playerCards = [];
+  let dealerCards = [];
 
-  while (true) {
-    //initialize game
-    let deck = initializeDeck();
-    let playerCards = [];
-    let dealerCards = [];
+  // first deal of two cards
+  playerCards.push(...dealTwoFromDeck(deck));
+  dealerCards.push(...dealTwoFromDeck(deck));
+  // calculate card totals
+  let playerTotal = total(playerCards);
+  let dealerTotal = total(dealerCards);
 
-    // first deal of two cards
-    playerCards.push(...dealTwoFromDeck(deck));
-    dealerCards.push(...dealTwoFromDeck(deck));
-    // calculate card totals
-    let playerTotal = total(playerCards);
-    let dealerTotal = total(dealerCards);
+  prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
+  prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
 
-    prompt(`Dealer has ${hand([dealerCards[0]])} and ?`);
-    prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
+  // player turn
+  playerTotal = playerTurn(playerCards, deck, playerTotal);
 
-    // player turn
-    playerTotal = playerTurn(playerCards, deck, playerTotal);
-
-    if (busted(playerCards)) {
-      score.Dealer += 1; // add score to Player
-      logFinalScoreAndDisplayResults(
-        dealerCards,
-        playerCards,
-        dealerTotal,
-        playerTotal
-      );
-      if (playAgain()) {
-        console.clear();
-        continue;
-      } else {
-        break;
-      }
-    } else {
+  if (busted(playerCards)) {
+    // score.Dealer += 1; // add score to Player
+    logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+    displayResults(dealerTotal, playerTotal);
+    if (playAgain()) {
       console.clear();
-      prompt(`You chose to stay with ${playerTotal}.`);
-    }
-
-    // dealer turn
-    prompt("Dealer turn ...");
-    dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
-
-    if (busted(dealerCards)) {
-      prompt(`Dealer busts: ${dealerTotal}. `);
-      score.Player += 1; // add score to Player
-      logFinalScoreAndDisplayResults(
-        dealerCards,
-        playerCards,
-        dealerTotal,
-        playerTotal
-      );
-      if (playAgain()) {
-        console.clear();
-        continue;
-      } else {
-        break;
-      }
+      continue;
     } else {
-      prompt(`Dealer stays with ${dealerTotal}.`);
+      break;
     }
+  } else {
+    console.clear();
+    prompt(`You chose to stay with ${playerTotal}.`);
+  }
 
-    // compare cards - dealer and player both stay
+  // dealer turn
+  prompt("Dealer turn ...");
+  dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
+
+  if (busted(dealerCards)) {
+    prompt(`Dealer busts: ${dealerTotal}. `);
+    score.Player += 1; // add score to Player
     logFinalScoreAndDisplayResults(
       dealerCards,
       playerCards,
       dealerTotal,
       playerTotal
     );
-
-    console.log("scores", score.Dealer, score.Player);
-    if (!playAgain()) break;
-
-    console.clear();
+    if (playAgain()) {
+      console.clear();
+      continue;
+    } else {
+      break;
+    }
+  } else {
+    prompt(`Dealer stays with ${dealerTotal}.`);
   }
+
+  // compare cards - dealer and player both stay
+  logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+  displayResults(dealerTotal, playerTotal);
+
+  // console.log("scores", score.Dealer, score.Player);
+  if (!playAgain()) break;
+
+  console.clear();
 }
+// }
 console.log("Thanks for playing Twenty-One, goodbye!");
