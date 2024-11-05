@@ -241,9 +241,11 @@ while (true) {
 
     // player turn
     playerTotal = playerTurn(playerCards, deck, playerTotal);
+    console.log("playerTotal", playerTotal);
 
-    if (busted(playerCards)) {
-      break;
+    if (playerTotal > GOAL_SUM) {
+      console.log("busted");
+      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
     } else {
       console.clear();
       prompt(`You chose to stay with ${playerTotal}.`);
@@ -254,7 +256,7 @@ while (true) {
     dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
 
     if (busted(dealerCards)) {
-      break;
+      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
     } else {
       prompt(`Dealer stays with ${dealerTotal}.`);
     }
