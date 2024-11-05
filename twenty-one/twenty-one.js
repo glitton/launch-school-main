@@ -212,6 +212,7 @@ while (true) {
 
   while (round <= TOTAL_ROUNDS) {
     //initialize game
+
     prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
     displayScore(score);
     console.log("");
@@ -235,8 +236,7 @@ while (true) {
 
     if (busted(playerCards)) {
       logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-      let winner = displayResults(dealerTotal, playerTotal);
-      if (winner === "DEALER") score.dealer += 1; // do I need the if statement?
+      score.dealer += 1; // do I need the if statement?
       round += 1;
       continue; // go to the next round
     }
