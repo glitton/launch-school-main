@@ -105,6 +105,7 @@ function playerTurn(playerCards, deck) {
     }
 
     if (playerTurn === "s") {
+      console.clear();
       prompt(`You stayed with a hand of ${playerTotal}`);
       return playerTotal;
     }
@@ -192,6 +193,11 @@ function displayScore(score) {
   console.log(`Player Score: ${score.player} Dealer Score: ${score.dealer}`);
 }
 
+function displayRoundWinner(score) {
+  if (score.player === WINS_NEEDED || score.dealer === WINS_NEEDED) {
+    prompt(`${winner} won ${WINS_NEEDED} games.`);
+  }
+}
 //GAME STARTS HERE
 console.clear();
 prompt(
@@ -200,7 +206,6 @@ prompt(
 prompt(
   `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the Twenty-One champion!`
 );
-console.log("");
 
 while (true) {
   // play best of 3 of 5 rounds
@@ -212,9 +217,9 @@ while (true) {
 
   while (round <= TOTAL_ROUNDS) {
     //initialize game
-
-    prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
+    console.log("");
     displayScore(score);
+    prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
     console.log("");
 
     let deck = initializeDeck();
@@ -236,7 +241,7 @@ while (true) {
 
     if (busted(playerCards)) {
       logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-      score.dealer += 1; // do I need the if statement?
+      score.dealer += 1;
       round += 1;
       continue; // go to the next round
     }
@@ -250,16 +255,17 @@ while (true) {
     let winner = displayResults(dealerTotal, playerTotal);
 
     // update scores
-    if (winner === "PLAYER") {
+    if (winner === "PLAYER" || winner === "DEALER_BUSTED") {
       score.player += 1;
     } else if (winner === "DEALER") {
       score.dealer += 1;
     }
 
     round += 1;
+    // console.clear();
     // Check if the winning condition is met
     if (score.player === WINS_NEEDED || score.dealer === WINS_NEEDED) {
-      prompt(`${winner} won ${WINS_NEEDED} games.`);
+      prompt(`${winner} won ${WINS_NEEDED} games and is the champion!`);
       break;
     }
   }
