@@ -79,7 +79,7 @@ function busted(cards) {
   return total(cards) > GOAL_SUM;
 }
 
-function playerTurn(playerCards, deck, playerTotal) {
+function playerTurn(playerCards, deck) {
   while (true) {
     let playerTurn;
     while (true) {
@@ -91,28 +91,29 @@ function playerTurn(playerCards, deck, playerTotal) {
 
     if (playerTurn === "h") {
       playerCards.push(deck.pop());
-      // console.clear();
+      console.clear();
       prompt("You chose to hit!");
-      playerTotal = total(playerCards);
       prompt(`Your cards: ${hand(playerCards)}.`);
-      prompt(`Your total: ${total(playerCards)}.`);
     }
 
+    let playerTotal = total(playerCards);
+    prompt(`Your total: ${total(playerCards)}.`);
+
     if (busted(playerCards)) {
-      prompt(`Busted, you're total is ${playerTotal}.`);
-      break;
+      prompt(`You busted with a total of ${playerTotal}.`);
+      return playerTotal;
     }
 
     if (playerTurn === "s") {
       prompt(`You stayed with a hand of ${playerTotal}`);
-      break;
+      return playerTotal;
     }
   }
-  return playerTotal;
 }
 
-function dealerTurn(dealerCards, deck, dealerTotal) {
-  while (total(dealerCards) < DEALER_MIN_SUM) {
+function dealerTurn(dealerCards, deck) {
+  let dealerTotal = total(dealerCards);
+  while (dealerTotal < DEALER_MIN_SUM) {
     prompt("Dealer hits!");
     dealerCards.push(deck.pop());
     dealerTotal = total(dealerCards);
@@ -191,16 +192,6 @@ function displayScore(score) {
   console.log(`Player Score: ${score.player} Dealer Score: ${score.dealer}`);
 }
 
-function checkRoundScores(score) {
-  let winner;
-  if (score.player === 3) {
-    winner = "PLAYER";
-  } else if (score.dealer === 3) {
-    winner = "DEALER";
-  }
-  return winner;
-}
-
 //GAME STARTS HERE
 console.clear();
 prompt(
@@ -219,7 +210,7 @@ while (true) {
   };
   let round = 1;
 
-  while (true) {
+  while (round <= TOTAL_ROUNDS) {
     //initialize game
     prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
     displayScore(score);
@@ -240,26 +231,19 @@ while (true) {
     prompt(`You have: ${hand(playerCards)}, for a total of ${playerTotal}.`);
 
     // player turn
-    playerTotal = playerTurn(playerCards, deck, playerTotal);
-    console.log("playerTotal", playerTotal);
+    playerTotal = playerTurn(playerCards, deck);
 
-    if (playerTotal > GOAL_SUM) {
-      console.log("busted");
+    if (busted(playerCards)) {
       logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-    } else {
-      console.clear();
-      prompt(`You chose to stay with ${playerTotal}.`);
+      let winner = displayResults(dealerTotal, playerTotal);
+      if (winner === "DEALER") score.dealer += 1; // do I need the if statement?
+      round += 1;
+      continue; // go to the next round
     }
 
     // dealer turn
     prompt("Dealer turn ...");
-    dealerTotal = dealerTurn(dealerCards, deck, dealerTotal);
-
-    if (busted(dealerCards)) {
-      logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
-    } else {
-      prompt(`Dealer stays with ${dealerTotal}.`);
-    }
+    dealerTotal = dealerTurn(dealerCards, deck);
 
     // show final results
     logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
@@ -273,7 +257,8 @@ while (true) {
     }
 
     round += 1;
-    if (score[winner] === 3) {
+    // Check if the winning condition is met
+    if (score.player === WINS_NEEDED || score.dealer === WINS_NEEDED) {
       prompt(`${winner} won ${WINS_NEEDED} games.`);
       break;
     }
