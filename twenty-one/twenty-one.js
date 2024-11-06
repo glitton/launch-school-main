@@ -260,10 +260,10 @@ while (true) {
 
     // Check if anyone has 3 wins
     if (score.player === WINS_NEEDED) {
-      prompt(`Player wins Twenty One with ${score.player} games won!`);
+      prompt(`You won ${score.player} games, you're the Twenty One champ!`);
       break;
     } else if (score.dealer === WINS_NEEDED) {
-      prompt(`Dealer wins Twenty One with ${score.dealer} games won!`);
+      prompt(`Dealer won ${score.dealer} games and is the Twenty One champ!`);
       break;
     }
 
@@ -279,7 +279,7 @@ while (true) {
     }
   }
   if (!playAgain()) {
-    console.clear();
+    // console.clear();
     break;
   }
 }
