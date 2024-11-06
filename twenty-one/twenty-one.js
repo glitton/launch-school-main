@@ -138,12 +138,12 @@ function detectResult(dealerTotal, playerTotal) {
 }
 
 function logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal) {
-  console.log("=*=*=*=*=*=*=*=");
+  console.log("*=*=*=*=*=*=*=*=*=*=*=*");
   console.log("");
   prompt(`Dealer has ${hand(dealerCards)}, for a total of: ${dealerTotal}`);
   prompt(`Player has ${hand(playerCards)}, for a total of: ${playerTotal}`);
   console.log("");
-  console.log("=*=*=*=*=*=*=*=");
+  console.log("*=*=*=*=*=*=*=*=*=*=*=*");
 }
 
 function displayResults(dealerTotal, playerTotal) {
@@ -169,7 +169,7 @@ function displayResults(dealerTotal, playerTotal) {
 }
 
 function playAgain() {
-  console.log("=*=*=*=*=*=*=*=");
+  console.log("*=*=*=*=*=*=*=*=*=*=*=*");
   console.log("");
   let answer;
   while (true) {
@@ -258,6 +258,7 @@ while (true) {
       score.dealer += 1;
     }
 
+    displayScore(score);
     // Check if anyone has 3 wins
     if (score.player === WINS_NEEDED) {
       prompt(`You won ${score.player} games, you're the Twenty One champ!`);
