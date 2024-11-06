@@ -190,21 +190,17 @@ function hand(cards) {
 }
 
 function displayScore(score) {
-  console.log(`Player Score: ${score.player} Dealer Score: ${score.dealer}`);
+  prompt(`Player Score: ${score.player}, Dealer Score: ${score.dealer}`);
 }
 
-function displayRoundWinner(score) {
-  if (score.player === WINS_NEEDED || score.dealer === WINS_NEEDED) {
-    prompt(`${winner} won ${WINS_NEEDED} games.`);
-  }
-}
 //GAME STARTS HERE
 console.clear();
 prompt(
-  `Let's play Twenty-One! This game is a simplified version of Black Jack.`
+  `Let's play Twenty-One! This game is a simplified version of Blackjack.`
 );
+prompt(`Your goal is to beat the dealer without going over 21.`);
 prompt(
-  `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the Twenty-One champion!`
+  `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the champ!`
 );
 
 while (true) {
@@ -241,6 +237,7 @@ while (true) {
 
     if (busted(playerCards)) {
       logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
+      displayResults(dealerTotal, playerTotal);
       score.dealer += 1;
       round += 1;
       continue; // go to the next round
@@ -257,18 +254,33 @@ while (true) {
     // update scores
     if (winner === "PLAYER" || winner === "DEALER_BUSTED") {
       score.player += 1;
-    } else if (winner === "DEALER") {
+    } else if (winner === "DEALER" || winner === "PLAYER_BUSTED") {
       score.dealer += 1;
     }
 
+    // Check if anyone has 3 wins
+    if (score.player === WINS_NEEDED) {
+      prompt(`Player wins Twenty One with ${score.player} games won!`);
+      break;
+    } else if (score.dealer === WINS_NEEDED) {
+      prompt(`Dealer wins Twenty One with ${score.dealer} games won!`);
+      break;
+    }
+
     round += 1;
-    // console.clear();
-    // Check if the winning condition is met
-    if (score.player === WINS_NEEDED || score.dealer === WINS_NEEDED) {
-      prompt(`${winner} won ${WINS_NEEDED} games and is the champion!`);
+
+    // After 5 rounds, nobody won 3
+    if (round > TOTAL_ROUNDS) {
+      displayScore(score);
+      prompt(
+        `We've played ${TOTAL_ROUNDS} rounds, and no one got ${WINS_NEEDED} wins.`
+      );
       break;
     }
   }
-  if (!playAgain()) break;
+  if (!playAgain()) {
+    console.clear();
+    break;
+  }
 }
 console.log("Thanks for playing Twenty-One, goodbye!");
