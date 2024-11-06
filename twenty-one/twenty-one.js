@@ -279,7 +279,6 @@ while (true) {
     }
   }
   if (!playAgain()) {
-    // console.clear();
     break;
   }
 }
