@@ -79,21 +79,37 @@ function busted(cards) {
   return total(cards) > GOAL_SUM;
 }
 
-function playerTurn(playerCards, deck) {
+function askPlayerTurn() {
+  let playerTurn;
   while (true) {
-    let playerTurn;
-    while (true) {
-      prompt("Would you like to (h)it or (s)tay?");
-      playerTurn = readline.question().toLowerCase();
-      if (["h", "s"].includes(playerTurn)) break;
-      prompt("Sorry, please enter 'h' or 's'.");
-    }
+    prompt("Would you like to (h)it or (s)tay?");
+    playerTurn = readline.question().toLowerCase();
+    if (["h", "s"].includes(playerTurn)) break;
+    prompt("Sorry, please enter 'h' or 's'.");
+  }
+  return playerTurn;
+}
+
+function playerHits(playerCards, deck) {
+  playerCards.push(deck.pop());
+  console.clear();
+  prompt("You chose to hit!");
+  prompt(`Your cards: ${hand(playerCards)}.`);
+}
+
+function playerStays(playerTotal) {
+  console.clear();
+  prompt(`You stayed with a hand of ${playerTotal}`);
+  return playerTotal;
+}
+
+function playerTurn(playerCards, deck) {
+  let playerTurn;
+  while (true) {
+    playerTurn = askPlayerTurn();
 
     if (playerTurn === "h") {
-      playerCards.push(deck.pop());
-      console.clear();
-      prompt("You chose to hit!");
-      prompt(`Your cards: ${hand(playerCards)}.`);
+      playerHits(playerCards, deck);
     }
 
     let playerTotal = total(playerCards);
@@ -105,9 +121,7 @@ function playerTurn(playerCards, deck) {
     }
 
     if (playerTurn === "s") {
-      console.clear();
-      prompt(`You stayed with a hand of ${playerTotal}`);
-      return playerTotal;
+      return playerStays(playerTotal);
     }
   }
 }
@@ -193,15 +207,19 @@ function displayScore(score) {
   prompt(`Player Score: ${score.player}, Dealer Score: ${score.dealer}`);
 }
 
+function gameIntro() {
+  console.clear();
+  prompt(
+    `Let's play Twenty-One! This game is a simplified version of Blackjack.`
+  );
+  prompt(`Your goal is to beat the dealer without going over 21.`);
+  prompt(
+    `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the champ!`
+  );
+}
+
 //GAME STARTS HERE
-console.clear();
-prompt(
-  `Let's play Twenty-One! This game is a simplified version of Blackjack.`
-);
-prompt(`Your goal is to beat the dealer without going over 21.`);
-prompt(
-  `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the champ!`
-);
+gameIntro();
 
 while (true) {
   // play best of 3 of 5 rounds
