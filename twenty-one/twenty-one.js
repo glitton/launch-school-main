@@ -218,6 +218,8 @@ function gameIntro() {
   );
 }
 
+function initializeGame() {}
+
 //GAME STARTS HERE
 gameIntro();
 
@@ -237,6 +239,7 @@ while (true) {
     console.log("");
 
     let deck = initializeDeck();
+
     let playerCards = [];
     let dealerCards = [];
 
