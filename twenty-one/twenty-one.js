@@ -79,21 +79,38 @@ function busted(cards) {
   return total(cards) > GOAL_SUM;
 }
 
-function playerTurn(playerCards, deck) {
+// PlayerTurn helper functions
+function askPlayerMove() {
+  let playerTurn;
   while (true) {
-    let playerTurn;
-    while (true) {
-      prompt("Would you like to (h)it or (s)tay?");
-      playerTurn = readline.question().toLowerCase();
-      if (["h", "s"].includes(playerTurn)) break;
-      prompt("Sorry, please enter 'h' or 's'.");
-    }
+    prompt("Would you like to (h)it or (s)tay?");
+    playerTurn = readline.question().toLowerCase();
+    if (["h", "s"].includes(playerTurn)) break;
+    prompt("Sorry, please enter 'h' or 's'.");
+  }
+  return playerTurn;
+}
 
+function playerHits(playerCards, deck) {
+  playerCards.push(deck.pop());
+  console.clear();
+  prompt("You chose to hit!");
+  prompt(`Your cards: ${hand(playerCards)}.`);
+}
+
+function playerStays(playerTotal) {
+  console.clear();
+  prompt(`You stayed with a hand of ${playerTotal}`);
+  return playerTotal;
+}
+
+// Main playerTurn
+function playerTurn(playerCards, deck) {
+  let playerTurn;
+  while (true) {
+    playerTurn = askPlayerMove();
     if (playerTurn === "h") {
-      playerCards.push(deck.pop());
-      console.clear();
-      prompt("You chose to hit!");
-      prompt(`Your cards: ${hand(playerCards)}.`);
+      playerHits(playerCards, deck);
     }
 
     let playerTotal = total(playerCards);
@@ -105,9 +122,10 @@ function playerTurn(playerCards, deck) {
     }
 
     if (playerTurn === "s") {
-      console.clear();
-      prompt(`You stayed with a hand of ${playerTotal}`);
-      return playerTotal;
+      // console.clear();
+      // prompt(`You stayed with a hand of ${playerTotal}`);
+      return playerStays(playerCards);
+      // return playerTotal;
     }
   }
 }
