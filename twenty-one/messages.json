@@ -1,0 +1,18 @@
+{
+  "welcome": "Let's play Twenty One which is a simplified version of Blackjack!",
+  "objective": "Your goal is to beat the dealer without going over 21.",
+  "hitOrStay": "Would you like to (h)it or (s)tay?",
+  "correctChoice": "Sorry, please enter 'h' or 's'.",
+  "choseHit": "You chose to hit.",
+  "choseStay": "You chose to stay with a hand of ",
+  "cards": "Your cards: ",
+  "dealerTurn": "Dealer turn ...",
+  "playBusted": "You busted, dealer wins!",
+  "dealerBusted": "Dealer busted, you win!",
+  "playerWins": "Congrats, you win!",
+  "dealerWins": "Dealer wins!",
+  "tie": "It's a tie!",
+  "playAgain": "Play another 3 out of 5 games? (y or n)",
+  "playAgainChoice": "Sorry, please enter 'y' or 'n'.",
+  "gameEnd": "Thanks for playing Twenty One, goodbye!"
+}
