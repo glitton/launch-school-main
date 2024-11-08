@@ -1,5 +1,4 @@
 const readline = require("readline-sync");
-const MESSAGES = require("./messages.json");
 
 const SUITS = ["H", "D", "S", "C"];
 const RANKS = [
@@ -83,10 +82,10 @@ function busted(cards) {
 function askPlayerTurn() {
   let playerTurn;
   while (true) {
-    prompt(`${MESSAGES["hitOrStay"]}`);
+    prompt("Would you like to (h)it or (s)tay?");
     playerTurn = readline.question().toLowerCase();
     if (["h", "s"].includes(playerTurn)) break;
-    prompt(`${MESSAGES["correctChoice"]}`);
+    prompt("Sorry, please enter 'h' or 's'.");
   }
   return playerTurn;
 }
@@ -94,13 +93,13 @@ function askPlayerTurn() {
 function playerHits(playerCards, deck) {
   playerCards.push(deck.pop());
   console.clear();
-  prompt(`${MESSAGES["choseHit"]}`);
-  prompt(`${MESSAGES["cards"]} ${hand(playerCards)}.`);
+  prompt("You chose to hit!");
+  prompt(`Your cards: ${hand(playerCards)}.`);
 }
 
 function playerStays(playerTotal) {
   console.clear();
-  prompt(`${MESSAGES["choseStay"]} ${playerTotal}`);
+  prompt(`You stayed with a hand of ${playerTotal}`);
   return playerTotal;
 }
 
@@ -166,19 +165,19 @@ function displayResults(dealerTotal, playerTotal) {
 
   switch (result) {
     case "PLAYER_BUSTED":
-      prompt(`${MESSAGES["playBusted"]}`);
+      prompt("You busted, dealer wins! ");
       break;
     case "DEALER_BUSTED":
-      prompt(`${MESSAGES["dealerBusted"]}`);
+      prompt("Dealer busted, you win!");
       break;
     case "PLAYER":
-      prompt(`${MESSAGES["playerWins"]}`);
+      prompt("Congrats, you win!");
       break;
     case "DEALER":
-      prompt(`${MESSAGES["dealerWins"]}`);
+      prompt("Dealer wins!");
       break;
     case "TIE":
-      prompt(`${MESSAGES["tie"]}`);
+      prompt("It's a tie!");
   }
   return result;
 }
@@ -188,10 +187,10 @@ function playAgain() {
   console.log("");
   let answer;
   while (true) {
-    prompt(`${MESSAGES["playAgain"]}`);
+    prompt("Play another 3 out of 5 games? (y or n)");
     answer = readline.question().toLowerCase();
     if (["y", "n"].includes(answer)) break;
-    prompt(`${MESSAGES["playAgainChoice"]}`);
+    prompt("Sorry, please enter 'y' or 'n'.");
   }
   return answer === "y";
 }
@@ -210,58 +209,13 @@ function displayScore(score) {
 
 function gameIntro() {
   console.clear();
-  prompt(`${MESSAGES["welcome"]}`);
-  prompt(`${MESSAGES["objective"]}`);
+  prompt(
+    `Let's play Twenty-One! This game is a simplified version of Blackjack.`
+  );
+  prompt(`Your goal is to beat the dealer without going over 21.`);
   prompt(
     `First to win ${WINS_NEEDED} out of ${TOTAL_ROUNDS} rounds is the champ!`
   );
-}
-
-function initializeGame(score, round) {
-  console.log("");
-  displayScore(score);
-  prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
-  console.log("");
-}
-
-function dealCards(deck) {
-  // let deck = initializeDeck();
-  let playerCards = [];
-  let dealerCards = [];
-  // first deal of two cards
-  playerCards.push(...dealTwoFromDeck(deck));
-  dealerCards.push(...dealTwoFromDeck(deck));
-  return [playerCards, dealerCards];
-}
-
-function updateScores(score, winner) {
-  if (winner === "PLAYER" || winner === "DEALER_BUSTED") {
-    score.player += 1;
-  } else if (winner === "DEALER" || winner === "PLAYER_BUSTED") {
-    score.dealer += 1;
-  }
-  return score;
-}
-
-function checkWins(score) {
-  if (score.player === WINS_NEEDED) {
-    prompt(`You won ${score.player} games, you're the Twenty One champ!`);
-    return true;
-  } else if (score.dealer === WINS_NEEDED) {
-    prompt(`Dealer won ${score.dealer} games and is the Twenty One champ!`);
-    return true;
-  }
-  return false;
-}
-
-function nobodyWon(round) {
-  if (round > TOTAL_ROUNDS) {
-    prompt(
-      `We've played ${TOTAL_ROUNDS} rounds, and no one got ${WINS_NEEDED} wins.`
-    );
-    return true;
-  }
-  return false;
 }
 
 //GAME STARTS HERE
@@ -276,10 +230,19 @@ while (true) {
   let round = 1;
 
   while (round <= TOTAL_ROUNDS) {
-    initializeGame(score, round);
-    let deck = initializeDeck();
-    let [playerCards, dealerCards] = dealCards(deck);
+    //initialize game
+    console.log("");
+    displayScore(score);
+    prompt(`Let's play round ${round} of ${TOTAL_ROUNDS}`);
+    console.log("");
 
+    let deck = initializeDeck();
+    let playerCards = [];
+    let dealerCards = [];
+
+    // first deal of two cards
+    playerCards.push(...dealTwoFromDeck(deck));
+    dealerCards.push(...dealTwoFromDeck(deck));
     // calculate card totals
     let playerTotal = total(playerCards);
     let dealerTotal = total(dealerCards);
@@ -299,25 +262,43 @@ while (true) {
     }
 
     // dealer turn
-    prompt(`${MESSAGES["dealerTurn"]}`);
+    prompt("Dealer turn ...");
     dealerTotal = dealerTurn(dealerCards, deck);
 
     // show final results
     logFinalScore(dealerCards, playerCards, dealerTotal, playerTotal);
     let winner = displayResults(dealerTotal, playerTotal);
 
-    updateScores(score, winner);
+    // update scores
+    if (winner === "PLAYER" || winner === "DEALER_BUSTED") {
+      score.player += 1;
+    } else if (winner === "DEALER" || winner === "PLAYER_BUSTED") {
+      score.dealer += 1;
+    }
 
+    displayScore(score);
     // Check if anyone has 3 wins
-    if (checkWins(score)) break;
+    if (score.player === WINS_NEEDED) {
+      prompt(`You won ${score.player} games, you're the Twenty One champ!`);
+      break;
+    } else if (score.dealer === WINS_NEEDED) {
+      prompt(`Dealer won ${score.dealer} games and is the Twenty One champ!`);
+      break;
+    }
 
     round += 1;
 
     // After 5 rounds, nobody won 3
-    if (nobodyWon(round)) break;
+    if (round > TOTAL_ROUNDS) {
+      displayScore(score);
+      prompt(
+        `We've played ${TOTAL_ROUNDS} rounds, and no one got ${WINS_NEEDED} wins.`
+      );
+      break;
+    }
   }
   if (!playAgain()) {
     break;
   }
 }
-console.log(`${MESSAGES["gameEnd"]}`);
+console.log("Thanks for playing Twenty-One, goodbye!");
