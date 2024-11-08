@@ -217,7 +217,7 @@ function gameIntro() {
   );
 }
 
-function initializeGame() {}
+// function initializeGame() {}
 
 //GAME STARTS HERE
 gameIntro();
