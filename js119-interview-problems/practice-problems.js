@@ -264,10 +264,10 @@ Given a sentence, find all pairs of words whose first letter matches the last le
 */
 
 // Test cases
-console.log(findMatchingPairs("The cat in the hat")); // [ [ 'The', 'cat' ], [ 'The', 'hat' ], [ 'the', 'hat' ] ]
-console.log(findMatchingPairs("A man a plan a canal Panama")); // []
-console.log(findMatchingPairs("This sentence has no pairs")); // [ [ 'sentence', 'has' ], [ 'sentence', 'pairs' ] ]
-console.log(findMatchingPairs("Apple leads to leap")); // []
+// console.log(findMatchingPairs("The cat in the hat")); // [ [ 'The', 'cat' ], [ 'The', 'hat' ], [ 'the', 'hat' ] ]
+// console.log(findMatchingPairs("A man a plan a canal Panama")); // []
+// console.log(findMatchingPairs("This sentence has no pairs")); // [ [ 'sentence', 'has' ], [ 'sentence', 'pairs' ] ]
+// console.log(findMatchingPairs("Apple leads to leap")); // []
 
 // 15. Right Most Consecutive Vowels with Word (variation of problem 6)
 
@@ -278,12 +278,34 @@ console.log(findMatchingPairs("Apple leads to leap")); // []
 // If no consecutive vowels are found, return an empty array.
 
 // Test Cases
-console.log(
-  rightmostConsecutiveVowel("The quick brown fox jumps over the laaazy dog")
-); // Output: [37, "laaazy"]
-console.log(rightmostConsecutiveVowel("She sells sea shells on the sea shore")); // Output: [29, "sea"]
-console.log(rightmostConsecutiveVowel("I like eating aaapples and oranGEs")); // Output: [15, "aaapples"]
-console.log(
-  rightmostConsecutiveVowel("This sentence has no consecutive vowels")
-); // Output: []
-console.log(rightmostConsecutiveVowel("Queueing is fun but cooool")); // Output: [23, "cooool"]
+// console.log(
+//   rightmostConsecutiveVowel("The quick brown fox jumps over the laaazy dog")
+// ); // Output: [37, "laaazy"]
+// console.log(rightmostConsecutiveVowel("She sells sea shells on the sea shore")); // Output: [29, "sea"]
+// console.log(rightmostConsecutiveVowel("I like eating aaapples and oranGEs")); // Output: [15, "aaapples"]
+// console.log(
+//   rightmostConsecutiveVowel("This sentence has no consecutive vowels")
+// ); // Output: []
+// console.log(rightmostConsecutiveVowel("Queueing is fun but cooool")); // Output: [23, "cooool"]
+
+/* 16.
+P: Given a string of words, you need to find the highest scoring word. Return the highest scoring word as a string.
+input: string
+output: string that contains the highest score
+Rules: 
+- Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc.
+- If two words score the same, return the word that appears earliest in the original string.
+- All letters will be lowercase and all inputs will be valid.
+
+E: For example, the score of abad is 8 (1 + 2 + 1 + 4).
+*/
+
+// Test Cases
+// console.log(high("man i need a taxi up to ubud")); // "taxi"
+// console.log(high("what time are we climbing up the volcano")); //"volcano"
+// console.log(high("take me to semynak")); // "semynak"
+// console.log(high("aa b")); // "aa"
+// console.log(high("b aa")); // "b"
+// console.log(high("bb d")); // "bb"
+// console.log(high("d bb")); // "d"
+// console.log(high("aaa b")); // "aaa"
