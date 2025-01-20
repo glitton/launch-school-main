@@ -310,14 +310,14 @@ E: For example, the score of abad is 8 (1 + 2 + 1 + 4).
 // console.log(high("d bb")); // "d"
 // console.log(high("aaa b")); // "aaa"
 
-/* 17.
+/* 17. from LS-Bot
 P: Write a function that takes an array of numbers and returns a new array where each number is replaced by the sum of its digits.
 Example:
 Input: [123, 45, 678];
 Output: [6, 9, 21];
 */
 
-/* 18.
+/* 18. from LS-Bot
 P: Create a function that takes a string and returns a new string with every word capitalized, except for certain words (like "the", "a", "an", "and", "but", "for", "at", "by", "from") unless they're the first word in the string.
 
 Example:
@@ -326,7 +326,7 @@ Output: "The Quick Brown Fox Jumps over the Lazy Dog"
 
 */
 
-/* 19.
+/* 19. from LS-Bot
 P: Write a function that takes an object and returns a new object where the keys and values are swapped. If a value appears multiple times, only use it as a key once.
 
 Example:
@@ -334,7 +334,7 @@ Input: { a: 1, b: 2, c: 3, d: 1 }
 Output: { '1': 'a', '2': 'b', '3': 'c' }
 */
 
-/* 20.
+/* 20. from LS-Bot
 P: Create a function that takes an array of objects representing books (with title, author, and year properties) and returns a new array of book titles published between 1950 and 2000, sorted alphabetically.
 
 Example:
@@ -349,7 +349,7 @@ Output: ["The Catcher in the Rye", "To Kill a Mockingbird"]
 
 */
 
-/* 21.
+/* 21. from LS-Bot
 P: Write a function that takes a string and returns true if the string follows the pattern "XYYX", where X and Y can be any letter, and false otherwise. The function should be case-insensitive.
 
 Example:
