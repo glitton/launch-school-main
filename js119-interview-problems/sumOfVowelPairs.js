@@ -18,7 +18,7 @@ Iteration to get pairs
   - inner loop starts at index + 1
 - Check pairs
   - check for vowel pairs
-  - Append pairs as stringts to finalString
+  - Append pairs as strings to finalString
 - return finalString.length
 */
 
