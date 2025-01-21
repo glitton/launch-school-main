@@ -15,32 +15,26 @@ E: "She sells sea shells on the sea shore"
 D: Array 
 A:
 Initialize vars
-- secondWords array = []
 - secretMessage string = ''
-Iteration
+Iteration (nested loop)
 - convert sentence to array of words
-- append every second word to the secondWords array
-- Iterate over secondWords array
-  - For every word, iterate over every letter
+- capture every second word
+- Iterate over the second word
+  - For the word, iterate over every letter
     - append every nth character to secretMessage string
 - return secretMessage
 */
 
 function decoder(sentence, n) {
-  let secondWords = [];
   let secretMessage = "";
-
   let sentenceArray = sentence.split(" ");
 
-  for (let idx = n - 1; idx < sentenceArray.length; idx += n) {
-    secondWords.push(sentenceArray[idx]);
-  }
-
-  secondWords.forEach((word) => {
-    for (let idx = n - 1; idx < word.length; idx += n) {
-      secretMessage += word[idx];
+  for (let i = n - 1; i < sentenceArray.length; i += n) {
+    let word = sentenceArray[i];
+    for (let j = n - 1; j < word.length; j += n) {
+      secretMessage += word[j];
     }
-  });
+  }
   return secretMessage;
 }
 
