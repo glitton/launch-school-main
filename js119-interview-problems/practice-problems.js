@@ -460,5 +460,16 @@ console.log(threeIncreasingSets([1, 2, 3, 1, 2, 1, 2])); // false
 console.log(threeIncreasingSets([10, 9, 8, 7, 6, 5, 4])); // false
 
 /* 29.
+Write a method that takes a string as an argument and returns
+the character that occurs least often in the given string.
+If there are multiple characters with the equal lowest number
+of occurrences, then return the one that appears first in the
+string. When counting characters, consider the uppercase and
+lowercase version to be the same.
 
 */
+// console.log(leastCommonChar("Hello World")); // "h"
+// console.log(leastCommonChar("Peter Piper picked a peck of pickled peppers")); // "t"
+// console.log(leastCommonChar("Mississippi")); // "m"
+// console.log(leastCommonChar("Happy birthday!")); // ' '
+// console.log(leastCommonChar("aaaaaAAAA")); // 'a'
