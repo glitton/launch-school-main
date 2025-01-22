@@ -393,3 +393,79 @@ Write a function that calculates the sum of all numbers in a nested array. The a
 // Test cases
 // console.log(sumOfNestedArray([1, [2, 3], [4, [5, 6]]])); // 21
 // console.log(sumOfNestedArray([10, [20, 30, [40]], 50])); // 150
+
+/* 25.
+Given a list of integers and a single sum value, return the first two values
+in order of appearance that add up to form the sum.
+
+If there are two or more pairs with the required sum, the pair whose second element has the smallest index is the solution.
+
+*/
+// console.log(sumPairs([4, 3, 2, 3, 4], 6)); //[4,2]
+
+/* 26.
+Difference of Two
+P: The objective is to return all pairs of numbers from a given array of numbers that have a difference of 2.
+The result array should be sorted in ascending order of values.
+Assume there are no duplicate numbers in the array.
+The order of the numbers in the input array should not matter.
+*/
+
+// Test cases
+// console.log(differenceOfTwo([1, 2, 3, 4]));
+// // [[1, 3], [2, 4]]
+// console.log(differenceOfTwo([4, 1, 2, 3]));
+// // // [[1, 3], [2, 4]]
+// console.log(differenceOfTwo([1, 23, 3, 4, 7]));
+// // //  [[1, 3]]
+// console.log(differenceOfTwo([4, 3, 1, 5, 6]));
+// // // [[1, 3], [3, 5], [4, 6]]
+// console.log(differenceOfTwo([2, 4]));
+// // // [[2, 4]]
+// console.log(differenceOfTwo([1, 4, 7, 10, 13]));
+// // []
+
+/*
+Find the maximum sum of a contiguous subsequence in an array of integers:
+Ex. maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) -- should be 6: [4, -1, 2, 1]
+If the array is made up of only negative numbers, return 0 instead.
+*/
+// console.log(maxSequence([]) === 0); // true
+// console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) === 6); // true
+// console.log(maxSequence([11]) === 11); // true
+// console.log(maxSequence([-32]) === 0); // true
+// console.log(maxSequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) === 12); // true
+
+/* 27.
+
+P: You are given an array of strings and want to find the sum of their numeric values.
+On each string, the numeric value can be found by combining the first digit
+and the last digit to form a single two-digit number.
+Consider your entire array. What is the sum of all of the numeric values?
+
+*/
+console.log(
+  sumStringValues(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"])
+); // 142
+
+console.log(
+  sumStringValues([
+    "ninesixthree8six8",
+    "5tnzrrzmcsnfivefeightrjninexrhnnfbcb",
+    "dcjcj2",
+    "4fhcmhdtfourlzdphfxvlmvm6",
+  ])
+); // 211
+
+/* 28.
+
+Given an array of numbers, return true if at least 3 sets of 3 consecutive numbers 
+are increasing order.
+
+*/
+// Test cases:
+console.log(threeIncreasingSets([1, 2, 3, 4, 5, 6, 7])); // true (1,2,3), (2,3,4), (3,4,5)...
+console.log(threeIncreasingSets([1, 3, 5, 7, 9, 11, 13])); // true (1,3,5), (3,5,7), (5,7,9)...
+console.log(threeIncreasingSets([1, 2, 1, 3, 4, 5, 7, 8])); // true (1,3,4), (3,4,5), (5,7,8)
+console.log(threeIncreasingSets([1, 2, 3, 1, 2, 1, 2])); // false
+console.log(threeIncreasingSets([10, 9, 8, 7, 6, 5, 4])); // false
