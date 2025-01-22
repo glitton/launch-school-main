@@ -425,17 +425,6 @@ The order of the numbers in the input array should not matter.
 // console.log(differenceOfTwo([1, 4, 7, 10, 13]));
 // // []
 
-/*
-Find the maximum sum of a contiguous subsequence in an array of integers:
-Ex. maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) -- should be 6: [4, -1, 2, 1]
-If the array is made up of only negative numbers, return 0 instead.
-*/
-// console.log(maxSequence([]) === 0); // true
-// console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) === 6); // true
-// console.log(maxSequence([11]) === 11); // true
-// console.log(maxSequence([-32]) === 0); // true
-// console.log(maxSequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) === 12); // true
-
 /* 27.
 
 P: You are given an array of strings and want to find the sum of their numeric values.
