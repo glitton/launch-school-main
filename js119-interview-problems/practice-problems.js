@@ -469,3 +469,7 @@ console.log(threeIncreasingSets([1, 3, 5, 7, 9, 11, 13])); // true (1,3,5), (3,5
 console.log(threeIncreasingSets([1, 2, 1, 3, 4, 5, 7, 8])); // true (1,3,4), (3,4,5), (5,7,8)
 console.log(threeIncreasingSets([1, 2, 3, 1, 2, 1, 2])); // false
 console.log(threeIncreasingSets([10, 9, 8, 7, 6, 5, 4])); // false
+
+/* 29.
+
+*/
