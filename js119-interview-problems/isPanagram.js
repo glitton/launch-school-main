@@ -7,49 +7,34 @@ rules:
 - case is irrelevant
 - punctuation is irrelevant
 E:
-D: Array, object
+D: input is a string, array of letters
 A:
-- Create an object to track presence of alphabet
-- create a copy of the string without punctuation
-  - replace punctuation with empty space
-- Convert input string to an array of words
-- Iterate over the array of words
-  - Populate object to count key/value pairs
-  - if key already exists, keep going
-- Convert object to an array of keys
-- return key.length === 26  
+- Initialize a constant that contains a string of the alphabet
+- Initialize an empty alphabetArray 
+- convert the string to lower case
+- Iterate over the string
+  - if the alphabet string includes the letter and it is not part of the alphabetArray, append it to the alphabetArray
+- return alphabetArray.length === 26  
 C:
-
 */
 
 function isPangram(sentence) {
-  let alphabet = {};
-  let nonAlpha = [",", "!", ".", "’", " "];
-  let cleanSentence = "";
-  sentence.split("").forEach((letter) => {
-    if (!nonAlpha.includes(letter)) {
-      cleanSentence += letter.toLowerCase();
-    }
-  });
-  console.log(cleanSentence);
+  const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+  let alphabetArray = [];
+  let sentenceLowerCaseArray = sentence.toLowerCase().split("");
 
-  let cleanSentenceArray = cleanSentence.split("");
-  // console.log(cleanSentenceArray);
-  cleanSentenceArray.forEach((ltr) => {
-    if (!alphabet[ltr]) {
-      alphabet[ltr] = 1;
+  sentenceLowerCaseArray.forEach((letter) => {
+    if (ALPHABET.includes(letter) && !alphabetArray.includes(letter)) {
+      alphabetArray.push(letter);
     }
   });
-  // let keys = Object.keys(alphabet).length;
-  // console.log(keys);
-  return Object.keys(alphabet).length === 26;
+  return alphabetArray.length === 26;
 }
-
 const p = console.log;
-// p(isPangram("The quick, brown fox jumps over the lazy dog!") === true);
-// p(isPangram("The slow, brown fox jumps over the lazy dog!") === false);
+p(isPangram("The quick, brown fox jumps over the lazy dog!") === true);
+p(isPangram("The slow, brown fox jumps over the lazy dog!") === false);
 p(isPangram("A wizard’s job is to vex chumps quickly in fog.") === true);
-// p(isPangram("A wizard’s task is to vex chumps quickly in fog.") === false);
+p(isPangram("A wizard’s task is to vex chumps quickly in fog.") === false);
 p(isPangram("A wizard’s job is to vex chumps quickly in golf.") === true);
 
 // let myStr = "Sixty zippers were quickly picked from the woven jute bag.";
