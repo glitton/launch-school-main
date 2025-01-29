@@ -8,7 +8,7 @@ E:
 D: string, integer, 
 A: 
 Initialize maximumProduct variable, assign to 1
-Iterate over the string until length - 4
+Iterate over the string to get 4 elements (length - 3)
   - get first slice: index 0 through 4, get the product assign to currentProduct
     - if currentProduct is greater than maxProduct, 
     - reassign maxProduct = currentProduct
@@ -25,7 +25,7 @@ function greatestProduct(stringIntegers) {
     let currentSlice = stringIntegers.slice(idx, idx + 4);
     let currentProduct = currentSlice
       .split("")
-      .reduce((curr, acc) => Number(curr) * Number(acc), 1);
+      .reduce((curr, acc) => curr * acc, 1);
     if (currentProduct > maxProduct) {
       maxProduct = currentProduct;
     }
