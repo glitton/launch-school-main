@@ -127,7 +127,7 @@ Implement a function that finds all pairs of numbers from an array, where:
 // console.log(findSpecialPairs([7, 4, 6, 5])); // []
 // console.log(findSpecialPairs([1, 7, 2, 8, 3, 9])); // [ [ 1, 7 ], [ 1, 8 ], [ 1, 9 ], [ 2, 8 ], [ 2, 9 ], [ 3, 9 ] ]
 
-/* 8.
+/* 8. DONE 01/31
 Implement function that finds all fibonacci slices in a given array of integers. A Fibonacci slice is a sequence where every number after the first two is the sum of the two preceding ones. The minimum length is 3.
 
 */
@@ -172,7 +172,8 @@ Write a function, `negate`, that converts all `“yes”` words to `"no"` and `"
 // console.log(maxSequence([-32]) === 0); // true
 // console.log(maxSequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) === 12); // true
 
-/* 12. You are given an array of strings and an integer `k`. Your task is to return the first longest string consisting of `k` consecutive strings taken from the array. n being the length of the string array, if n = 0 or k > n or k <= 0 return "".
+/* 12. DONE 01/31
+You are given an array of strings and an integer `k`. Your task is to return the first longest string consisting of `k` consecutive strings taken from the array. n being the length of the string array, if n = 0 or k > n or k <= 0 return "".
  */
 // // Test Cases
 // console.log(
