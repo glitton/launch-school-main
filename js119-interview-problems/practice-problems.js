@@ -329,7 +329,7 @@ Output: "The Quick Brown Fox Jumps over the Lazy Dog"
 
 */
 
-/* 19. from LS-Bot
+/* 19. from LS-Bot DONE 2/2/2025
 P: Write a function that takes an object and returns a new object where the keys and values are swapped. If a value appears multiple times, only use it as a key once.
 
 Example:
@@ -395,7 +395,7 @@ Write a function that calculates the sum of all numbers in a nested array. The a
 // console.log(sumOfNestedArray([1, [2, 3], [4, [5, 6]]])); // 21
 // console.log(sumOfNestedArray([10, [20, 30, [40]], 50])); // 150
 
-/* 25.
+/* 25. DONE 2/2
 Given a list of integers and a single sum value, return the first two values
 in order of appearance that add up to form the sum.
 
