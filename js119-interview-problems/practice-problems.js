@@ -70,7 +70,7 @@ P:Write a function, snakecase, that transforms each word in a sentence to altern
 // console.log(snakecase("the sun sets slowly")); // "tHe sUn sEtS sLoWlY"
 // console.log(snakecase("A quick brown fox")); // "A quick brown fox"
 
- /* 5.
+ /* 5. DONE 2/2
 Given a sentence, write a function that finds the starting index of the rightmost occurrence of any consecutive vowel sequence in the sentence. The function should be case-insensitive and should only consider vowel sequences within individual words (not spanning multiple words).
 
 If no consecutive vowels are found, return null.
