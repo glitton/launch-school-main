@@ -114,7 +114,7 @@ If no consecutive vowels are found, return an empty array.
 // ); // Output: []
 // console.log(rightmostConsecutiveVowelWord("Queueing is fun but cooool")); // Output: [23, "cooool"]
 
-/* 7.
+/* 7. DONE 2/1
 Implement a function that finds all pairs of numbers from an array, where:
 - The first number in each pair is located at an even index in the original array and has a value less than 5.
 - The second number in each pair is located at an odd index in the original array and has a value greater than 5.
@@ -387,7 +387,7 @@ P: Write a function that finds the longest palindromic substring in a given sent
 // console.log(longestPalindromicSubstring("Nurses Run")); // "nursesrun"
 // console.log(longestPalindromicSubstring("ABC")); // "a"
 
-/* 24.
+/* 24. DONE 2/1
 Write a function that calculates the sum of all numbers in a nested array. The array may contain integers, nested arrays of integers, or a mix of both. (for JS don’t use flatten) 
 
 */
@@ -404,7 +404,7 @@ If there are two or more pairs with the required sum, the pair whose second elem
 */
 // console.log(sumPairs([4, 3, 2, 3, 4], 6)); //[4,2]
 
-/* 26.
+/* 26. DONE 2/1/2025
 Difference of Two
 P: The objective is to return all pairs of numbers from a given array of numbers that have a difference of 2.
 The result array should be sorted in ascending order of values.
