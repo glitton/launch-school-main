@@ -426,7 +426,7 @@ The order of the numbers in the input array should not matter.
 // console.log(differenceOfTwo([1, 4, 7, 10, 13]));
 // // []
 
-/* 27.
+/* 27. DONE 2/2/2025
 
 P: You are given an array of strings and want to find the sum of their numeric values.
 On each string, the numeric value can be found by combining the first digit
