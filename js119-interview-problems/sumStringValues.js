@@ -25,11 +25,11 @@ return `stringNumbers`
 MAIN FUNCTION
 Initialize a `finalSum` var assign to 0
 Iterate over `stringNumbers` 
-  - if length is equal to 1, assign the element to `firstNum` and `lastNum`
-  - add `firstNum` and `lastNum` (convert to Numbers) to `sum
-  - else firstNum = index 0 and lastNum = last index
-  - add `firstNum` and `lastNum` (convert to Numbers) to `sum
-  - append `finalSum` with sum
+  - if length is equal greater than 0
+    - assign firstNum to index 0
+    - assign lastNum to last index
+    - create twoDigitNumber
+    - increment to finalSum
 return `finalSum`  
 */
 
@@ -64,7 +64,7 @@ function sumStringValues(arr) {
 
 console.log(
   sumStringValues(["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"])
-); // 142
+); // 142 =>  12 + 38 + 25 + 77
 
 console.log(
   sumStringValues([
@@ -73,4 +73,4 @@ console.log(
     "dcjcj2",
     "4fhcmhdtfourlzdphfxvlmvm6",
   ])
-); // 211
+); // 211: 88 + 55 + 22 + 46
