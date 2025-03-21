@@ -26,7 +26,8 @@ Return finalSentence
 
 */
 
-const PUNCTUATION = [",", ".", "?", "!"];
+// const PUNCTUATION = [",", ".", "?", "!"];
+const PUNCTUATION = ",.?!";
 
 function negate(sentence) {
   let finalSentence = "";
