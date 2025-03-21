@@ -10,7 +10,7 @@ E:
 D: String, use an array to store the words 
 
 A:
-Create a punctuation constant assign to an array 
+Create a punctuation constant assign to an array or string of punctuations
 Create a finalSentence variable to store the final sentence with Yes/No toggled
 Convert sentence to an array of words
 Iterate over the sentenceArray of words
