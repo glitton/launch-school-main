@@ -540,3 +540,19 @@ console.log(replaceMiddleChar("Apple pie is good")); // "Ap*le p*e is g*od"
 console.log(replaceMiddleChar("Hi bye")); // "Hi b*e"
 
 */
+
+/* 32.
+P: "Given a sentence, group words by their lengths into subarrays. Within each group, sort the words alphabetically. Then, for each group with an odd number of words, rotate the words one position to the right (last word moves to the front). Finally, flatten the groups back into a single sentence, maintaining the original order of length groups (ascending length)."
+input: string
+output: string
+rules
+1. group words by theirs lengths into subarrays, ascending
+2. Within the group sort the words alphabetically
+3. rotate the words, last word moves to the front
+
+*/
+
+console.log(groupedLengthSort("cat dog apple bee")); // "dog bee cat apple"
+console.log(groupedLengthSort("I am happy now")); // "I am now happy"
+console.log(groupedLengthSort("the quick brown fox")); // "fox the brown quick"
+console.log(groupedLengthSort("a ab abc abcd ba")); // "a ab ba abc abcd"
