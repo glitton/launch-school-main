@@ -17,6 +17,8 @@ Iterate over the array to get 5 elements at a time
   - if currentSum is less than minimumSum
   - reassign minimumSum to currentCum
 Return minimumSum
+
+TRY THIS LATER
 */
 
 function minimumSum(arr) {
